@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/view_activity"
+        android:title="View" />
+
+    <item
+        android:id="@+id/submit_machine_dpr"
+        android:title="Submit Machine DPR" />
+
+    <item
+        android:id="@+id/submit_Material_dpr"
+        android:title="Submit Material DPR" />
+
+    <item
+        android:id="@+id/submit_worker_dpr"
+        android:title="Submit Manpower DPR" />
+</menu>
