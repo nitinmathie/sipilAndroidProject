@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-    <uses-feature android:name="android.hardware.type.watch" />
+    <uses-feature android:name="android.hardware.type.WATCH" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -19,32 +19,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.Inventory.inventoryManager.InventoryHomeActivity"></activity>
+        <activity android:name=".ui.Inventory.inventoryManager.InventoryHomeActivity"/>
         <activity android:name=".ui.home.project.AddStoreActivity" />
         <activity
-            android:name=".ui.siteEngineer.SeReportForms.ViewTaskActivity"
-            android:label="@string/title_activity_view_task">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:name=".ui.siteEngineer.SeReportForms.ViewTaskActivity">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ui.siteEngineer.SeReportForms.ReportManpowerActivity" />
         <activity android:name=".ui.siteEngineer.SeReportForms.ReportMachineryActivity" />
         <activity android:name=".ui.siteEngineer.SeReportForms.ReportMaterialActivity" />
-
-        <uses-library
-            android:name="com.google.android.wearable"
-            android:required="true" />
-        <!--
-               Set to true if your app is Standalone, that is, it does not require the handheld
-               app to run.
-        -->
-        <meta-data
-            android:name="com.google.android.wearable.standalone"
-            android:value="true" />
-
         <activity android:name=".ui.siteEngineer.SiteHomeActivity" />
         <activity android:name=".ui.home.project.AddUserActivity" />
         <activity android:name=".ui.planEngineer.Task.AssignDailyTask.AssignTaskManpower" />

@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class DprInfo(
     @PrimaryKey(autoGenerate = false)
+    val dprInfo_id: Int?,
     val username: String?,
     val organization_name: String?,
     val project_name: String?,
