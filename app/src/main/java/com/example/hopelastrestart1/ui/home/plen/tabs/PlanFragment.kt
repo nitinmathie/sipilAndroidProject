@@ -36,8 +36,7 @@ class PlanFragment : Fragment(), KodeinAware, CellClickListenerPlan {
     private lateinit var viewModel: PlanViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.plan_fragment, container, false)
         var recycleview = rootView.findViewById<RecyclerView>(R.id.recyclerview_plan)
         viewModel = ViewModelProviders.of(this, factory).get(PlanViewModel::class.java)
@@ -48,7 +47,7 @@ class PlanFragment : Fragment(), KodeinAware, CellClickListenerPlan {
         val organization_name = requireActivity().intent.getStringExtra("organization_name")
         val project_name = requireActivity().intent.getStringExtra("project_name")
 
-        val plans by lazyDeferred {
+      /*  val plans by lazyDeferred {
             viewModel.plans1(username, organization_name, project_name)
         }
         Coroutines.main {
@@ -60,7 +59,7 @@ class PlanFragment : Fragment(), KodeinAware, CellClickListenerPlan {
                 recycleview.adapter = PlanAdapter(it, this, username, organization_name, project_name)
                 // initRecyclerView(it.toOrganizationItem())
             })
-        }
+        }*/
         val add = rootView.findViewById<FloatingActionButton>(R.id.fab_plan)
         add.setOnClickListener {
             val intent = Intent(activity, AddPlenActivity::class.java)
@@ -96,8 +95,8 @@ class PlanFragment : Fragment(), KodeinAware, CellClickListenerPlan {
         }
     }
 
-    override fun onCellClickListener(plan: Plan, username: String,  organization_name: String, project_name: String) {
-        val intent = Intent(activity, TaskActivity::class.java)
+   /* override fun onCellClickListener(plan: Plan, username: String,  organization_name: String, project_name: String) {
+        val intent = Intent(context, TaskActivity::class.java)
         //intent.putExtra("plan_name", plan.plan_id)
         // intent.putExtra("organization_name", organization_name)
         //  val username=intent.getStringExtra("username")
@@ -107,6 +106,15 @@ class PlanFragment : Fragment(), KodeinAware, CellClickListenerPlan {
         intent.putExtra("username", username)
         intent.putExtra("organization_name", organization_name)
         startActivity(intent)
+    }
+*/
+    override fun onCellClickListenerPlan(
+        plan: Plan,
+        username: String,
+        organization_name: String,
+        project_name: String
+    ) {
+        TODO("Not yet implemented")
     }
 
 }

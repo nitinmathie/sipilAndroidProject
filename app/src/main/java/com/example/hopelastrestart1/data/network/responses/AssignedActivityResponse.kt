@@ -4,6 +4,8 @@ import com.example.hopelastrestart1.data.db.entities.AssignedActivityNow
 import com.example.hopelastrestart1.data.db.entities.AssignedByActivity
 import com.example.hopelastrestart1.data.db.entities.AssignedToActivity
 import com.example.hopelastrestart1.data.db.entities.AssignedToMeEntity
+import com.example.hopelastrestart1.model.AssignTaskActivityModel
+import com.example.hopelastrestart1.model.GetAssignedTaskActivitesModel
 
 //data class AssignedActivityResponse (
 //    val isSuccessful : Boolean?,
@@ -13,35 +15,45 @@ import com.example.hopelastrestart1.data.db.entities.AssignedToMeEntity
 //    val assigned_activity: AssignedActivity?
 //)
 
-data class AssignedActivitiesResponse (
+data class AssignedActivitiesResponse(
     val assigned_activity: List<AssignedByActivity>,
-    val isSuccessful : Boolean?,
+    val isSuccessful: Boolean?,
     val user: String?,
     val userRole: String?,
     val message: String?,
 
-)
+    )
 
-data class ReceivedActivitiesResponse (
-    val isSuccessful : Boolean?,
+data class ReceivedActivitiesResponse(
+    val isSuccessful: Boolean?,
     val user: String?,
     val userRole: String?,
     val message: String?,
     val assigned_activity: List<AssignedToActivity>
 )
-data class onActivityAssigned (
+
+data class onActivityAssigned(
     val assigned_activity: AssignedActivityNow,
-    val isSuccessful : Boolean?,
+    val isSuccessful: Boolean?,
     val user: String?,
     val userRole: String?,
     val message: String?,
 
     )
-data class AssignedToMe (
+
+data class AssignedToMe(
     val assigned__to_me: List<AssignedToMeEntity>,
-    val isSuccessful : Boolean?,
+    val isSuccessful: Boolean?,
     val user: String?,
     val userRole: String?,
     val message: String?,
 
     )
+
+data class GetAssignedTasksResposne
+    (
+    val status_code: String,
+    val user: String?,
+    val assigned_activities: List<GetAssignedTaskActivitesModel>,
+    val assigned_activity: List<GetAssignedTaskActivitesModel>
+)

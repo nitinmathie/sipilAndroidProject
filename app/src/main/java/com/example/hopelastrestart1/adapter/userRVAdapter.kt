@@ -36,8 +36,8 @@ class UserRVAdapter(val users: List<UserAdded>,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = users[position]
-        holder?.name.text = item.username.toString()
-        holder?.id.text = item.user_id.toString()
+        holder?.name.text = item.user_email.toString()
+        holder?.id.text = item.user_role.toString()
 
         holder.itemView.setOnClickListener {
             cellClickListener.onCellClickListener(item, username)

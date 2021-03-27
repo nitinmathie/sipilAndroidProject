@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- ENSURE allignment and header should contain the task name to which this activity belongs to-->
+<?xml version="1.0" encoding="utf-8"?><!-- ENSURE allignment and header should contain the task name to which this activity belongs to-->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -8,262 +7,405 @@
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E2E2E2"
+        android:background="@color/colorAccent"
         tools:context=".ui.planEngineer.Task.TaskpipeActivity">
-        <RelativeLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:padding="16dp">
-            <LinearLayout
-                android:id="@+id/linearLayout2"
+
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:orientation="vertical"
-                android:padding="18dp">
-                <TextView
-                    android:id="@+id/pageheading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:text="Pipe Laying Activity"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/colorPrimaryDark" />
+                android:layout_height="match_parent">
+
                 <LinearLayout
+                    android:id="@+id/linearLayout2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:orientation="horizontal"
-                    android:padding="18dp">
+                    android:background="@color/clrWhite"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
                     <TextView
-                        android:id="@+id/activity_name"
+                        android:id="@+id/pageheading"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:text="Activity Name"
+                        android:text="Pipe Laying Activity"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorPrimaryDark" />
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/edit_text_activity_name"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="12dp"
-                        android:background="@drawable/edit_text_round_gray_background"
-                        android:drawableLeft="@drawable/ic_email"
-                        android:drawablePadding="16dp"
-                        android:hint="Task Name"
-                        android:inputType="text"
-                        android:padding="12dp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:orientation="horizontal"
-                    android:padding="18dp">
-                    <TextView
-                        android:id="@+id/trenching_pipeline"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/activity_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Activity Name"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/colorPrimaryDark" />
+
+                        <EditText
+                            android:id="@+id/edit_text_activity_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
+                            android:background="@drawable/edit_text_round_gray_background"
+                            android:hint="Activity Name"
+                            android:inputType="text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/trenching_pipeline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Pipeline Trenching  :"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/colorPrimaryDark" />
+
+                        <EditText
+                            android:id="@+id/edit_text_pipeline_trench"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
+                            android:background="@drawable/edit_text_round_gray_background"
+                            android:inputType="text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/bedding"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Bedding  :"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/colorPrimaryDark" />
+
+                        <EditText
+                            android:id="@+id/edit_text_bedding"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
+                            android:background="@drawable/edit_text_round_gray_background"
+                            android:inputType="text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/laying"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Laying  :"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/colorPrimaryDark" />
+
+                        <EditText
+                            android:id="@+id/edit_text_laying"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
+                            android:background="@drawable/edit_text_round_gray_background"
+
+                            android:inputType="text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/back_filling"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Back Filling  :"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/colorPrimaryDark" />
+
+                        <EditText
+                            android:id="@+id/edit_back_filling"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
+                            android:background="@drawable/edit_text_round_gray_background"
+
+                            android:inputType="text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Bottom Trench  :"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/colorPrimaryDark" />
+
+                        <EditText
+                            android:id="@+id/edit_bottom_trench"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
+                            android:background="@drawable/edit_text_round_gray_background"
+                            android:inputType="text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Mid Trench  :"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/colorPrimaryDark" />
+
+                        <EditText
+                            android:id="@+id/edit_midtrench"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
+                            android:background="@drawable/edit_text_round_gray_background"
+                            android:inputType="text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Top Trench  :"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/colorPrimaryDark" />
+
+                        <EditText
+                            android:id="@+id/edit_toptrench"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
+                            android:background="@drawable/edit_text_round_gray_background"
+                            android:inputType="text" />
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Consolidation  :"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/colorPrimaryDark" />
+
+                        <EditText
+                            android:id="@+id/edit_consolidation"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
+                            android:background="@drawable/edit_text_round_gray_background"
+                            android:inputType="text" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/pipe_jointing"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Pipe Jointing  :"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/colorPrimaryDark" />
+
+                        <EditText
+                            android:id="@+id/edit_text_pipejointing"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
+                            android:background="@drawable/edit_text_round_gray_background"
+
+                            android:inputType="text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/pipe_joint_filling"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+
+                            android:text="Joint Filling  :"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/colorPrimaryDark" />
+
+                        <EditText
+                            android:id="@+id/edit_text_joint_filling"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
+                            android:background="@drawable/edit_text_round_gray_background"
+
+                            android:inputType="text" />
+                    </LinearLayout>
+
+                    <CheckBox
+                        android:id="@+id/checkbox_removal_excess_soil"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:text="Pipeline Trenching"
+                        android:layout_height="40dp"
+                        android:button="@null"
+                        android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                         android:text="Removal Excess Soil  :"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorPrimaryDark" />
+                        android:textColor="@color/colorAccent" />
 
-                    <EditText
-                        android:id="@+id/edit_text_pipeline_trench"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="12dp"
-                        android:background="@drawable/edit_text_round_gray_background"
-                        android:drawableLeft="@drawable/ic_email"
-                        android:drawablePadding="16dp"
-                        android:inputType="text"
-                        android:padding="12dp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:orientation="horizontal"
-                    android:padding="18dp">
-                    <TextView
-                        android:id="@+id/bedding"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/started_on"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Started On  :"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/colorPrimaryDark" />
+
+                        <EditText
+                            android:id="@+id/edit_text_started_on"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
+                            android:background="@drawable/edit_text_round_gray_background"
+                            android:editable="false"
+                            android:focusable="false"
+                            android:inputType="text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Status  :"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/colorPrimaryDark" />
+
+                        <EditText
+                            android:id="@+id/edit_text_pipe_status"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
+                            android:background="@drawable/edit_text_round_gray_background"
+
+                            android:inputType="text" />
+                    </LinearLayout>
+
+                    <!-- Logo upload and other fields one thinks are necessary-->
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:text="Bedding"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorPrimaryDark" />
-
-                    <EditText
-                        android:id="@+id/edit_text_bedding"
-                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="12dp"
-                        android:background="@drawable/edit_text_round_gray_background"
-                        android:drawableLeft="@drawable/ic_email"
-                        android:drawablePadding="16dp"
-                        android:inputType="text"
-                        android:padding="12dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:orientation="horizontal"
-                    android:padding="18dp">
-                    <TextView
-                        android:id="@+id/laying"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:text="Laying"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorPrimaryDark" />
-
-                    <EditText
-                        android:id="@+id/edit_text_laying"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="12dp"
-                        android:background="@drawable/edit_text_round_gray_background"
-                        android:drawableLeft="@drawable/ic_email"
-                        android:drawablePadding="16dp"
-                        android:inputType="text"
-                        android:padding="12dp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:orientation="horizontal"
-                    android:padding="18dp">
-                    <TextView
-                        android:id="@+id/pipe_jointing"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:text="Pipe Jointing"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorPrimaryDark" />
-
-                    <EditText
-                        android:id="@+id/edit_text_pipejointing"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="12dp"
-                        android:background="@drawable/edit_text_round_gray_background"
-                        android:drawableLeft="@drawable/ic_email"
-                        android:drawablePadding="16dp"
-                        android:inputType="text"
-                        android:padding="12dp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:orientation="horizontal"
-                    android:padding="18dp">
-                    <TextView
-                        android:id="@+id/pipe_joint_filling"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:text="Joint Filling"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorPrimaryDark" />
-
-                    <EditText
-                        android:id="@+id/edit_text_joint_filling"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="12dp"
-                        android:background="@drawable/edit_text_round_gray_background"
-                        android:drawableLeft="@drawable/ic_email"
-                        android:drawablePadding="16dp"
-                        android:inputType="text"
-                        android:padding="12dp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:orientation="horizontal"
-                    android:padding="18dp">
-                    <TextView
-                        android:id="@+id/started_on"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:text="Started On"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorPrimaryDark" />
-
-                    <EditText
-                        android:id="@+id/edit_text_started_on"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="12dp"
-                        android:background="@drawable/edit_text_round_gray_background"
-                        android:drawableLeft="@drawable/ic_email"
-                        android:drawablePadding="16dp"
-                        android:inputType="text"
-                        android:padding="12dp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:orientation="horizontal"
-                    android:padding="18dp">
-                    <TextView
-                        android:id="@+id/status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:text="Status"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorPrimaryDark" />
-
-                    <EditText
-                        android:id="@+id/edit_text_pipe_status"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="12dp"
-                        android:background="@drawable/edit_text_round_gray_background"
-                        android:drawableLeft="@drawable/ic_email"
-                        android:drawablePadding="16dp"
-                        android:inputType="text"
-                        android:padding="12dp" />
-                </LinearLayout>
-
-                <!-- Logo upload and other fields one thinks are necessary-->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:padding="18dp">
-                    <Button
-                        android:id="@+id/button_update_pipe_activity"
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="Update Activity"
-                        android:textAllCaps="false" />
-                    <Button
-                        android:id="@+id/button_assign_pipe_activity"
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="Assign Activity"
-                        android:textAllCaps="false" />
-                </LinearLayout>
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal">
 
-            </LinearLayout>
-        </RelativeLayout>
+                        <Button
+                            android:id="@+id/button_update_pipe_activity"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/btn_rounded_corners"
+                            android:text="Update Activity"
+                            android:textAllCaps="false"
+                            android:textColor="@color/clrWhite"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/button_assign_pipe_activity"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/btn_rounded_corners"
+                            android:text="Assign Activity"
+                            android:textAllCaps="false"
+                            android:textColor="@color/clrWhite"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
 
         <ProgressBar
             android:id="@+id/progress_bar"

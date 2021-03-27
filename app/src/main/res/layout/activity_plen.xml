@@ -1,39 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools">
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".ui.home.plen.PlenActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar1"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?colorPrimary" />
+        android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.6"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.6"
+            android:orientation="vertical"
+            android:stateListAnimator="@null">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_plan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="end|bottom"
+                android:layout_margin="16dp"
+                android:src="@android:drawable/ic_input_add" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_plan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="45dp"
+                tools:listitem="@layout/item_plan" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center|center_horizontal|center_vertical" />
+
+            <TextView
+                android:id="@+id/tv_create_plan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center|center_horizontal|center_vertical"
+                android:text="Create Plan"
+                android:textColor="@color/colorAccent"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</layout>
+
+
+    <!--
+    <?xml version="1.0" encoding="utf-8"?>
+    <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <LinearLayout
         android:orientation="vertical"
-        android:stateListAnimator="@null">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.home.plen.PlenActivity">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/TabLayout_Plen"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#1db995"></com.google.android.material.tabs.TabLayout>
+            android:background="?colorPrimary" />
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager_Plen"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/TabLayout_Plen"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="0dp"
-            tools:layout_editor_absoluteX="8dp" />
-    </RelativeLayout>
-</LinearLayout>
-</layout>
+            android:layout_weight="0.6"
+            android:orientation="vertical"
+            android:stateListAnimator="@null">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/TabLayout_Plen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#1db995"></com.google.android.material.tabs.TabLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager_Plen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/TabLayout_Plen"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="0dp"
+                tools:layout_editor_absoluteX="8dp" />
+        </RelativeLayout>
+    </LinearLayout>
+    </layout>-->

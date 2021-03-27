@@ -7,176 +7,147 @@
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E2E2E2"
+        android:background="@color/colorAccent"
         tools:context=".ui.planEngineer.Task.AssignDailyTask.AssignTaskMaterial">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="629dp"
-            android:padding="16dp">
+            android:layout_height="match_parent"
+            android:background="@color/clrWhite"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/linearLayout1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="50dp"
+                android:background="@color/clr_lite"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/activity_heading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:text="Activity"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="@android:color/holo_green_light"
-                    app:fontFamily="serif-monospace" />
+                    android:textColor="@color/clrBlack"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/material_heading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Material"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Machinery"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="@android:color/holo_green_light"
-                    app:fontFamily="serif-monospace" />
+                    android:textColor="@color/clrBlack"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/machine_heading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Machine"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Material"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="#465A61"
-                    app:fontFamily="serif-monospace" />
+                    android:textColor="@color/clrWhite"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/manpower_heading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Men"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Man power"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="#465A61"
-                    app:fontFamily="serif-monospace" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/linearLayout1"
-                android:background="#ffffff"
-                android:orientation="horizontal"
-                android:padding="18dp">
-
-                <EditText
-                    android:id="@+id/text_view_material1_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/edit_text_round_gray_background"
-                    android:drawablePadding="16dp"
-                    android:hint="quantity in numbers"
-                    android:padding="12dp" />
-
-
-                <EditText
-                    android:id="@+id/edit_text_material1_quantity"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/edit_text_round_gray_background"
-                    android:drawablePadding="16dp"
-                    android:hint="quantity in numbers"
-                    android:padding="12dp" />
-
-
+                    android:textColor="@color/clrBlack"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/linearLayout2"
-                android:background="#ffffff"
-                android:orientation="horizontal"
-                android:padding="18dp">
+                android:orientation="vertical"
+                android:padding="10dp">
 
-                <EditText
-                    android:id="@+id/text_view_material2_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/edit_text_round_gray_background"
-                    android:drawablePadding="16dp"
-                    android:hint="quantity in numbers"
-                    android:padding="12dp" />
-
-
-                <EditText
-                    android:id="@+id/edit_text_material2_quantity"
+                <TextView
+                    android:id="@+id/edit_text_hydra_quantity"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/edit_text_round_gray_background"
-                    android:drawablePadding="16dp"
-                    android:hint="quantity in numbers"
-                    android:padding="12dp" />
+                    android:text="Select Material"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinner_material"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:background="#ccc" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/linearLayout3"
-                android:background="#ffffff"
-                android:orientation="horizontal"
-                android:padding="18dp">
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/text_view_material3_name"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/edit_text_round_gray_background"
-                    android:drawablePadding="16dp"
-                    android:hint="quantity in numbers"
-                    android:padding="12dp" />
-                <EditText
-                    android:id="@+id/edit_text_material3_quantity"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/edit_text_round_gray_background"
-                    android:drawablePadding="16dp"
-                    android:hint="quantity in numbers"
-                    android:padding="12dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayout5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/linearLayout4"
-                android:background="#ffffff"
-                android:orientation="horizontal"
-                android:padding="18dp">
-
-                <Button
-                    android:id="@+id/btn_submit_activity_material"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="Next"
-                    android:textAllCaps="false" />
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:text="Quantity :"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_material_quantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edit_text_round_gray_background"
+                    android:hint=" Enter Quantity"
+                    android:paddingLeft="10dp" />
 
             </LinearLayout>
 
-        </RelativeLayout>
+            <Button
+                android:id="@+id/btn_add_material"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/btn_rounded_corners"
+                android:text="Add"
+                android:textAllCaps="false"
+                android:textColor="@color/clrWhite"
+                android:textStyle="bold" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_material"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                tools:listitem="@layout/item_activities" />
+        </LinearLayout>
+
 
         <ProgressBar
             android:id="@+id/progress_bar"
@@ -185,7 +156,18 @@
             android:layout_gravity="center_horizontal|center_vertical"
             android:visibility="invisible" />
 
-
+        <Button
+            android:id="@+id/btn_next_to_man_power"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/btn_rounded_corners"
+            android:text="Next"
+            android:textAllCaps="false"
+            android:textColor="@color/clrWhite"
+            android:textStyle="bold" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

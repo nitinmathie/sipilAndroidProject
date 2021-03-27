@@ -17,9 +17,9 @@ class SiteHomeActivity : AppCompatActivity() {
         title = "Site Engineer"
         tabLayout_home_se = findViewById<TabLayout>(R.id.TabLayout_home_se)
         viewPager_home_se = findViewById(R.id.viewPager_home_se)
-        tabLayout_home_se.addTab(tabLayout_home_se.newTab().setText("DashBoard"))
-        tabLayout_home_se.addTab(tabLayout_home_se.newTab().setText("My Activities"))
-        tabLayout_home_se.addTab(tabLayout_home_se.newTab().setText("DPRs"))
+        tabLayout_home_se.addTab(tabLayout_home_se.newTab().setText("Assigned Reports"))
+        tabLayout_home_se.addTab(tabLayout_home_se.newTab().setText("Submitted Reports"))
+        //   tabLayout_home_se.addTab(tabLayout_home_se.newTab().setText("DPRs"))
 
         //tabLayout.addTab(tabLayout.newTab().setText("Stores"))
         tabLayout_home_se.tabGravity = TabLayout.GRAVITY_FILL
@@ -28,11 +28,16 @@ class SiteHomeActivity : AppCompatActivity() {
             tabLayout_home_se.tabCount
         )
         viewPager_home_se!!.adapter = madapter
-        viewPager_home_se.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout_home_se))
+        viewPager_home_se.addOnPageChangeListener(
+            TabLayout.TabLayoutOnPageChangeListener(
+                tabLayout_home_se
+            )
+        )
         tabLayout_home_se.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewPager_home_se.currentItem = tab.position
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })

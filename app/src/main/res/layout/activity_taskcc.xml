@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- ENSURE allignment and header should contain the task name to which this activity belongs to-->
+<?xml version="1.0" encoding="utf-8"?><!-- ENSURE allignment and header should contain the task name to which this activity belongs to-->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -8,12 +7,16 @@
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E2E2E2"
+        android:background="@color/colorAccent"
         tools:context=".ui.planEngineer.Task.TaskccActivity">
-        <RelativeLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="10dp">
+
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
@@ -21,6 +24,7 @@
                 android:background="#ffffff"
                 android:orientation="vertical"
                 android:padding="18dp">
+
                 <TextView
                     android:id="@+id/pageheading"
                     android:layout_width="wrap_content"
@@ -28,210 +32,240 @@
                     android:layout_marginBottom="12dp"
                     android:text="CC Breaking Activity"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
+                    android:layout_height="40dp"
                     android:orientation="horizontal"
-                    android:padding="18dp">
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/activity_name"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:text="Activity Name"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="Activity Name :"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorPrimaryDark" />
 
                     <EditText
                         android:id="@+id/edit_text_activity_name"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="20dp"
+                        android:layout_gravity="end"
                         android:background="@drawable/edit_text_round_gray_background"
-                        android:drawablePadding="16dp"
-                        android:inputType="text"
-                        android:padding="12dp" />
+                        android:editable="false"
+                        android:focusable="false"
+                        android:inputType="text" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:orientation="horizontal"
-                    android:padding="18dp">
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/pipeline_trench_500_status"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:text="Pipeline Trench"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="Pipeline Trench :"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorPrimaryDark" />
 
                     <EditText
                         android:id="@+id/edit_text_500_pipeline_trench"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="right"
-                        android:layout_marginLeft="20dp"
                         android:background="@drawable/edit_text_round_gray_background"
-                        android:drawablePadding="16dp"
-                        android:inputType="text"
-                        android:padding="12dp" />
+                        android:inputType="text" />
                 </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/checkbox_manhole_area"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                    android:paddingLeft="10dp"
+                    android:text="ManHole Area  :"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/colorAccent" />
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal"
-                    android:padding="18dp">
+                    android:visibility="gone">
+
                     <TextView
                         android:id="@+id/mharea_status"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:text="Manhole Area "
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="Manhole Area :"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorPrimaryDark" />
 
                     <EditText
                         android:id="@+id/edit_text_mharea"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/edit_text_round_gray_background"
-                        android:drawablePadding="16dp"
-                        android:inputType="text"
-                        android:padding="12dp" />
+                        android:inputType="text" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:orientation="horizontal"
-                    android:padding="18dp">
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/upvc_300"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginLeft="20dp"
-                        android:text="UPVC 300"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="UPVC 300 :"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorPrimaryDark" />
 
                     <EditText
                         android:id="@+id/edit_text_upvc300"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="20dp"
                         android:background="@drawable/edit_text_round_gray_background"
-                        android:drawablePadding="16dp"
-                        android:inputType="text"
-                        android:padding="12dp" />
+                        android:inputType="text" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:orientation="horizontal"
-                    android:padding="18dp">
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/ic_150"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:text="IC 150"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="IC 150 :"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorPrimaryDark" />
 
                     <EditText
                         android:id="@+id/edit_text_ic150"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="20dp"
                         android:background="@drawable/edit_text_round_gray_background"
-                        android:drawablePadding="16dp"
-                        android:inputType="text"
-                        android:padding="12dp" />
+                        android:inputType="text" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal"
-                    android:padding="18dp">
+                    android:visibility="gone">
+
                     <TextView
                         android:id="@+id/started_on"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:text="Started On"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="Started On :"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorPrimaryDark" />
 
                     <EditText
                         android:id="@+id/edit_text_started_on"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="20dp"
                         android:background="@drawable/edit_text_round_gray_background"
-                        android:drawablePadding="8dp"
-                        android:inputType="text"
-                        android:padding="12dp"
-                        android:gravity="right"/>
+                        android:inputType="text" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:orientation="horizontal"
-                    android:padding="18dp">
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/status"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:text="Status"
+                        android:layout_height="match_parent"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="Status :"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorPrimaryDark" />
+                        android:textColor="@color/colorPrimaryDark"
+                        android:visibility="gone" />
 
                     <EditText
                         android:id="@+id/edit_text_cc_status"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="20dp"
                         android:background="@drawable/edit_text_round_gray_background"
-                        android:drawablePadding="16dp"
                         android:inputType="text"
-                        android:padding="12dp" />
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <!-- Logo upload and other fields one thinks are necessary-->
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:padding="18dp">
-                <Button
-                    android:id="@+id/button_update_cc_activity"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
                     android:layout_gravity="center_horizontal"
-                    android:text="Update Activity"
-                    android:textAllCaps="false" />
-    <Button
-        android:id="@+id/button_assign_cc_activity"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Assign Activity"
-        android:textAllCaps="false" />
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/button_update_cc_activity"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_rounded_corners"
+                        android:text="Update Activity"
+                        android:textAllCaps="false"
+                        android:textColor="@color/clrWhite"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/button_assign_cc_activity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_rounded_corners"
+                        android:text="Assign Activity"
+                        android:textAllCaps="false"
+                        android:textColor="@color/clrWhite"
+                        android:textStyle="bold" />
+                </LinearLayout>
             </LinearLayout>
-            </LinearLayout>
-        </RelativeLayout>
+        </LinearLayout>
 
         <ProgressBar
             android:id="@+id/progress_bar"

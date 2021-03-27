@@ -1,177 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:background="#E2E2E2"
         android:layout_height="match_parent"
+        android:background="@color/clrWhite"
         tools:context=".ui.home.project.AddUserActivity">
 
 
-        <RelativeLayout
-            android:padding="16dp"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp">
 
 
-            <LinearLayout
-                android:id="@+id/linearLayout1"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/add_user"
+                android:textColor="@color/colorAccent"
+                android:textSize="30sp" />
 
-                <TextView
-                    android:layout_gravity="center_horizontal"
-                    android:text="Add user "
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" app:fontFamily="cursive"
-                    android:textColor="#465A61"/>
-
-
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
-                android:padding="18dp"
-                android:background="#ffffff"
-                android:layout_below="@id/linearLayout1"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:orientation="vertical"
+                android:padding="18dp">
 
                 <EditText
-                    android:id="@+id/edit_text_name"
-                    android:inputType="text"
-                    android:drawablePadding="16dp"
+                    android:id="@+id/etadd_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/edit_text_round_gray_background"
                     android:drawableLeft="@drawable/ic_name"
-                    android:background="@drawable/edit_text_round_gray_background"
-                    android:layout_width="match_parent"
-                    android:padding="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:layout_height="match_parent"/>
+                    android:drawablePadding="16dp"
+                    android:inputType="text"
+                    android:padding="12dp" />
 
                 <EditText
-                    android:id="@+id/edit_text_email"
-                    android:inputType="textEmailAddress"
-                    android:drawablePadding="16dp"
-                    android:drawableLeft="@drawable/ic_email"
-                    android:background="@drawable/edit_text_round_gray_background"
+                    android:id="@+id/etadd_user_email"
                     android:layout_width="match_parent"
-                    android:padding="12dp"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="12dp"
-                    android:layout_height="match_parent"/>
+                    android:background="@drawable/edit_text_round_gray_background"
+                    android:drawableLeft="@drawable/ic_email"
+                    android:drawablePadding="16dp"
+                    android:inputType="textEmailAddress"
+                    android:padding="12dp" />
 
                 <EditText
                     android:id="@+id/edit_text_password"
-                    android:inputType="textPassword"
-                    android:hint="password"
-                    android:drawablePadding="16dp"
-                    android:drawableLeft="@drawable/ic_lock"
-                    android:background="@drawable/edit_text_round_gray_background"
                     android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="12dp"
+                    android:background="@drawable/edit_text_round_gray_background"
+                    android:drawableLeft="@drawable/ic_lock"
+                    android:drawablePadding="16dp"
+                    android:hint="password"
+                    android:inputType="textPassword"
                     android:padding="12dp"
-                    android:layout_height="match_parent"/>
+                    android:visibility="gone" />
 
                 <EditText
                     android:id="@+id/edit_text_password_confirm"
-                    android:inputType="textPassword"
-                    android:hint="confirm password"
-                    android:drawablePadding="16dp"
-                    android:drawableLeft="@drawable/ic_lock"
-                    android:background="@drawable/edit_text_round_gray_background"
                     android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="12dp"
-                    android:padding="12dp"
-                    android:layout_height="match_parent"/>
+                    android:background="@drawable/edit_text_round_gray_background"
+                    android:drawableLeft="@drawable/ic_lock"
+                    android:drawablePadding="16dp"
+                    android:hint="confirm password"
+                    android:inputType="textPassword"
+                    android:visibility="gone" />
 
-                <LinearLayout
-                    android:id="@+id/linearLayout5"
+
+                <TextView
+                    android:id="@+id/select_project"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:orientation="horizontal"
-                    android:padding="12dp">
+                    android:layout_gravity="center_horizontal"
+                    android:text="Select Project"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
 
-                    <TextView
-                        android:id="@+id/select_project"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="Select Project"
-                        android:layout_marginBottom="12dp"
-                        android:padding="12dp"
-                        android:drawableLeft="@drawable/ic_lock"
-                        android:background="@drawable/edit_text_round_gray_background"
-                        android:textColor="#465A61"
-                        app:fontFamily="serif-monospace" />
+                <Spinner
+                    android:id="@+id/spinner_project"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/edit_text_round_gray_background" />
 
-                    <Spinner
-                        android:id="@+id/spinner_project"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:drawableLeft="@drawable/ic_lock"
-                        android:background="@drawable/edit_text_round_gray_background"
-                        android:drawablePadding="16dp"
-                        android:padding="12dp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#494949" />
 
-                </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/linearLayout6"
+                <TextView
+                    android:id="@+id/select_role"
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:orientation="horizontal"
-                    android:padding="12dp">
+                    android:layout_gravity="center_horizontal"
+                    android:text="Select Role"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
 
-                    <TextView
-                        android:id="@+id/select_role"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="Select Role"
-                        android:layout_marginBottom="12dp"
-                        android:padding="12dp"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                        android:textColor="#465A61"
-                        app:fontFamily="serif-monospace" />
+                <Spinner
+                    android:id="@+id/spinner_role"
+                    android:layout_width="match_parent"
+                    android:layout_height="40sp"
+                    android:background="@drawable/edit_text_round_gray_background"
+                    android:drawablePadding="16dp" />
 
-                    <Spinner
-                        android:id="@+id/spinner_role"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:background="@drawable/edit_text_round_gray_background"
-                        android:drawablePadding="16dp"
-                        android:padding="12dp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#494949" />
 
-                </LinearLayout>
+
                 <Button
                     android:id="@+id/button_add_user"
-                    android:layout_gravity="center_horizontal"
-                    android:textAllCaps="false"
-                    android:text="Add User"
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/btn_rounded_corners"
+                    android:text="Add User"
+                    android:textAllCaps="false"
+                    android:textColor="@color/clrWhite"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <ProgressBar
-            android:visibility="invisible"
             android:id="@+id/progress_bar"
-            android:layout_gravity="center_horizontal|center_vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:visibility="invisible" />
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

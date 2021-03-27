@@ -10,7 +10,7 @@ class ProjectViewModelFactory(
     private val repository: ProjectRepository
 ) : ViewModelProvider.NewInstanceFactory() {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return ProjectViewModel(repository) as T
-    }
+   /* override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        //return ProjectViewModel(repository) as T
+    }*/
 }

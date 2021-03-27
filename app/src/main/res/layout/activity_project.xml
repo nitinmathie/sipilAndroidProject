@@ -1,40 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         tools:context=".ui.home.project.ProjectActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?colorPrimary" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.6"
-        android:orientation="vertical"
-        android:stateListAnimator="@null">
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#1db995"></com.google.android.material.tabs.TabLayout>
+            android:background="?colorPrimary" />
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tabLayout"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="0dp"
-            tools:layout_editor_absoluteX="8dp" />
-    </RelativeLayout>
-</LinearLayout>
+            android:layout_weight="0.6"
+            android:orientation="vertical"
+            android:stateListAnimator="@null">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.google.android.material.tabs.TabLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tabLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="0dp"
+                tools:layout_editor_absoluteX="8dp" />
+        </RelativeLayout>
+    </LinearLayout>
 </layout>

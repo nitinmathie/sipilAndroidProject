@@ -3,61 +3,125 @@ package com.example.hopelastrestart1.ui.planEngineer.Task.AssignDailyTask
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
+import android.widget.*
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.hopelastrestart1.GlobalData
 import com.example.hopelastrestart1.R
+import com.example.hopelastrestart1.adapter.MachinesAndMaterilasAdapter
+import com.example.hopelastrestart1.adapter.OrganizationAdapter
+import com.example.hopelastrestart1.api.ApiService
+import com.example.hopelastrestart1.base.ViewModelFactory
+import com.example.hopelastrestart1.data.db.entities.Activit
+import com.example.hopelastrestart1.databinding.ActivityAssignTaskMachineryBinding
+import com.example.hopelastrestart1.databinding.ActivityTaskRoadRestorationBinding
+import com.example.hopelastrestart1.model.GetMachinesAndMaterialModel
+import com.example.hopelastrestart1.model.MachinesQuantity
+import com.example.hopelastrestart1.model.UpdateRoadRestorationActivity
+import com.example.hopelastrestart1.ui.planEngineer.Task.tabs.TaskViewModelFactory
+import com.example.hopelastrestart1.util.Status
+import com.example.hopelastrestart1.util.hide
+import com.example.hopelastrestart1.util.show
+import com.example.hopelastrestart1.view.BaseActivity
+import com.example.hopelastrestart1.viewmodel.TaskViewModel
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
 
-class AssignTaskMachinery : AppCompatActivity() {
+class AssignTaskMachinery : BaseActivity(), KodeinAware,
+    MachinesAndMaterilasAdapter.CellClickListenerMachines {
+    override val kodein by kodein()
+    private val factory: TaskViewModelFactory by instance()
+    private lateinit var binding: ActivityAssignTaskMachineryBinding
+    private lateinit var viewModel: TaskViewModel
+    lateinit var activity: Activit
+    lateinit var adapter: MachinesAndMaterilasAdapter
+    var machinesList: MutableList<MachinesQuantity> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_assign_task_machinery)
-        var jcb_quantity =findViewById<EditText>(R.id.edit_text_jcb_quantity).getText().toString()
-        var hydra_quantity =findViewById<EditText>(R.id.edit_text_hydra_quantity).getText().toString()
-        var tractor_quantity =findViewById<EditText>(R.id.edit_text_tractor_quantity).getText().toString()
-        var watertanker_quantity =findViewById<EditText>(R.id.edit_text_watertanker_quantity).getText().toString()
-        var tractorcompressor_quantity =findViewById<EditText>(R.id.edit_text_tractorcompressor_quantity).getText().toString()
-        //runtime
-        var jcb_runtime =findViewById<EditText>(R.id.edit_text_jcb_runtime).getText().toString()
-        var hydra_runtime =findViewById<EditText>(R.id.edit_text_hydra_runtime).getText().toString()
-        var tractor_runtime=findViewById<EditText>(R.id.edit_text_tractor_runtime).getText().toString()
-        var watertanker_runtime =findViewById<EditText>(R.id.edit_text_watertanker_runtime).getText().toString()
-        var tractorcompressor_runtime =findViewById<EditText>(R.id.edit_text_tractorcompressor_runtime).getText().toString()
-       val username=intent.getStringExtra("username")
-        val organization_name=intent.getStringExtra("organization_name")
-        val activity_id=intent.getStringExtra("activity_id")
-        val activity_name=intent.getStringExtra("activity_name")
-        val activity_type=intent.getStringExtra("activity_type")
-        val from_node=intent.getStringExtra("from_node")
-        val to_node=intent.getStringExtra("to_node")
-        val task_id=intent.getStringExtra("task_id")
-        val project_name=intent.getStringExtra("project_name")
-        val assigned_to=intent.getStringExtra("assigned_to")
+        var contentFrameLayout = findViewById(R.id.container) as FrameLayout
+        binding = ActivityAssignTaskMachineryBinding.inflate(layoutInflater)
+        contentFrameLayout.addView(binding!!.root)
 
+        title = "Assign Task"
+        viewModel = ViewModelProviders.of(
+            this,
+            ViewModelFactory(RetrofitBuilder.apiClient().create(ApiService::class.java))
+        )
+            .get(TaskViewModel::class.java)
 
-        val material_1_quantity=intent.getStringExtra("material_1_quantity")
-        val material_2_quantity=intent.getStringExtra("material_2_quantity")
-        val material_3_quantity=intent.getStringExtra("material_3_quantity")
-        val material_1=intent.getStringExtra("material_1")
-        val material_2=intent.getStringExtra("material_2")
-        val material_3=intent.getStringExtra("material_3")
+        val linearLayoutManager = LinearLayoutManager(
+            this, RecyclerView.VERTICAL, false
+        )
+        binding.recyclerviewMachies.layoutManager = linearLayoutManager
+        val username = intent.getStringExtra("username")
+        val organization_name = intent.getStringExtra("organization_name")
+        val activity_id = intent.getStringExtra("activity_id")
+        val activity_name = intent.getStringExtra("activity_name")
+        val activity_type = intent.getStringExtra("activity_type")
+        val from_node = intent.getStringExtra("from_node")
+        val to_node = intent.getStringExtra("to_node")
+        val task_id = intent.getStringExtra("task_id")
+        val project_name = intent.getStringExtra("project_name")
+        val plan_name = intent.getStringExtra("plan_name")
+        val assigned_to = intent.getStringExtra("assigned_to")
+        val material_1_quantity = intent.getStringExtra("material_1_quantity")
+        val material_2_quantity = intent.getStringExtra("material_2_quantity")
+        val material_3_quantity = intent.getStringExtra("material_3_quantity")
+        val material_1 = intent.getStringExtra("material_1")
+        val material_2 = intent.getStringExtra("material_2")
+        val material_3 = intent.getStringExtra("material_3")
         //val assigned_to=intent.getStringExtra("assigned_to")
-        val task=intent.getStringExtra("task")
-        val activity=intent.getStringExtra("activity")
+        val task = intent.getStringExtra("task")
+        val activity = intent.getStringExtra("activity")
 
+        binding.btnSubmitMachine.setOnClickListener {
+            val machineQuantity = MachinesQuantity(
+                binding.spinnerMachinery.selectedItem.toString(),
+                binding.etMachineQuantity.text.toString()
+            )
+            machinesList.add(machineQuantity)
+            binding.recyclerviewMachies.adapter =
+                MachinesAndMaterilasAdapter(machinesList!!, this, username)
+            (binding.recyclerviewMachies.adapter as MachinesAndMaterilasAdapter).notifyDataSetChanged()
 
-        var btn_to_material = findViewById<Button>(R.id.btn_submit_activity_material)
-        btn_to_material.setOnClickListener {
+        }
+        val machinery = GetMachinesAndMaterialModel(
+            GlobalData.getInstance.userEmail!!,
+            GlobalData.getInstance.token!!,
+            organization_name, project_name, plan_name
+        )
+        getMachinesAndMaterial(machinery)
+        binding.btnNextToMaterial.setOnClickListener {
+
+            GlobalData.getInstance.machineryList = machinesList
             val intent = Intent(this, AssignTaskMaterial::class.java)
-            intent.putExtra("jcb_quantity",jcb_quantity)
+            intent.putExtra("username", username)
+            intent.putExtra("organization_name", organization_name)
+            intent.putExtra("project_name", project_name)
+            intent.putExtra("plan_name", plan_name)
+            intent.putExtra("task_id", task_id)
+            intent.putExtra("activity_name", activity_name)
+            startActivity(intent)
+
+        }
+
+        /*  var btn_to_material = findViewById<Button>(R.id.btn_submit_activity_material)
+          btn_to_material.setOnClickListener {
+              val intent = Intent(this, AssignTaskMaterial::class.java)
+         *//*     intent.putExtra("jcb_quantity", jcb_quantity)
             intent.putExtra("hydra_quantity", hydra_quantity)
             intent.putExtra("tractor_quantity", tractor_quantity)
-            intent.putExtra("watertanker_quantity",watertanker_quantity)
+            intent.putExtra("watertanker_quantity", watertanker_quantity)
             intent.putExtra("tractorcompressor_quantity", tractorcompressor_quantity)
             intent.putExtra("jcb_runtime", jcb_runtime)
-            intent.putExtra("hydra_runtime",hydra_runtime)
+            intent.putExtra("hydra_runtime", hydra_runtime)
             intent.putExtra("tractor_runtime", tractor_runtime)
             intent.putExtra("watertanker_runtime", watertanker_runtime)
-            intent.putExtra("tractorcompressor_runtime",tractorcompressor_runtime)
+            intent.putExtra("tractorcompressor_runtime", tractorcompressor_runtime)*//*
             intent.putExtra("activity_id", activity_id)
             intent.putExtra("activity_name", activity_name)
             intent.putExtra("activity_type", activity_type)
@@ -68,18 +132,69 @@ class AssignTaskMachinery : AppCompatActivity() {
             intent.putExtra("organization_name", organization_name)
             intent.putExtra("project_name", project_name)
             intent.putExtra("assigned_to", assigned_to)
-            intent.putExtra("material_1_quantity",material_1_quantity)
+            intent.putExtra("material_1_quantity", material_1_quantity)
             intent.putExtra("material_2_quantity", material_2_quantity)
             intent.putExtra("material_3_quantity", material_3_quantity)
 
-            intent.putExtra("material_1",material_1)
+            intent.putExtra("material_1", material_1)
             intent.putExtra("material_2", material_2)
             intent.putExtra("material_3", material_3)
-            intent.putExtra("assigned_to",assigned_to)
+            intent.putExtra("assigned_to", assigned_to)
             intent.putExtra("task", task)
             intent.putExtra("activity", activity)
             startActivity(intent)
-        }
+        }*/
 
+    }
+
+    private fun getMachinesAndMaterial(getMachinesAndMaterialModel: GetMachinesAndMaterialModel) {
+        viewModel.getMachines(getMachinesAndMaterialModel).observe(this, Observer {
+            it.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        binding.progressBar.hide()
+                        resource.data?.let { machines ->
+                            machines.body()
+                            var machinesArray = arrayOf<String>()
+                            val machines = machines.body()?.machines
+                            for (element in machines!!) {
+                                machinesArray = append(machinesArray, element.name)
+                            }
+                            val projects_adapter =
+                                ArrayAdapter(
+                                    this,
+                                    android.R.layout.simple_expandable_list_item_1,
+                                    machinesArray
+                                )
+                            binding.spinnerMachinery.adapter = projects_adapter
+
+                        }
+                    }
+                    Status.ERROR -> {
+                        binding.progressBar.hide()
+                        Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                    }
+                    Status.LOADING -> {
+                        binding.progressBar.show()
+                    }
+                }
+            }
+        })
+
+
+    }
+
+    fun append(projects: Array<String>, project: String?): Array<String> {
+        val list: MutableList<String> = projects.toMutableList()
+        if (project != null) {
+            list.add(project)
+        }
+        return list.toTypedArray()
+
+    }
+
+    override fun onCellClickListener(machines: MachinesQuantity, username: String) {
+        machinesList.remove(machines)
+        binding.recyclerviewMachies.adapter?.notifyDataSetChanged()
     }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/work_rep"
+        android:title="Submit Work Report" />
+
+    <item
+        android:id="@+id/machine_rep"
+        android:title="Submit Machincery Report" />
+    <item
+        android:id="@+id/material_rep"
+        android:title="Submit Material Report" />
+    <item
+        android:id="@+id/manpower_rep"
+        android:title="Submit Man Power Report" />
+</menu>

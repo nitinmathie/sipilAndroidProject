@@ -28,24 +28,26 @@ class SeHomeFragmentAdapter(
         override fun getItem(position: Int): Fragment {
 
             return when (position) {
+                /*  0 -> {
+                      SeDashboardFragment()
+                  }*/
                 0 -> {
-                    SeDashboardFragment()
-                }
-                1 -> {
                     SeActivitiesFragment()
                 }
-                2 -> {
+                1 -> {
                     SubmittedDprsFragment()
                 }
-                else ->{
+                else -> {
                     SeDashboardFragment()
 
                 }
             }
         }
+
         override fun getCount(): Int {
             return totalTabs
         }
+
         fun getItemPosition(): Int {
             return POSITION_NONE
         }

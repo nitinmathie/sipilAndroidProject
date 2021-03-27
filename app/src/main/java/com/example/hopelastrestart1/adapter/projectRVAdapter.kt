@@ -7,9 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hopelastrestart1.R
 import com.example.hopelastrestart1.data.db.entities.Project
 import kotlinx.android.synthetic.main.item_organization.view.*
-class ProjectRVAdapter( val projects: List<Project>,
+
+class ProjectRVAdapter(
+    val projects: List<com.example.hopelastrestart1.model.Project>,
     private val cellClickListener: CellClickListener1,
-    val username:String, val organization_name: String):RecyclerView.Adapter<ProjectRVAdapter.ViewHolder>(){
+    val username: String, val organization_name: String
+) : RecyclerView.Adapter<ProjectRVAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
             : ProjectRVAdapter.ViewHolder {
         val v: View = LayoutInflater.from(parent.context)
@@ -20,6 +23,7 @@ class ProjectRVAdapter( val projects: List<Project>,
     override fun getItemCount(): Int {
         return projects.size
     }
+
     override fun getItemId(position: Int): Long {
         return super.getItemId(position)
     }
@@ -27,11 +31,13 @@ class ProjectRVAdapter( val projects: List<Project>,
     override fun getItemViewType(position: Int): Int {
         return super.getItemViewType(position)
     }
-    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val id = itemView.name
         val name = itemView.createdby
 
     }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = projects[position]
         holder?.name.text = item.project_name.toString()
@@ -42,7 +48,12 @@ class ProjectRVAdapter( val projects: List<Project>,
         }
     }
 }
-interface  CellClickListener1 {
-    fun onCellClickListener(project: Project, username: String, organization_name: String)
+
+interface CellClickListener1 {
+    fun onCellClickListener(
+        project: com.example.hopelastrestart1.model.Project,
+        username: String,
+        organization_name: String
+    )
 }
 

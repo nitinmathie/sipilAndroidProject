@@ -7,132 +7,139 @@
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E2E2E2"
+        android:background="@color/colorAccent"
         tools:context=".ui.planEngineer.Task.AssignDailyTask.AssignTaskManpower">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="697dp"
-            android:padding="16dp">
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            android:background="@color/clrWhite"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/linearLayout1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:background="@color/clr_lite"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/activity_heading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:text="Activity"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="@android:color/holo_green_light"
-                    app:fontFamily="serif-monospace" />
+                    android:textColor="@color/clrBlack"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/material_heading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Material"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Machinery"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="@android:color/holo_green_light"
-                    app:fontFamily="serif-monospace" />
+                    android:textColor="@color/clrBlack"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/machine_heading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Machine"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Material"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="@android:color/holo_green_light"
-                    app:fontFamily="serif-monospace" />
+                    android:textColor="@color/clrBlack"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/manpower_heading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Men"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Man Power"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="#465A61"
-                    app:fontFamily="serif-monospace" />
-
+                    android:textColor="@color/clrWhite"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/linearLayout1"
-                android:background="#ffffff"
-                android:orientation="horizontal"
-                android:padding="12dp">
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-                <EditText
+                <TextView
                     android:id="@+id/edit_text_skilled_labour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/edit_text_round_gray_background"
-                    android:drawablePadding="16dp"
-                    android:hint="Number of Skilled Labour"
-                    android:padding="12dp" />
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Number of Skilled Labour"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="14sp" />
 
                 <EditText
-                    android:id="@+id/edit_text_skilled_worktime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:id="@+id/et_skilled_count"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:background="@drawable/edit_text_round_gray_background"
-                    android:drawablePadding="16dp"
-                    android:hint="Number of hours"
-                    android:padding="12dp" />
+                    android:gravity="center"
+                    android:hint="Enter Count"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/linearLayout2"
-                android:background="#ffffff"
-                android:orientation="horizontal"
-                android:padding="12dp">
+                android:layout_height="50dp"
+                android:orientation="horizontal">
 
-                <EditText
+                <TextView
                     android:id="@+id/edit_text_unskilled_labour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/edit_text_round_gray_background"
-                    android:drawablePadding="16dp"
-                    android:hint="Number of Unskilled Labour"
-                    android:padding="12dp" />
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Number of UnSkilled Labour"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="14sp" />
 
                 <EditText
-                    android:id="@+id/edit_text_unskilled_worktime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:id="@+id/et_unskilled_count"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:background="@drawable/edit_text_round_gray_background"
-                    android:drawablePadding="16dp"
-                    android:hint="Number of hours"
-                    android:padding="12dp" />
+                    android:hint="Enter Count"
+                    android:textAlignment="center"
+                    android:textSize="14sp" />
 
             </LinearLayout>
-
 
 
             <LinearLayout
                 android:id="@+id/linearLayout8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/linearLayout3"
-                android:background="#ffffff"
+                android:gravity="center_horizontal"
                 android:orientation="horizontal"
                 android:padding="18dp">
 
@@ -140,13 +147,16 @@
                     android:id="@+id/btn_submit_activity"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_gravity="center"
+                    android:background="@drawable/btn_rounded_corners"
                     android:text="Assign Task"
-                    android:textAllCaps="false" />
+                    android:textAllCaps="false"
+                    android:textColor="@color/clrWhite"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <ProgressBar
             android:id="@+id/progress_bar"

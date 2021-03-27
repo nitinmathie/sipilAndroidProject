@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- ENSURE allignment and header should contain the task name to which this activity belongs to-->
+<?xml version="1.0" encoding="utf-8"?><!-- ENSURE allignment and header should contain the task name to which this activity belongs to-->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -8,14 +7,9 @@
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E2E2E2"
+        android:background="@color/colorAccent"
         tools:context=".ui.planEngineer.Task.TaskmhActivity">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp">
 
-        </RelativeLayout>
 
         <ProgressBar
             android:id="@+id/progress_bar"
@@ -24,415 +18,575 @@
             android:layout_gravity="center_horizontal|center_vertical"
             android:visibility="invisible" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#ffffff"
-            android:orientation="vertical"
-            android:padding="18dp"
-            app:layout_anchor="@+id/progress_bar"
-            app:layout_anchorGravity="start|bottom">
-
-            <TextView
-                android:id="@+id/pageheading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:text="Manhole Activity"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/colorPrimaryDark" />
+            android:layout_height="match_parent"
+            android:padding="10dp">
 
             <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:orientation="horizontal"
-                android:padding="18dp">
+                android:background="@color/clrWhite"
+                android:orientation="vertical"
+                android:padding="15dp">
 
                 <TextView
-                    android:id="@+id/activity_name"
+                    android:id="@+id/pageheading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:text="Activity Name"
+                    android:text="Manhole Activity"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/edit_text_activity_name"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/edit_text_round_gray_background"
-                    android:drawableLeft="@drawable/ic_email"
-                    android:drawablePadding="16dp"
-                    android:hint="Task Name"
-                    android:inputType="text"
-                    android:padding="12dp" />
-            </LinearLayout>
+                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:orientation="horizontal"
-                android:padding="18dp">
+                    <TextView
+                        android:id="@+id/activity_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Activity Name  :"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimaryDark" />
 
-                <TextView
-                    android:id="@+id/excavation"
+                    <EditText
+                        android:id="@+id/edit_text_activity_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/edit_text_round_gray_background"
+                        android:hint="Activity Name"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/excavation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Excavation  :"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/edit_text_excavation"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/edit_text_round_gray_background"
+                        android:hint="Excavation"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Bedding  :"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/edit_bedding"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/edit_text_round_gray_background"
+                        android:hint="Bedding"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/checkbox_sand_bedding"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:text="Excavation"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                    android:text="Sand Bedding  :"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:textColor="@color/colorAccent" />
 
-                <EditText
-                    android:id="@+id/edit_text_excavation"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/edit_text_round_gray_background"
-                    android:drawableLeft="@drawable/ic_email"
-                    android:drawablePadding="16dp"
-                    android:inputType="text"
-                    android:padding="12dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:orientation="horizontal"
-                android:padding="18dp">
-
-                <TextView
-                    android:id="@+id/excess_soil_Removal"
+                <CheckBox
+                    android:id="@+id/checkbox_pcc"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:text="Excess Soil removal"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                    android:text="PCC Dust Filling  :"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:textColor="@color/colorAccent" />
 
-                <EditText
-                    android:id="@+id/edit_text_soil_removal"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/edit_text_round_gray_background"
-                    android:drawableLeft="@drawable/ic_email"
-                    android:drawablePadding="16dp"
-                    android:inputType="text"
-                    android:padding="12dp" />
-            </LinearLayout>
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:orientation="horizontal"
-                android:padding="18dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Sand Bedding  :"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimaryDark" />
 
-                <TextView
-                    android:id="@+id/dust_fill_PCC_below"
+                    <EditText
+                        android:id="@+id/edit_sand_bedding"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/edit_text_round_gray_background"
+                        android:hint="Sand Bedding"
+                        android:inputType="text" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/excess_soil_Removal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Excess Soil removal"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/edit_text_soil_removal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/edit_text_round_gray_background"
+                        android:hint="Excess Soil removal"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:visibility="gone"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/dust_fill_PCC_below"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PCC Below Dust Filling  :"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/edit_text_dust_fill_pcc_below"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/edit_text_round_gray_background"
+                        android:hint="PCC Below Dust"
+                        android:inputType="text" />
+
+                </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/checkbox_base_erection"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:text="PCC Below Dust Filling"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                    android:text="Base Erection  :"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:textColor="@color/colorAccent" />
 
-                <EditText
-                    android:id="@+id/edit_text_dust_fill_pcc_below"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/edit_text_round_gray_background"
-                    android:drawableLeft="@drawable/ic_email"
-                    android:drawablePadding="16dp"
-                    android:inputType="text"
-                    android:padding="12dp" />
-            </LinearLayout>
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:orientation="horizontal"
-                android:padding="18dp">
+                    <TextView
+                        android:id="@+id/base_erection"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Base Erection  :"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimaryDark" />
 
-                <TextView
-                    android:id="@+id/haunching"
+                    <EditText
+                        android:id="@+id/edit_text_base_erection"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/edit_text_round_gray_background"
+                        android:hint="Base"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/pipe_jointing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Pipe Jointing  :"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/edit_text_pipejointing"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/edit_text_round_gray_background"
+
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/checkbox_haunching"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:text="Haunching"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                    android:text="Haunching  :"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:textColor="@color/colorAccent" />
 
-                <EditText
-                    android:id="@+id/edit_text_haunching"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/edit_text_round_gray_background"
-                    android:drawableLeft="@drawable/ic_email"
-                    android:drawablePadding="16dp"
-                    android:inputType="text"
-                    android:padding="12dp" />
-            </LinearLayout>
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:orientation="horizontal"
-                android:padding="18dp">
+                    <TextView
+                        android:id="@+id/haunching"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Haunching"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimaryDark" />
 
-                <TextView
-                    android:id="@+id/raiser_erection"
+                    <EditText
+                        android:id="@+id/edit_text_haunching"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/edit_text_round_gray_background"
+                        android:hint="Haunching"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/raiser_erection"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Raiser Erection"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/edit_text_raiser_erection"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/edit_text_round_gray_background"
+                        android:hint="Raiser Erection"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/cone_erection"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Cone Erection"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/edit_text_cone_erection"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/edit_text_round_gray_background"
+                        android:hint="Cone"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/fix_UPVC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Fix UPVC MH"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/edit_text_fix_UPVC"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/edit_text_round_gray_background"
+                        android:hint="UPVC"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Joint Holes Sealing"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/edit_joint_holes_sealing"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/edit_text_round_gray_background"
+                        android:hint="Joint Hoels Sealing"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Open Holes Sealing"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/edit_open_holes_sealing"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/edit_text_round_gray_background"
+                        android:hint="Open Holes Sealing"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/back_filling"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Back Filling"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/edit_text_back_filling"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/edit_text_round_gray_background"
+                        android:hint="Back Filling"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/checkbox_consolidation"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:text="Raiser Erection"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                    android:text="Consolidation  :"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:textColor="@color/colorAccent" />
 
-                <EditText
-                    android:id="@+id/edit_text_raiser_erection"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/edit_text_round_gray_background"
-                    android:drawableLeft="@drawable/ic_email"
-                    android:drawablePadding="16dp"
-                    android:inputType="text"
-                    android:padding="12dp" />
-            </LinearLayout>
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:orientation="horizontal"
-                android:padding="18dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Removal Excess Soil"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimaryDark" />
 
-                <TextView
-                    android:id="@+id/base_erection"
+                    <EditText
+                        android:id="@+id/edit_removal_excess_soil"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/edit_text_round_gray_background"
+                        android:hint="Removal Excess Soil"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/started_on"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Started On"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/edit_text_started_on"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/edit_text_round_gray_background"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:hint="Statred On"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Status"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/edit_text_mh_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/edit_text_round_gray_background"
+                        android:hint="Status"
+                        android:inputType="text" />
+                </LinearLayout>
+
+
+                <!-- Logo upload and other fields one thinks are necessary-->
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:text="Base Erection"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/colorPrimaryDark" />
-
-                <EditText
-                    android:id="@+id/edit_text_base_erection"
-                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/edit_text_round_gray_background"
-                    android:drawableLeft="@drawable/ic_email"
-                    android:drawablePadding="16dp"
-                    android:inputType="text"
-                    android:padding="12dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:orientation="horizontal"
-                android:padding="18dp">
-
-                <TextView
-                    android:id="@+id/pipe_mhbase_connection"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:text="Pipe MH Base Connection"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/colorPrimaryDark" />
-
-                <EditText
-                    android:id="@+id/edit_text_pipe_mhbase_connection"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/edit_text_round_gray_background"
-                    android:drawableLeft="@drawable/ic_email"
-                    android:drawablePadding="16dp"
-                    android:inputType="text"
-                    android:padding="12dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:orientation="horizontal"
-                android:padding="18dp">
-
-                <TextView
-                    android:id="@+id/started_on"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:text="Started On"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/colorPrimaryDark" />
-
-                <EditText
-                    android:id="@+id/edit_text_started_on"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/edit_text_round_gray_background"
-                    android:drawableLeft="@drawable/ic_email"
-                    android:drawablePadding="16dp"
-                    android:inputType="text"
-                    android:padding="12dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:orientation="horizontal"
-                android:padding="18dp">
-
-                <TextView
-                    android:id="@+id/status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:text="Status"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/colorPrimaryDark" />
-
-                <EditText
-                    android:id="@+id/edit_text_mh_status"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/edit_text_round_gray_background"
-                    android:drawableLeft="@drawable/ic_email"
-                    android:drawablePadding="16dp"
-                    android:inputType="text"
-                    android:padding="12dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:orientation="horizontal"
-                android:padding="18dp">
-
-                <TextView
-                    android:id="@+id/cone_erection"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:text="Cone Erection"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/colorPrimaryDark" />
-
-                <EditText
-                    android:id="@+id/edit_text_cone_erection"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/edit_text_round_gray_background"
-                    android:drawableLeft="@drawable/ic_email"
-                    android:drawablePadding="16dp"
-                    android:inputType="text"
-                    android:padding="12dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:orientation="horizontal"
-                android:padding="18dp">
-
-                <TextView
-                    android:id="@+id/fix_UPVC"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:text="fix_UPVC"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/colorPrimaryDark" />
-
-                <EditText
-                    android:id="@+id/edit_text_fix_UPVC"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/edit_text_round_gray_background"
-                    android:drawableLeft="@drawable/ic_email"
-                    android:drawablePadding="16dp"
-                    android:inputType="text"
-                    android:padding="12dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:orientation="horizontal"
-                android:padding="18dp">
-
-                <TextView
-                    android:id="@+id/back_filling"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:text="Back Filling"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/colorPrimaryDark" />
-
-                <EditText
-                    android:id="@+id/edit_text_back_filling"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/edit_text_round_gray_background"
-                    android:drawableLeft="@drawable/ic_email"
-                    android:drawablePadding="16dp"
-                    android:inputType="text"
-                    android:padding="12dp" />
-            </LinearLayout>
-
-
-            <!-- Logo upload and other fields one thinks are necessary-->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:padding="18dp">
-                <Button
-                    android:id="@+id/button_update_mh_activity"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="Update Activity"
-                    android:textAllCaps="false" />
-                <Button
-                    android:id="@+id/button_assign_mh_activity"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Assign Activity"
-                    android:textAllCaps="false" />
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/button_update_mh_activity"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/btn_rounded_corners"
+                        android:text="Update Activity"
+                        android:textAllCaps="false"
+                        android:textColor="@color/clrWhite"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/button_assign_mh_activity"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/btn_rounded_corners"
+                        android:text="Assign Activity"
+                        android:textAllCaps="false"
+                        android:textColor="@color/clrWhite"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
             </LinearLayout>
-
-
-
-        </LinearLayout>
+        </ScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

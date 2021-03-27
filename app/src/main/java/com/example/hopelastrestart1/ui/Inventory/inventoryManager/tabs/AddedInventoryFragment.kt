@@ -1,4 +1,3 @@
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,19 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hopelastrestart1.R
 import com.example.hopelastrestart1.adapter.*
 import com.example.hopelastrestart1.data.db.entities.Invoice
-import com.example.hopelastrestart1.data.db.entities.Task
-import com.example.hopelastrestart1.data.db.entities.UserAdded
-import com.example.hopelastrestart1.ui.home.HomeActivity
-import com.example.hopelastrestart1.ui.home.project.AddProjectActivity
 import com.example.hopelastrestart1.ui.home.project.tabs.StoreViewModel
 import com.example.hopelastrestart1.ui.home.project.tabs.StoreViewModelFactory
-import com.example.hopelastrestart1.ui.home.project.tabs.UserViewModel
-import com.example.hopelastrestart1.ui.home.project.tabs.UserViewModelFactory
 import com.example.hopelastrestart1.util.Coroutines
 import com.example.hopelastrestart1.util.hide
 import com.example.hopelastrestart1.util.lazyDeferred
 import com.example.hopelastrestart1.util.show
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_organization.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein

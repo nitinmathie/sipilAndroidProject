@@ -29,15 +29,15 @@ val username:String):RecyclerView.Adapter<OrganizationAdapter.ViewHolder>(){
         return super.getItemViewType(position)
     }
     class ViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
-        val id = itemView.name
-        val name = itemView.createdby
+        val name = itemView.name
+        val email = itemView.createdby
 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = organizations[position]
         holder?.name.text = item.organization_name.toString()
-        holder?.id.text = item.organization_id.toString()
+        holder?.email.text = item.organization_email.toString()
 
         holder.itemView.setOnClickListener {
             cellClickListener.onCellClickListener(item, username)

@@ -10,6 +10,7 @@ data class StoreResponse(
     //val message: String?,
     val user: String?,
     val userRole: String?,
+    val status_code: String?,
     val message: String?,
     val stores: List<Store>?
 )

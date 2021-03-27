@@ -6,23 +6,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.hopelastrestart1.R
 import com.example.hopelastrestart1.adapter.CellClickListener3
-import com.example.hopelastrestart1.adapter.UserRVAdapter
 import com.example.hopelastrestart1.data.db.entities.UserAdded
-import com.example.hopelastrestart1.ui.home.HomeActivity
-import com.example.hopelastrestart1.ui.home.project.AddProjectActivity
+import com.example.hopelastrestart1.ui.home.UpdateUserRoleActivity
 import com.example.hopelastrestart1.ui.home.project.tabs.StoreViewModel
 import com.example.hopelastrestart1.ui.home.project.tabs.StoreViewModelFactory
-import com.example.hopelastrestart1.ui.home.project.tabs.UserViewModel
-import com.example.hopelastrestart1.ui.home.project.tabs.UserViewModelFactory
 import com.example.hopelastrestart1.util.Coroutines
 import com.example.hopelastrestart1.util.hide
 import com.example.hopelastrestart1.util.lazyDeferred
 import com.example.hopelastrestart1.util.show
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_organization.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
@@ -70,7 +63,7 @@ class InventoryDashBoardFragment: Fragment(), KodeinAware, CellClickListener3 {
         return rootView
     }
     override fun onCellClickListener(user: UserAdded, username: String) {
-        val intent =  Intent(activity, HomeActivity::class.java)
+        val intent =  Intent(activity, UpdateUserRoleActivity::class.java)
         intent.putExtra("user_name", user.username)
         intent.putExtra("user_id", user.user_id)
         val username=intent.getStringExtra("username")

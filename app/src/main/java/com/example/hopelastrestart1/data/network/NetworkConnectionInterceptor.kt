@@ -7,16 +7,20 @@ import com.example.hopelastrestart1.util.NoInternetException
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class NetworkConnectionInterceptor(
-    context: Context
-) : Interceptor {
+class NetworkConnectionInterceptor(context: Context) : Interceptor {
 
     private val applicationContext = context.applicationContext
 
     override fun intercept(chain: Interceptor.Chain): Response {
+
+        var request = chain.request()
+        request = request.newBuilder()
+            .header("Accept", "application/json")
+            .header("Content-Type", "application/json")
+            .build()
         if (!isInternetAvailable())
             throw NoInternetException("Make sure you have an active data connection")
-        return chain.proceed(chain.request())
+        return chain.proceed(request)
     }
 
     private fun isInternetAvailable(): Boolean {

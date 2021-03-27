@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    >
+    <data>
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.MaterialComponents.Light"
+        app:contentPadding="10dp"
+        android:layout_margin="3dp"
+        app:cardElevation="2dp"
+        app:cardMaxElevation="3dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                 android:textColor="@color/clrBlack"
+                android:textStyle="italic"
+                android:layout_margin="5dp"
+                android:textSize="20sp"
+                android:id="@+id/report_name"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                 android:textColor="@color/clrMaroon"
+                android:textStyle="bold"
+                android:layout_margin="5dp"
+                android:textSize="15sp"
+                android:id="@+id/report_type"
+                />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

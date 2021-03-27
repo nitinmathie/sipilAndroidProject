@@ -27,17 +27,17 @@ class TaskFragmentAdapter(
                     TaskFragment()
                 }
                 1 -> {
-                    PlanStatusFragment()
+                    AssignTaskFragment()
                 }
                 2 -> {
-                    PlannerDashboardFragment()
+                    ReportTaskFragment()
                 }
-                3 -> {
+              /*  3 -> {
                     AssignTaskFragment()
                 }
                 4 -> {
                     ReportTaskFragment()
-                }
+                }*/
 
                 else ->{
                     TaskFragment()

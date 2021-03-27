@@ -14,6 +14,7 @@ xmlns:tools="http://schemas.android.com/tools">
         android:stateListAnimator="@null">
         <Button
             android:id="@+id/btn_assign_daily_task"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -43,6 +44,19 @@ xmlns:tools="http://schemas.android.com/tools">
             android:layout_gravity="center|center_horizontal|center_vertical"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/tv_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center|center_horizontal|center_vertical"
+            android:text="Create Task"
+            android:textColor="@color/colorAccent"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
     </RelativeLayout>
 </LinearLayout>
 

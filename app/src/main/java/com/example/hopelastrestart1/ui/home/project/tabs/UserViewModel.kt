@@ -19,7 +19,10 @@ class UserViewModel(private val repository: OrganizationUserRepository): ViewMod
     suspend fun users1(
         username: String,
         organization_name: String,
-    ) = withContext(Dispatchers.IO) { repository.getUsers(username, organization_name) }
+    ) = withContext(Dispatchers.IO) {
+      repository.getUsers(username, organization_name)
+
+  }
     suspend fun organizationUsers(
         username: String,
         organization_name: String,

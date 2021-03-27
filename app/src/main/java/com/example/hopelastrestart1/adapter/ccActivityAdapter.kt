@@ -15,16 +15,16 @@ import kotlinx.android.synthetic.main.item_organization.view.name
 
 class ccActivityAdapter(
     val allActs: List<Activit>,
-    val mctx : Context,
+    val mctx: Context,
     val cellClickListener: CellClickListener_CcAct,
     val username: String,
     val organization_name: String,
     val project_name: String,
     val plan_id: String,
-    val task_id: String, val from_node: String, val to_node :String
-):RecyclerView.Adapter<ccActivityAdapter.ViewHolder>(){
+    val task_id: String, val from_node: String, val to_node: String
+) : RecyclerView.Adapter<ccActivityAdapter.ViewHolder>() {
 
-   // private val mCtx: Context? = null
+    // private val mCtx: Context? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
             : ViewHolder {
         val v: View = LayoutInflater.from(parent.context)
@@ -35,6 +35,7 @@ class ccActivityAdapter(
     override fun getItemCount(): Int {
         return allActs.size
     }
+
     override fun getItemId(position: Int): Long {
         return super.getItemId(position)
     }
@@ -42,7 +43,8 @@ class ccActivityAdapter(
     override fun getItemViewType(position: Int): Int {
         return super.getItemViewType(position)
     }
-    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val id = itemView.name
         val name = itemView.type
@@ -53,69 +55,85 @@ class ccActivityAdapter(
         val item = allActs[position]
         holder?.name.text = item.activity_name.toString()
         holder?.id.text = item.activity_type.toString()
-        holder.buttonViewOption.setOnClickListener(View.OnClickListener {
-            //creating a popup menu
-//issue with context
-            //creating a popup menu
-            val popup = PopupMenu(mctx, holder.buttonViewOption)
-            //inflating menu from xml resource
-            //inflating menu from xml resource
-            popup.inflate(R.menu.activity_rv_menu)
-            //adding click listener
-            //adding click listener
-            popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
-                override fun onMenuItemClick(i: MenuItem): Boolean {
-                    when (i.getItemId()) {
-                        R.id.assign -> {
-                            cellClickListener.onCellClickListener(
-                                item,
-                                username,
-                                organization_name,
-                                project_name,
-                                plan_id,
-                                task_id,
-                                from_node, to_node,
-                                true,
-                            )
-                        }
-                        R.id.update -> {
-                            cellClickListener.onCellClickListener(
-                                item,
-                                username,
-                                organization_name,
-                                project_name,
-                                plan_id,
-                                task_id,
-                                from_node, to_node,
-                                false
-                            )
-                        }
+        holder.itemView.setOnClickListener {
+            cellClickListener.onCellClickListener(
+                item,
+                username,
+                organization_name,
+                project_name,
+                plan_id,
+                task_id,
+                from_node,
+                to_node,
+                false
+            )
 
-                    }
-                    return false
-                }
-            })
-            //displaying the popup
-            //displaying the popup
-            popup.show()
 
-        })
+        }
+
+        /*   holder.buttonViewOption.setOnClickListener(View.OnClickListener {
+               //creating a popup menu
+   //issue with context
+               //creating a popup menu
+               val popup = PopupMenu(mctx, holder.buttonViewOption)
+               //inflating menu from xml resource
+               //inflating menu from xml resource
+               popup.inflate(R.menu.activity_rv_menu)
+               //adding click listener
+               //adding click listener
+               popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
+                   override fun onMenuItemClick(i: MenuItem): Boolean {
+                       when (i.getItemId()) {
+                           R.id.assign -> {
+                               cellClickListener.onCellClickListener(
+                                   item,
+                                   username,
+                                   organization_name,
+                                   project_name,
+                                   plan_id,
+                                   task_id,
+                                   from_node, to_node,
+                                   true,
+                               )
+                           }
+                           R.id.update -> {
+                               cellClickListener.onCellClickListener(
+                                   item,
+                                   username,
+                                   organization_name,
+                                   project_name,
+                                   plan_id,
+                                   task_id,
+                                   from_node, to_node,
+                                   false
+                               )
+                           }
+
+                       }
+                       return false
+                   }
+               })
+               //displaying the popup
+               //displaying the popup
+               popup.show()
+
+           })*/
 
     }
 }
 
-interface  CellClickListener_CcAct {
-   // abstract val activity: Context?
+interface CellClickListener_CcAct {
+    // abstract val activity: Context?
     fun onCellClickListener(
-       activity: Activit, username: String,
-       organization_name: String,
-       project_name: String,
-       plan_id: String,
-       task_id: String,
-       from_node: String,
-       to_node: String,
-       assign: Boolean
+        activity: Activit, username: String,
+        organization_name: String,
+        project_name: String,
+        plan_id: String,
+        task_id: String,
+        from_node: String,
+        to_node: String,
+        assign: Boolean
 
-   )
+    )
 
 }

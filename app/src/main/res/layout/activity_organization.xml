@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar1"
-            android:background="?colorPrimary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -23,26 +18,38 @@
                 android:id="@+id/fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_input_add"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="end|bottom"
                 android:layout_margin="16dp"
-                />
+                android:src="@android:drawable/ic_input_add" />
 
             <androidx.recyclerview.widget.RecyclerView
-       android:id = "@+id/recyclerview"
-       tools:listitem="@layout/item_organization"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"/>
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="45dp"
+                tools:listitem="@layout/item_organization" />
 
             <ProgressBar
                 android:id="@+id/progress_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|center_horizontal|center_vertical"
+                android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"/>
+                android:layout_gravity="center|center_horizontal|center_vertical" />
+
+            <TextView
+                android:id="@+id/tv_create_org"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="Create Organization"
+                android:visibility="gone"
+                android:textColor="@color/colorAccent"
+                android:textSize="30sp"
+                android:textStyle="bold" />
         </RelativeLayout>
 
     </LinearLayout>

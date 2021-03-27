@@ -50,7 +50,7 @@ class SeActivitiesFragment : Fragment(), KodeinAware, CellClickListener_Assigned
         val project_name = requireActivity().intent.getStringExtra("project_name")
         val plan_name = requireActivity().intent.getStringExtra("plan_name")
         val context = rootView.getContext();
-        val tasks by lazyDeferred {
+     /*   val tasks by lazyDeferred {
             viewModel.assignTasks2(username, organization_name, project_name, plan_name )
         }
         Coroutines.main {
@@ -67,7 +67,10 @@ class SeActivitiesFragment : Fragment(), KodeinAware, CellClickListener_Assigned
                     organization_name,
                     project_name )
             })
-        }
+        }*/
+
+
+
 ///
         return rootView
     }
@@ -139,7 +142,6 @@ class SeActivitiesFragment : Fragment(), KodeinAware, CellClickListener_Assigned
             intent.putExtra("username", username)
             intent.putExtra("organization_name", organization_name)
             intent.putExtra("project_name", project_name)
-
             startActivity(intent)
         }
     }

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/clrWhite"
+        tools:context=".ui.home.profile.UpdateProfileActivity">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <EditText
+                android:id="@+id/et_updp_frst_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/edit_text_round_gray_background"
+                android:drawableLeft="@drawable/ic_baseline_person_pin_circle_24"
+                android:drawablePadding="16dp"
+                android:hint="@string/frst_name"
+                android:editable="true"
+                android:inputType="textEmailAddress"
+                android:padding="12dp" />
+
+            <EditText
+                android:id="@+id/et_updp_last_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/edit_text_round_gray_background"
+                android:drawableLeft="@drawable/ic_baseline_person_pin_circle_24"
+                android:drawablePadding="16dp"
+                android:hint="@string/last_name"
+                 android:padding="12dp" />
+
+            <EditText
+                android:id="@+id/et_updp_addressline_one"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/edit_text_round_gray_background"
+                android:drawableLeft="@drawable/ic_outline_location_city_24"
+                android:drawablePadding="16dp"
+                android:hint="@string/org_address1"
+                android:inputType="text"
+                android:padding="12dp" />
+
+
+            <EditText
+                android:id="@+id/et_updp_addressline_two"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/edit_text_round_gray_background"
+                android:drawableLeft="@drawable/ic_outline_location_city_24"
+                android:drawablePadding="16dp"
+                android:hint="@string/org_address2"
+                android:inputType="text"
+                android:padding="12dp" />
+
+            <EditText
+                android:id="@+id/et_updp_pincode"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/edit_text_round_gray_background"
+                android:drawableLeft="@drawable/ic_outline_location_on_24"
+                android:drawablePadding="16dp"
+                android:hint="@string/org_pincode"
+                android:inputType="text"
+                android:padding="12dp" />
+
+
+            <Button
+                android:id="@+id/btn_updp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/btn_rounded_corners"
+                android:text="Update"
+                android:textAllCaps="false"
+                android:textColor="@color/clrWhite" />
+
+
+
+        </LinearLayout>
+
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:visibility="invisible" />
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
+
+
+
+
