@@ -96,6 +96,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:layout_marginRight="10dp"
                     android:background="@drawable/edit_text_round_gray_background"
                     android:gravity="center"
                     android:hint="Enter Count"
@@ -109,6 +110,7 @@
                 android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -125,8 +127,10 @@
                 <EditText
                     android:id="@+id/et_unskilled_count"
                     android:layout_width="0dp"
+                    android:layout_marginRight="10dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:inputType="number"
                     android:background="@drawable/edit_text_round_gray_background"
                     android:hint="Enter Count"
                     android:textAlignment="center"

@@ -16,6 +16,7 @@ import com.example.hopelastrestart1.adapter.ccActivityAdapter
 import com.example.hopelastrestart1.api.ApiService
 import com.example.hopelastrestart1.base.ViewModelFactory
 import com.example.hopelastrestart1.data.db.entities.Activit
+import com.example.hopelastrestart1.data.db.entities.Task
 import com.example.hopelastrestart1.databinding.ActivityActivitiesBinding
 import com.example.hopelastrestart1.model.GetTaskActivities
 import com.example.hopelastrestart1.ui.planEngineer.Task.AssignDailyTask.AssignTaskActivity
@@ -33,7 +34,7 @@ class ActivitiesActivity : BaseActivity(), KodeinAware, CellClickListener_CcAct 
     private val factory: TaskViewModelFactory by instance()
     private lateinit var viewModel: TaskViewModel
     lateinit var binding: ActivityActivitiesBinding
-    lateinit var task_name: String
+    lateinit var task: Task
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +43,7 @@ class ActivitiesActivity : BaseActivity(), KodeinAware, CellClickListener_CcAct 
         var contentFrameLayout = findViewById(R.id.container) as FrameLayout
         binding = ActivityActivitiesBinding.inflate(layoutInflater)
         contentFrameLayout.addView(binding!!.root)
+        title = "Activities"
         //   var recycleview = findViewById<RecyclerView>(R.id.recyclerview_allActs)
         viewModel = ViewModelProviders.of(
             this,
@@ -50,14 +52,17 @@ class ActivitiesActivity : BaseActivity(), KodeinAware, CellClickListener_CcAct 
         val linearLayoutManager = LinearLayoutManager(
             this, RecyclerView.VERTICAL, false
         )
+
+        task = GlobalData.getInstance.task!!
+
         binding.recyclerviewAllActs.layoutManager = linearLayoutManager
-        val username = intent.getStringExtra("username")
-        val organization_name = intent.getStringExtra("organization_name")
-        val project_name = intent.getStringExtra("project_name")
-        val plan_name = intent.getStringExtra("plan_name")
-        task_name = intent.getStringExtra("task_name")
-        val from_node = GlobalData.getInstance.task?.task_startnode
-        val to_node = GlobalData.getInstance.task?.task_endnode
+        /* val username = intent.getStringExtra("username")
+         val organization_name = intent.getStringExtra("organization_name")
+         val project_name = intent.getStringExtra("project_name")
+         val plan_name = intent.getStringExtra("plan_name")
+         task_name = intent.getStringExtra("task_name")
+         val from_node = GlobalData.getInstance.task?.task_startnode
+         val to_node = GlobalData.getInstance.task?.task_endnode*/
         val allActs: List<Activit>
         allActs = emptyList();
 
@@ -65,74 +70,22 @@ class ActivitiesActivity : BaseActivity(), KodeinAware, CellClickListener_CcAct 
         val getTaskActivities = GetTaskActivities(
             GlobalData.getInstance.userEmail!!,
             GlobalData.getInstance.token!!,
-            organization_name, project_name, plan_name, task_name
+            GlobalData.getInstance.orgName.toString(),
+            GlobalData.getInstance.projectName.toString(),
+            GlobalData.getInstance.planName.toString(), task.task_name.toString()
         )
-        SetUpObserver(
-            getTaskActivities,
-            username,
-            organization_name,
-            project_name,
-            plan_name,
-            task_name
-            , from_node, to_node
-        )
-
-        /*  val allActs by lazyDeferred {
-              viewModel.activities1(username, organization_name, project_name, plan_id, task_id)
-          }
-          Coroutines.main {
-              progress_bar.show()
-              val orgs = allActs.await()
-              orgs.observe(this, Observer {
-                  progress_bar.hide()
-                //  adapter = CustomAdapter(it, this)
-                 // recycleview.setAdapter(adapter)
-                  recycleview.adapter = ccActivityAdapter(
-                      it,
-                      this,
-                      this,
-                      username,
-                      organization_name,
-                      project_name,
-                      plan_id,
-                      task_id, from_node, to_node
-                  )
-                  //        cc_task_id.setText(it.ccbreaking_activity_id)
-                  //        cc_startnode.setText(it.ccb_upvc_350)
-                  // initRecyclerView(it.toOrganizationItem())
-              })
-          }*/
-
+        getActivities(getTaskActivities)
     }
 
     override fun onCellClickListener(
         activity: Activit,
-        username: String,
-        organization_name: String,
-        project_name: String,
-        plan_id: String,
-        task_id: String,
-        from_node: String,
-        to_node: String,
         assign: Boolean
     ) {
+        GlobalData.getInstance.activity = activity
         if (activity.activity_type == "CC Breaking") {
             // if (assign == false) {
             val intent = Intent(this, TaskccActivity::class.java)
-            GlobalData.getInstance.activity = activity
-            intent.putExtra("activity_id", activity.activity_id)
-            intent.putExtra("activity_name", activity.activity_name)
-            intent.putExtra("activity_type", activity.activity_type)
-            intent.putExtra("task_id", task_id)
-            intent.putExtra("from_node", from_node)
-            intent.putExtra("to_node", to_node)
-            intent.putExtra("task_name", task_name)
-            intent.putExtra("username", username)
-            intent.putExtra("organization_name", organization_name)
-            intent.putExtra("project_name", project_name)
-            intent.putExtra("plan_name", plan_id)
             startActivity(intent)
-
 
             /* } else {
                  val intent = Intent(this, AssignTaskActivity::class.java)
@@ -151,64 +104,64 @@ class ActivitiesActivity : BaseActivity(), KodeinAware, CellClickListener_CcAct 
              }*/
         } else if (activity.activity_type == "Pipeline") {
             val intent = Intent(this, TaskpipeActivity::class.java)
-            intent.putExtra("activity_id", activity.activity_id)
-            intent.putExtra("activity_name", activity.activity_name)
-            intent.putExtra("activity_type", activity.activity_type)
-            intent.putExtra("task_id", task_id)
-            intent.putExtra("task_name", task_name)
-            GlobalData.getInstance.activity = activity
-            intent.putExtra("username", username)
-            intent.putExtra("organization_name", organization_name)
-            intent.putExtra("project_name", project_name)
-            intent.putExtra("plan_name", plan_id)
+            /*   intent.putExtra("activity_id", activity.activity_id)
+               intent.putExtra("activity_name", activity.activity_name)
+               intent.putExtra("activity_type", activity.activity_type)
+               intent.putExtra("task_id", task_id)
+               intent.putExtra("task_name", task.task_name)
+               GlobalData.getInstance.activity = activity
+               intent.putExtra("username", username)
+               intent.putExtra("organization_name", organization_name)
+               intent.putExtra("project_name", project_name)
+               intent.putExtra("plan_name", plan_id)*/
             startActivity(intent)
         } else if (activity.activity_type == "Manhole Erection") {
             val intent = Intent(this, TaskmhActivity::class.java)
-            intent.putExtra("activity_id", activity.activity_id)
+            /*intent.putExtra("activity_id", activity.activity_id)
             intent.putExtra("activity_name", activity.activity_name)
             intent.putExtra("activity_type", activity.activity_type)
             intent.putExtra("task_id", task_id)
-            intent.putExtra("task_name", task_name)
+            intent.putExtra("task_name", task.task_name)
             intent.putExtra("username", username)
             intent.putExtra("organization_name", organization_name)
             intent.putExtra("project_name", project_name)
-            intent.putExtra("plan_name", plan_id)
+            intent.putExtra("plan_name", plan_id)*/
             startActivity(intent)
         } else if (activity.activity_type == "House Service Connection") {
             val intent = Intent(this, TaskhscActivity::class.java)
-            intent.putExtra("activity_id", activity.activity_id)
-            intent.putExtra("activity_name", activity.activity_name)
-            intent.putExtra("task_name", task_name)
-            intent.putExtra("activity_type", activity.activity_type)
-            intent.putExtra("task_id", task_id)
-            intent.putExtra("username", username)
-            intent.putExtra("organization_name", organization_name)
-            intent.putExtra("project_name", project_name)
-            intent.putExtra("plan_name", plan_id)
+            /* intent.putExtra("activity_id", activity.activity_id)
+             intent.putExtra("activity_name", activity.activity_name)
+             intent.putExtra("task_name", task.task_name)
+             intent.putExtra("activity_type", activity.activity_type)
+             intent.putExtra("task_id", task_id)
+             intent.putExtra("username", username)
+             intent.putExtra("organization_name", organization_name)
+             intent.putExtra("project_name", project_name)
+             intent.putExtra("plan_name", plan_id)*/
             startActivity(intent)
         } else if (activity.activity_type == "House Keeping") {
             val intent = Intent(this, TaskhkActivity::class.java)
-            intent.putExtra("activity_id", activity.activity_id)
-            intent.putExtra("activity_name", activity.activity_name)
-            intent.putExtra("activity_type", activity.activity_type)
-            intent.putExtra("task_id", task_id)
-            intent.putExtra("username", username)
-            intent.putExtra("task_name", task_name)
-            intent.putExtra("organization_name", organization_name)
-            intent.putExtra("project_name", project_name)
-            intent.putExtra("plan_name", plan_id)
+            /* intent.putExtra("activity_id", activity.activity_id)
+             intent.putExtra("activity_name", activity.activity_name)
+             intent.putExtra("activity_type", activity.activity_type)
+             intent.putExtra("task_id", task_id)
+             intent.putExtra("username", username)
+             intent.putExtra("task_name", task.task_name)
+             intent.putExtra("organization_name", organization_name)
+             intent.putExtra("project_name", project_name)
+             intent.putExtra("plan_name", plan_id)*/
             startActivity(intent)
         } else if (activity.activity_type == "Road Restoration") {
             val intent = Intent(this, TaskRoadRestorationActivity::class.java)
-            intent.putExtra("activity_id", activity.activity_id)
+            /*intent.putExtra("activity_id", activity.activity_id)
             intent.putExtra("activity_name", activity.activity_name)
             intent.putExtra("activity_type", activity.activity_type)
             intent.putExtra("task_id", task_id)
             intent.putExtra("username", username)
-            intent.putExtra("task_name", task_name)
+            intent.putExtra("task_name", task.task_name)
             intent.putExtra("organization_name", organization_name)
             intent.putExtra("project_name", project_name)
-            intent.putExtra("plan_name", plan_id)
+            intent.putExtra("plan_name", plan_id)*/
             startActivity(intent)
         }
 
@@ -224,15 +177,8 @@ class ActivitiesActivity : BaseActivity(), KodeinAware, CellClickListener_CcAct 
     }
 
 
-    private fun SetUpObserver(
-        getTaskActivities: GetTaskActivities,
-        username: String?,
-        organizationName: String?,
-        projectName: String?,
-        planName: String?,
-        taskName: String?,
-        toNode: String?,
-        fromNode: String?
+    private fun getActivities(
+        getTaskActivities: GetTaskActivities
     ) {
         viewModel.getTaskActivites(getTaskActivities).observe(this, Observer {
             it.let { resource ->
@@ -245,12 +191,8 @@ class ActivitiesActivity : BaseActivity(), KodeinAware, CellClickListener_CcAct 
                                 activities.body()!!.task_activities,
                                 this,
                                 this,
-                                username!!,
-                                organizationName!!,
-                                projectName!!,
-                                planName!!,
-                                taskName!!, toNode!!, fromNode!!
-                            )
+
+                                )
                         }
                     }
                     Status.ERROR -> {

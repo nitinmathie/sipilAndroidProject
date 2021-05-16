@@ -158,11 +158,11 @@
                 <Button
                     android:id="@+id/button_add_store"
                     android:layout_width="150dp"
-                    android:layout_marginTop="25dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="25dp"
                     android:background="@drawable/btn_rounded_corners"
-                    android:text="Create Project"
+                    android:text="Add Store"
                     android:textAllCaps="false"
                     android:textColor="@color/clrWhite"
                     android:textStyle="bold" />

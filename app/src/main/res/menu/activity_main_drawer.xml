@@ -17,6 +17,17 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_projects" />
         <item
+            android:id="@+id/nav_adduser"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/add_user"
+            android:visible="false" />
+        <item
+            android:id="@+id/nav_addstore"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/add_store"
+            android:visible="false" />
+
+        <item
             android:id="@+id/nav_chagepwd"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_change_password" />
