@@ -14,10 +14,12 @@ import com.example.hopelastrestart1.databinding.ActivitySiteEngTaskMhBinding
 import com.example.hopelastrestart1.model.MHWork
 import com.example.hopelastrestart1.model.Skill
 import com.example.hopelastrestart1.model.SubmitTaskReport
+import com.example.hopelastrestart1.model.TaskWork
 import com.example.hopelastrestart1.ui.planEngineer.Task.tabs.TaskViewModelFactory
 import com.example.hopelastrestart1.util.Status
 import com.example.hopelastrestart1.view.BaseActivity
 import com.example.hopelastrestart1.viewmodel.TaskViewModel
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import org.json.JSONObject
@@ -40,7 +42,10 @@ class SiteEngTaskmhActivity() : BaseActivity(), KodeinAware {
             this,
             ViewModelFactory(RetrofitBuilder.apiClient().create(ApiService::class.java))
         )
-            .get(TaskViewModel::class.java)         //ENSURE - the following are passed by previous screen.
+            .get(TaskViewModel::class.java)
+
+        title = "Reports"
+        //ENSURE - the following are passed by previous screen.
         /* val username = intent.getStringExtra("username")
          val organization_name = intent.getStringExtra("organization_name")
          val project_name = intent.getStringExtra("project_name")
@@ -91,15 +96,17 @@ class SiteEngTaskmhActivity() : BaseActivity(), KodeinAware {
                 consolidation,
                 removal_excess_soil
             )
-            val Gson = Gson()
-            val json = Gson.toJson(mhwork)
-            val obj = JSONObject(json)
-            val skill = Skill(obj)
 
+            val oMapper = ObjectMapper()
+            val ccc: MutableMap<*, *>? = oMapper.convertValue(mhwork, MutableMap::class.java)
+            val skill = TaskWork(ccc as HashMap<String, String>)
             val submitMhReport = SubmitTaskReport(
                 GlobalData.getInstance.userEmail!!,
                 GlobalData.getInstance.token!!,
-                "", "", "", "",
+                assignedTask.work?.skilled!!.organization_name,
+                assignedTask.work?.skilled!!.project_name,
+                assignedTask.work?.skilled!!.plan_name,
+                assignedTask.work?.skilled!!.task_name,
                 assignedTask.assigned_activity_id.toString(),
                 assignedTask.sub_activity_name.toString(),
                 assignedTask.activity_type.toString(),
@@ -133,6 +140,7 @@ class SiteEngTaskmhActivity() : BaseActivity(), KodeinAware {
                         resource.data?.let { activities ->
                             activities.body()
                             Toast.makeText(this, "Updated Successfully", Toast.LENGTH_LONG).show()
+                            finish()
                         }
                     }
                     Status.ERROR -> {

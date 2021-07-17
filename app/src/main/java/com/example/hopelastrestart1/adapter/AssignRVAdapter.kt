@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.item_assign_task.view.*
 class AssignRVAdapter(
     val tasks: List<GetAssignedTaskActivitesModel>,
     private val cellClickListener: CellClickListener_Assigntask,
-    val username: String, val organization_name: String,
+    val organization_name: String,
     val project_name: String, val plan_name: String
 ) : RecyclerView.Adapter<AssignRVAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
@@ -46,16 +46,15 @@ class AssignRVAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = tasks[position]
-        holder?.name.text = item.activity_name.toString()
-        holder?.id.text = item.activity_task_id.toString()
-        holder?.sub_activity_name.text = item.sub_activity_name.toString()
-        holder?.assigned_by.text = item.assigned_by.toString()
-        holder?.assigned_to.text = item.assigned_to.toString()
+        holder?.name.append(item.activity_name.toString())
+        holder?.id.append(item.work!!.skilled!!.organization_name)
+        holder?.sub_activity_name.append(item.sub_activity_name.toString())
+        holder?.assigned_by.append(item.assigned_by.toString())
+        holder?.assigned_to.append(item.assigned_to.toString())
 
         holder.itemView.setOnClickListener {
             cellClickListener.onCellClickListener(
                 item,
-                username,
                 organization_name,
                 project_name,
                 plan_name
@@ -67,7 +66,6 @@ class AssignRVAdapter(
 interface CellClickListener_Assigntask {
     fun onCellClickListener(
         task: GetAssignedTaskActivitesModel,
-        username: String,
         organization_name: String,
         project_name: String,
         plan_name: String

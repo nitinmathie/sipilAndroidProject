@@ -17,11 +17,6 @@ class ccActivityAdapter(
     val allActs: List<Activit>,
     val mctx: Context,
     val cellClickListener: CellClickListener_CcAct,
-    val username: String,
-    val organization_name: String,
-    val project_name: String,
-    val plan_id: String,
-    val task_id: String, val from_node: String, val to_node: String
 ) : RecyclerView.Adapter<ccActivityAdapter.ViewHolder>() {
 
     // private val mCtx: Context? = null
@@ -58,13 +53,6 @@ class ccActivityAdapter(
         holder.itemView.setOnClickListener {
             cellClickListener.onCellClickListener(
                 item,
-                username,
-                organization_name,
-                project_name,
-                plan_id,
-                task_id,
-                from_node,
-                to_node,
                 false
             )
 
@@ -125,13 +113,7 @@ class ccActivityAdapter(
 interface CellClickListener_CcAct {
     // abstract val activity: Context?
     fun onCellClickListener(
-        activity: Activit, username: String,
-        organization_name: String,
-        project_name: String,
-        plan_id: String,
-        task_id: String,
-        from_node: String,
-        to_node: String,
+        activity: Activit,
         assign: Boolean
 
     )

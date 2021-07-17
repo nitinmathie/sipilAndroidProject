@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
 
     >
+
     <data>
 
     </data>
@@ -12,35 +13,70 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.MaterialComponents.Light"
-        app:contentPadding="10dp"
         android:layout_margin="3dp"
+        android:theme="@style/Theme.MaterialComponents.Light"
         app:cardElevation="2dp"
-        app:cardMaxElevation="3dp">
+        app:cardMaxElevation="3dp"
+        app:contentPadding="10dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                 android:textColor="@color/clrBlack"
-                android:textStyle="italic"
-                android:layout_margin="5dp"
-                android:textSize="20sp"
                 android:id="@+id/report_name"
-                />
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                 android:textColor="@color/clrMaroon"
-                android:textStyle="bold"
                 android:layout_margin="5dp"
-                android:textSize="15sp"
+                android:textColor="@color/clrBlack"
+                android:textSize="20sp"
+                android:textStyle="italic" />
+
+            <TextView
                 android:id="@+id/report_type"
-                />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textColor="@color/clrMaroon"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/ll_apporve_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/approve_report"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_rounded_corners"
+                    android:backgroundTint="@color/green"
+                    android:text="Approve"
+                    android:textAllCaps="false"
+                    android:textColor="@color/clrWhite"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/reject_report"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_rounded_corners"
+                    android:backgroundTint="@color/clrMaroon"
+                    android:text="Reject"
+                    android:textAllCaps="false"
+                    android:textColor="@color/clrWhite"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
+
 
     </com.google.android.material.card.MaterialCardView>
 

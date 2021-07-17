@@ -15,6 +15,7 @@ import com.example.hopelastrestart1.GlobalData
 import com.example.hopelastrestart1.api.ApiService
 import com.example.hopelastrestart1.base.ViewModelFactory
 import com.example.hopelastrestart1.data.db.entities.Activit
+import com.example.hopelastrestart1.data.db.entities.Task
 import com.example.hopelastrestart1.databinding.ActivityTaskccBinding
 import com.example.hopelastrestart1.databinding.ActivityTaskpipeBinding
 import com.example.hopelastrestart1.model.UpdatePipelineActivity
@@ -37,13 +38,14 @@ class TaskpipeActivity() : BaseActivity(), KodeinAware {
     private val factory: TaskViewModelFactory by instance()
     private lateinit var binding: ActivityTaskpipeBinding
     private lateinit var viewModel: TaskViewModel
-    lateinit var activity: Activit
+    lateinit var task: Task
+    lateinit var activit: Activit
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var contentFrameLayout = findViewById(R.id.container) as FrameLayout
         binding = ActivityTaskpipeBinding.inflate(layoutInflater)
         contentFrameLayout.addView(binding!!.root)
-
+        title = "Activities"
         //    binding = DataBindingUtil.setContentView(this, R.layout.activity_taskpipe)
         // binding = DataBindingUtil.setContentView(this, R.layout.activity_add_organization)
         viewModel = ViewModelProviders.of(
@@ -51,36 +53,10 @@ class TaskpipeActivity() : BaseActivity(), KodeinAware {
             ViewModelFactory(RetrofitBuilder.apiClient().create(ApiService::class.java))
         )
             .get(TaskViewModel::class.java)          //ENSURE - the following are passed by previous screen.
-        val username = intent.getStringExtra("username")
-        val organization_name = intent.getStringExtra("organization_name")
-        val project_name = intent.getStringExtra("project_name")
-        val plan_name = intent.getStringExtra("plan_name")
-        val task_id = intent.getStringExtra("task_id")
-        val task_name = intent.getStringExtra("task_name")
-        val activity_id = intent.getStringExtra("activity_id")
-        val activity_name = intent.getStringExtra("activity_name")
-        //get the existing values
-        /*  val pipeAct by lazyDeferred {
-              viewModel.activitiespipe(username, organization_name, project_name, plan_id, task_id, activity_name)
-          }
-          Coroutines.main {
-              progress_bar.show()
-              val orgs = pipeAct.await()
-              orgs.observe(this, Observer {
-                  progress_bar.hide()
-                  binding.editTextActivityName.setText(it.pipe_activity_name)
-                  binding.editTextStartedOn.setText(it.started_on)
-                  binding.editTextBedding.setText(it.bedding)
-                  binding.editTextJointFilling.setText(it.back_filling)
-                  binding.editTextLaying.setText(it.laying)
-                  binding.editTextPipeStatus.setText(it.status)
-                  binding.editTextPipelineTrench.setText(it.trenching_pipeline)
-                  binding.editTextPipejointing.setText(it.pipe_jointing)
-                  binding.editTextPipeStatus.setText(it.status)
-                  // it.size.toString()
-                  // initRecyclerView(it.toOrganizationItem())
-              })
-          }*/
+
+        task = GlobalData.getInstance.task!!
+        activit = GlobalData.getInstance.activity!!
+
         binding.buttonUpdatePipeActivity.setOnClickListener {
             val activity_name = binding.editTextActivityName.text.toString().trim()
             val trenching_pipeline = binding.editTextPipelineTrench.text.toString().trim()
@@ -99,13 +75,13 @@ class TaskpipeActivity() : BaseActivity(), KodeinAware {
             val updateActivity = UpdatePipelineActivity(
                 GlobalData.getInstance.userEmail!!,
                 GlobalData.getInstance.token!!,
-                organization_name,
-                project_name,
-                plan_name,
-                task_name,
-                activity_name,
-                task_id,
-                activity_name,
+                GlobalData.getInstance.orgName.toString(),
+                GlobalData.getInstance.projectName.toString(),
+                GlobalData.getInstance.planName.toString(),
+                task.task_name.toString(),
+                activit.activity_name.toString(),
+                task.task_id.toString(),
+                activit.activity_name.toString(),
                 trenching_pipeline,
                 bedding,
                 laying,
@@ -143,13 +119,13 @@ class TaskpipeActivity() : BaseActivity(), KodeinAware {
             val updateActivity = UpdatePipelineActivity(
                 GlobalData.getInstance.userEmail!!,
                 GlobalData.getInstance.token!!,
-                organization_name,
-                project_name,
-                plan_name,
-                task_name,
-                activity_name,
-                task_id,
-                activity_name,
+                GlobalData.getInstance.orgName.toString(),
+                GlobalData.getInstance.projectName.toString(),
+                GlobalData.getInstance.planName.toString(),
+                task.task_name.toString(),
+                activit.activity_name.toString(),
+                task.task_id.toString(),
+                activit.activity_name.toString(),
                 trenching_pipeline,
                 bedding,
                 laying,
@@ -161,15 +137,8 @@ class TaskpipeActivity() : BaseActivity(), KodeinAware {
                 binding.checkboxRemovalExcessSoil.isChecked
             )
             GlobalData.getInstance.updatePipelineActivity = updateActivity
-
-
             val intent = Intent(this, AssignTaskActivity::class.java)
-            intent.putExtra("username", username)
-            intent.putExtra("organization_name", organization_name)
-            intent.putExtra("project_name", project_name)
-            intent.putExtra("plan_name", plan_name)
-            intent.putExtra("task_id", task_id)
-            intent.putExtra("activity_name", activity_name)
+            GlobalData.getInstance.assignTaskWorkType = "pipe"
             startActivity(intent)
         }
     }

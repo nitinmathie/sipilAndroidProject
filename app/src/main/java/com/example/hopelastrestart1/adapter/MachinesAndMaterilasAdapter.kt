@@ -43,14 +43,16 @@ class MachinesAndMaterilasAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = machines[position]
 
-        holder?.name.text = item.machineName.toString()
-        holder?.quantity.text = item.quantity.toString()
         if (username.equals("updated")) {
+            holder?.name.text = "Name :" + item.machineName.toString()
+            holder?.quantity.text = "Quantity :" + item.quantity.toString()
             holder.close.visibility = View.INVISIBLE
             holder.close.setOnClickListener {
                 cellClickListener.onCellClickListener(item, username)
             }
         } else {
+            holder?.name.text = item.machineName.toString()
+            holder?.quantity.text = item.quantity.toString()
             holder.close.visibility = View.VISIBLE
             holder.close.setOnClickListener {
                 cellClickListener.onCellClickListener(item, username)

@@ -8,5 +8,6 @@
     <color name="clr_lite">#B5CDDF</color>
     <color name="clrWhite">#FFFFFF</color>
     <color name="clrLightBlue">#3faace</color>
+    <color name="green">#008000</color>
     <color name="clrBlack">#000000</color>
  </resources>

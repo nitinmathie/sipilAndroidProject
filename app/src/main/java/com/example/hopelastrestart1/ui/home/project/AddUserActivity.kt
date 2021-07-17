@@ -41,13 +41,14 @@ class AddUserActivity() : BaseActivity(), KodeinAware {
     private val factory: UserViewModelFactory by instance()
     private lateinit var binding: ActivityAddUserBinding
     private lateinit var viewModel: UserViewModel
-    lateinit var organization_name: String
     private lateinit var viewModel1: ProjectViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var contentFrameLayout = findViewById(R.id.container) as FrameLayout
         binding = ActivityAddUserBinding.inflate(layoutInflater)
         contentFrameLayout.addView(binding!!.root)
+
+        title = "Add User"
         //   binding = DataBindingUtil.setContentView(this, R.layout.activity_add_user)
         // binding = DataBindingUtil.setContentView(this, R.layout.activity_add_organization)
         //  viewModel = ViewModelProvider(this, factory).get(UserViewModel::class.java)
@@ -57,8 +58,6 @@ class AddUserActivity() : BaseActivity(), KodeinAware {
         ).get(
             UserViewModel::class.java
         )
-        val username = intent.getStringExtra("username")
-        organization_name = intent.getStringExtra("organization_name")
         val projectSpinner = findViewById<Spinner>(R.id.spinner_project)
         val roleSpinner = findViewById<Spinner>(R.id.spinner_role)
         val roles = resources.getStringArray(R.array.user_roles)
@@ -66,16 +65,22 @@ class AddUserActivity() : BaseActivity(), KodeinAware {
         val roles_adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, roles)
         roleSpinner.adapter = roles_adapter
 
-        val projects = GlobalData.getInstance.projects
-        var projectsArray = arrayOf<String>()
 
+        if (GlobalData.getInstance.projects?.size != null) {
+            if (GlobalData.getInstance.projects?.size != 0) {
+                val projects = GlobalData.getInstance.projects
+                var projectsArray = arrayOf<String>()
+                for (element in projects!!) {
+                    projectsArray = append(projectsArray, element.project_name)
+                }
+                val projects_adapter =
+                    ArrayAdapter(this, android.R.layout.simple_spinner_item, projectsArray)
+                projectSpinner.adapter = projects_adapter
+            } else {
 
-        for (element in projects!!) {
-            projectsArray = append(projectsArray, element.project_name)
+            }
         }
-        val projects_adapter =
-            ArrayAdapter(this, android.R.layout.simple_spinner_item, projectsArray)
-        projectSpinner.adapter = projects_adapter
+
 
         binding.buttonAddUser.setOnClickListener {
 
@@ -85,13 +90,15 @@ class AddUserActivity() : BaseActivity(), KodeinAware {
             } else {
 
                 val role: String = roleSpinner.getSelectedItem().toString()
-                val project: String = projectSpinner.getSelectedItem().toString()
+//                val project: String = projectSpinner.getSelectedItem().toString()
                 //val name = binding.editTextName.text.toString().trim()
                 //val email = binding.editTextEmail.text.toString().trim()
                 val addUser = AddUser(
-                    project, GlobalData.getInstance.userEmail!!,
+                    GlobalData.getInstance.projectName!!,
+                    GlobalData.getInstance.userEmail!!,
                     GlobalData.getInstance.token!!,
-                    organization_name, binding.etaddUserEmail.text.toString()
+                    GlobalData.getInstance.orgName.toString(),
+                    binding.etaddUserEmail.text.toString()
                 )
                 addUser(addUser)
                 //     addUser(username, organization_name, name, email, project, role)
@@ -136,19 +143,22 @@ class AddUserActivity() : BaseActivity(), KodeinAware {
 
 
     private fun addUser(addUser: AddUser) {
-
         viewModel.addUser(addUser).observe(this, Observer {
-
             it?.let { response ->
                 when (response.status) {
                     Status.SUCCESS -> {
                         binding.progressBar.hide()
-                         response.data?.let { resp -> (resp.body()) }
-                        val intent = Intent(this, ProjectActivity::class.java)
+                        response.data?.let { resp -> (resp.body()) }
+
+                        if (it.data?.body()?.status_code.toString().equals("200")) {
+                            Toast.makeText(this, "Added Successfully", Toast.LENGTH_LONG).show()
+                            finish()
+                        } else {
+                            Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                        }
                         //intent.putExtra("username", username)
-                        intent.putExtra("organization_name", organization_name)
-                        startActivity(intent)
-                        finish()
+                        //  intent.putExtra("organization_name", organization_name)
+
                     }
                     Status.ERROR -> {
                         binding.progressBar.hide()

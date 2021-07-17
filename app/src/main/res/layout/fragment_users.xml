@@ -37,6 +37,17 @@
                 android:layout_gravity="center|center_horizontal|center_vertical"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"/>
+            <TextView
+                android:id="@+id/tv_create_org"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="Create User"
+                android:visibility="gone"
+                android:textColor="@color/colorAccent"
+                android:textSize="30sp"
+                android:textStyle="bold" />
         </RelativeLayout>
     </LinearLayout>
 

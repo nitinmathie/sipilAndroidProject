@@ -64,18 +64,13 @@ class TaskFragment : Fragment(), KodeinAware, CellClickListener_task {
         ).get(TaskViewModel::class.java)
         val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recycleview.layoutManager = linearLayoutManager
-        username = requireActivity().intent.getStringExtra("username")
+        /*username = requireActivity().intent.getStringExtra("username")
         organization_name = requireActivity().intent.getStringExtra("organization_name")
         project_name = requireActivity().intent.getStringExtra("project_name")
-        plan_name = requireActivity().intent.getStringExtra("plan_name")
+        plan_name = requireActivity().intent.getStringExtra("plan_name")*/
 
 
-        val getTasks = GetTasks(
-            GlobalData.getInstance.userEmail!!,
-            GlobalData.getInstance.token!!,
-            organization_name, project_name, plan_name
-        )
-        setUpObserver(getTasks)
+
 
 
         // val plan_name = requireActivity().intent.getStringExtra("plan_name")
@@ -94,10 +89,6 @@ class TaskFragment : Fragment(), KodeinAware, CellClickListener_task {
         val add = rootView.findViewById<FloatingActionButton>(R.id.fab_task)
         add.setOnClickListener {
             val intent = Intent(activity, AddTaskActivity::class.java)
-            intent.putExtra("username", username)
-            intent.putExtra("organization_name", organization_name)
-            intent.putExtra("project_name", project_name)
-            intent.putExtra("plan_name", plan_name)
             startActivity(intent)
         }
         /* val add1 = rootView.findViewById<Button>(R.id.btn_assign_daily_task)
@@ -134,24 +125,20 @@ class TaskFragment : Fragment(), KodeinAware, CellClickListener_task {
     }
 
     override fun onCellClickListener(
-        task: Task,
-        username: String,
-        organization_name: String,
-        project_name: String,
-        plan_name: String
+        task: Task
     ) {
         val intent = Intent(activity, ActivitiesActivity::class.java)
         GlobalData.getInstance.task = task
-        val plan_name = plan_name.toString()
-        val task_name = (task.task_id).toString()
-        intent.putExtra("task_name", task.task_name)
-        intent.putExtra("from_node", task.task_startnode)
-        intent.putExtra("to_node", task.task_endnode)
-        intent.putExtra("task_id", task_name)
-        intent.putExtra("username", username)
-        intent.putExtra("organization_name", organization_name)
-        intent.putExtra("project_name", project_name)
-        intent.putExtra("plan_name", plan_name)
+        /* val plan_name = plan_name.toString()
+         val taskid = (task.task_id).toString()
+         intent.putExtra("task_name", task.task_name)
+         intent.putExtra("from_node", task.task_startnode)
+         intent.putExtra("to_node", task.task_endnode)
+         intent.putExtra("task_id", taskid)
+         intent.putExtra("username", username)
+         intent.putExtra("organization_name", organization_name)
+         intent.putExtra("project_name", project_name)
+         intent.putExtra("plan_name", plan_name)*/
         startActivity(intent)
     }
 
@@ -163,22 +150,13 @@ class TaskFragment : Fragment(), KodeinAware, CellClickListener_task {
                         progress_bar.visibility = View.GONE
                         resource.data?.let { taskResponse ->
                             response = taskResponse.body()!!
-                            if (response != null) {
-                                if (response.taskinfo != null) {
-                                    if (response.taskinfo!!.size != 0) {
-                                        recycleview.adapter = taskRVAdapter(
-                                            response.taskinfo!!,
-                                            this,
-                                            username,
-                                            organization_name,
-                                            project_name,
-                                            plan_name
-                                        )
+                            if (response.taskinfo != null) {
+                                if (response.taskinfo!!.size != 0) {
+                                    recycleview.adapter = taskRVAdapter(
+                                        response.taskinfo!!,
+                                        this,
+                                    )
 
-                                    } else {
-                                        tvCreate.visibility = View.VISIBLE
-
-                                    }
                                 } else {
                                     tvCreate.visibility = View.VISIBLE
 
@@ -199,6 +177,19 @@ class TaskFragment : Fragment(), KodeinAware, CellClickListener_task {
 
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val getTasks = GetTasks(
+            GlobalData.getInstance.userEmail!!,
+            GlobalData.getInstance.token!!,
+            GlobalData.getInstance.orgName.toString(),
+            GlobalData.getInstance.projectName.toString(),
+            GlobalData.getInstance.planName.toString(),
+
+            )
+        setUpObserver(getTasks)
     }
 }
 

@@ -26,6 +26,7 @@ import com.example.hopelastrestart1.ui.planEngineer.Task.tabs.TaskViewModelFacto
 import com.example.hopelastrestart1.util.*
 import com.example.hopelastrestart1.view.BaseActivity
 import com.example.hopelastrestart1.viewmodel.TaskViewModel
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_organization.*
@@ -49,6 +50,7 @@ class SiteEngTaskccActivity() : BaseActivity(), KodeinAware {
         var contentFrameLayout = findViewById(R.id.container) as FrameLayout
         binding = ActivitySiteEngTaskccBinding.inflate(layoutInflater)
         contentFrameLayout.addView(binding!!.root)
+        title = "Reports"
         //  binding = DataBindingUtil.setContentView(this, R.layout.activity_taskcc)
         // binding = DataBindingUtil.setContentView(this, R.layout.activity_add_organization)
         viewModel = ViewModelProviders.of(
@@ -56,12 +58,22 @@ class SiteEngTaskccActivity() : BaseActivity(), KodeinAware {
             ViewModelFactory(RetrofitBuilder.apiClient().create(ApiService::class.java))
         )
             .get(TaskViewModel::class.java)
+        val assignedTask = GlobalData.getInstance.getAssignedTaskActivitesModel!!
+        binding.tvPipeTrench.text =
+            assignedTask.work!!.skilled!!.ccb_pipeline_trench_500_status
+        binding.tvMaholeArea.text =
+            assignedTask.work!!.skilled!!.ccb_mharea_status.toString()
+        binding.tvUpvc350.text =
+            assignedTask.work!!.skilled!!.ccb_upvc_350
+        binding.tvIc500.text =
+            assignedTask.work!!.skilled!!.ccb_IC_500.toString()
+
         binding.btnSubmit.setOnClickListener {
             val activity_name = binding.editTextActivityName.text.toString().trim()
             val StartedOn = binding.editTextStartedOn.text.toString().trim()
             val pipeTrench = binding.editText500PipelineTrench.text.toString().trim()
             val cc_status = binding.editTextCcStatus.text.toString().trim()
-            val Ic_150 = binding.editTextIc150.text.toString().trim()
+            //   val Ic_150 = binding.editTextIc150.text.toString().trim()
             val mh_area = binding.editTextMharea.text.toString().trim()
             val upvc_300 = binding.editTextUpvc300.text.toString().trim()
             val assignedTask = GlobalData.getInstance.getAssignedTaskActivitesModel!!
@@ -70,20 +82,22 @@ class SiteEngTaskccActivity() : BaseActivity(), KodeinAware {
                 assignedTask.activity_name.toString(),
                 pipeTrench,
                 upvc_300,
-                Ic_150,
+                binding.checkboxIc500.isChecked,
                 binding.checkboxManholeArea.isChecked
             )
             val Gson = Gson()
-            val json = Gson.toJson(ccWork)
-            val obj = JSONObject(json)
-            val skill = Skill(obj)
+            val hashMap = HashMap<String, String>()
+            val oMapper = ObjectMapper()
+
+            val ccc: MutableMap<*, *>? = oMapper.convertValue(ccWork, MutableMap::class.java)
+            val skill = TaskWork(ccc as HashMap<String, String>)
             val submitWorkReportModel = SubmitTaskReport(
                 GlobalData.getInstance.userEmail!!,
                 GlobalData.getInstance.token!!,
-                assignedTask.work?.skilled?.org_name.toString(),
-                assignedTask.work?.skilled?.project_name.toString(),
-                assignedTask.work?.skilled?.plan_name.toString(),
-                assignedTask.work?.skilled?.task_name.toString(),
+                assignedTask.work?.skilled!!.organization_name,
+                assignedTask.work?.skilled!!.project_name,
+                assignedTask.work?.skilled!!.plan_name,
+                assignedTask.work?.skilled!!.task_name,
                 assignedTask.assigned_activity_id.toString(),
                 assignedTask.sub_activity_name.toString(),
                 assignedTask.activity_type.toString(),
@@ -104,9 +118,10 @@ class SiteEngTaskccActivity() : BaseActivity(), KodeinAware {
             it.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
+                        binding.progressBar.hide()
                         resource.data?.let { activities ->
                             activities.body()
-                            Toast.makeText(this, "Updated Successfully", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, "Submit Successfully", Toast.LENGTH_LONG).show()
                             // val intent = Intent(this, ActivitiesActivity::class.java)
                             /*    intent.putExtra("username", username)
                                 intent.putExtra("organization_name", organization_name)
@@ -121,6 +136,7 @@ class SiteEngTaskccActivity() : BaseActivity(), KodeinAware {
                         Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                     }
                     Status.LOADING -> {
+                        binding.progressBar.show()
                     }
                 }
             }

@@ -65,7 +65,18 @@ class UpdateProfileActivity : BaseActivity() {
                 when (resource.status) {
                     Status.SUCCESS -> {
                         progress_bar.visibility = View.GONE
-                        resource.data?.let { projects -> projects.body() }
+                        resource.data?.let { projects ->
+                            projects.body()
+                            if (projects.body()?.status_code.toString().equals("200")) {
+                                Toast.makeText(this, "successfully updated", Toast.LENGTH_LONG)
+                                    .show()
+                                finish()
+                            } else {
+                                Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
+
+                            }
+
+                        }
                     }
                     Status.ERROR -> {
                         Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()

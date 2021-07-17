@@ -7,6 +7,7 @@ import com.example.hopelastrestart1.data.network.responses.PlanResponse
 import com.example.hopelastrestart1.model.AddPlan
 import com.example.hopelastrestart1.model.GetOrgModel
 import com.example.hopelastrestart1.model.GetPlans
+import com.example.hopelastrestart1.model.GetPrjctModel
 import com.example.hopelastrestart1.util.Resource
 import kotlinx.coroutines.Dispatchers
 import retrofit2.Response
@@ -29,6 +30,24 @@ class PlanViewModel(private val apiService: ApiService) : ViewModel() {
         emit(Resource.loading(data = null))
         try {
             emit(Resource.success(data = apiService.getPlans(getPlans)))
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error occured"))
+        }
+    }
+
+    fun getOrgs(getOrgModel: GetOrgModel) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            emit(Resource.success(data = apiService.getOrgs(getOrgModel)))
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error occured"))
+        }
+    }
+
+    fun getProjects(getPrjctModel: GetPrjctModel) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            emit(Resource.success(data = apiService.getProjects(getPrjctModel)))
         } catch (exception: Exception) {
             emit(Resource.error(data = null, message = exception.message ?: "Error occured"))
         }

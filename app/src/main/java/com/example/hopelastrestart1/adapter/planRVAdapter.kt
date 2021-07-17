@@ -5,12 +5,10 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hopelastrestart1.GlobalData
 import com.example.hopelastrestart1.R
 import com.example.hopelastrestart1.data.db.entities.Plan
-import com.example.hopelastrestart1.ui.home.plen.PlenActivity
-import com.example.hopelastrestart1.ui.home.plen.tabs.PlanFragment
 import com.example.hopelastrestart1.ui.planEngineer.Task.TaskActivity
 import kotlinx.android.synthetic.main.item_plan.view.*
 
@@ -55,10 +53,7 @@ class PlanAdapter(
         holder.itemView.setOnClickListener {
             var intent = Intent(context, TaskActivity::class.java)
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra("plan_name", item.plan_name)
-            intent.putExtra("project_name", project_name)
-            intent.putExtra("username", username)
-            intent.putExtra("organization_name", organization_name)
+            GlobalData.getInstance.planName = item.plan_name
             context.startActivity(intent)
             //cellClickListenerPlan.onCellClickListenerPlan(item, username, organization_name, project_name)
         }

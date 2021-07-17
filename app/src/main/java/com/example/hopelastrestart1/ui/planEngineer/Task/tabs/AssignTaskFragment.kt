@@ -40,10 +40,7 @@ class AssignTaskFragment : Fragment(), KodeinAware, CellClickListener_Assigntask
     lateinit var tvCreate: TextView
     lateinit var recycleview: RecyclerView
     lateinit var response: GetAssignedTasksResposne
-    lateinit var plan_name: String
-    lateinit var username: String
-    lateinit var organization_name: String
-    lateinit var project_name: String
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,10 +53,7 @@ class AssignTaskFragment : Fragment(), KodeinAware, CellClickListener_Assigntask
         ).get(TaskViewModel::class.java)
         val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recycleview.layoutManager = linearLayoutManager
-        username = requireActivity().intent.getStringExtra("username")
-        organization_name = requireActivity().intent.getStringExtra("organization_name")
-        project_name = requireActivity().intent.getStringExtra("project_name")
-        plan_name = requireActivity().intent.getStringExtra("plan_name")
+
 
 
         assignedTasks(
@@ -86,10 +80,8 @@ class AssignTaskFragment : Fragment(), KodeinAware, CellClickListener_Assigntask
         add.setOnClickListener {
 
             val intent = Intent(activity, AssignTaskActivity::class.java)
-            intent.putExtra("username", username)
-            intent.putExtra("organization_name", organization_name)
-            intent.putExtra("project_name", project_name)
-            intent.putExtra("plan_name", plan_name)
+            // intent.putExtra("username", username)
+
             startActivity(intent)
         }
         return rootView
@@ -122,10 +114,9 @@ class AssignTaskFragment : Fragment(), KodeinAware, CellClickListener_Assigntask
                                 recycleview.adapter = AssignRVAdapter(
                                     response.assigned_activities!!,
                                     this,
-                                    username,
-                                    organization_name,
-                                    project_name,
-                                    plan_name
+                                    GlobalData.getInstance.orgName.toString(),
+                                    GlobalData.getInstance.projectName.toString(),
+                                    GlobalData.getInstance.planName.toString(),
                                 )
                             }
 
@@ -145,12 +136,11 @@ class AssignTaskFragment : Fragment(), KodeinAware, CellClickListener_Assigntask
 
     override fun onCellClickListener(
         task: GetAssignedTaskActivitesModel,
-        username: String,
         organization_name: String,
         project_name: String,
         plan_name: String
     ) {
-        TODO("Not yet implemented")
+
     }
 }
 

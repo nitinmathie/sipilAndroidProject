@@ -1,0 +1,49 @@
+package com.example.hopelastrestart1.adapter
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.example.hopelastrestart1.R
+import com.example.hopelastrestart1.data.db.entities.Organization
+import kotlinx.android.synthetic.main.item_organization.view.*
+
+class MyOrganizationsAdapter( val organizations: List<Organization>,
+                           private val cellClickListener: MyOrgsItemCellListener):RecyclerView.Adapter<MyOrganizationsAdapter.ViewHolder>(){
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
+            : MyOrganizationsAdapter.ViewHolder {
+        val v: View = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_organization, parent, false)
+        return ViewHolder(v)
+    }
+
+    override fun getItemCount(): Int {
+        return organizations.size
+    }
+    override fun getItemId(position: Int): Long {
+        return super.getItemId(position)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return super.getItemViewType(position)
+    }
+    class ViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
+        val name = itemView.name
+        val email = itemView.createdby
+
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = organizations[position]
+        holder?.name.text = item.organization_name.toString()
+        holder?.email.text = item.organization_email.toString()
+
+        holder.itemView.setOnClickListener {
+            cellClickListener.onCellClickListener(item)
+        }
+    }
+}
+
+interface  MyOrgsItemCellListener {
+    fun onCellClickListener(organization: Organization)
+}

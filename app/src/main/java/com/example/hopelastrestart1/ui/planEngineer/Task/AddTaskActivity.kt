@@ -1,31 +1,21 @@
 package com.example.hopelastrestart1.ui.planEngineer.Task
 
 import com.example.hopelastrestart1.R
-import com.example.hopelastrestart1.ui.home.plen.PlenActivity
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import com.example.hopelastrestart1.GlobalData
 import com.example.hopelastrestart1.api.ApiService
 import com.example.hopelastrestart1.base.ViewModelFactory
 import com.example.hopelastrestart1.databinding.ActivityAddTaskBinding
-import com.example.hopelastrestart1.databinding.ActivityMyOrganizationsBinding
-import com.example.hopelastrestart1.model.AddPlan
 import com.example.hopelastrestart1.model.AddTask
 import com.example.hopelastrestart1.ui.planEngineer.Task.tabs.TaskViewModelFactory
 import com.example.hopelastrestart1.util.*
 import com.example.hopelastrestart1.view.BaseActivity
-import com.example.hopelastrestart1.viewmodel.PlanViewModel
 import com.example.hopelastrestart1.viewmodel.TaskViewModel
-import kotlinx.android.synthetic.main.activity_organization.*
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
@@ -42,7 +32,7 @@ class AddTaskActivity() : BaseActivity(), KodeinAware {
         var contentFrameLayout = findViewById(R.id.container) as FrameLayout
         binding = ActivityAddTaskBinding.inflate(layoutInflater)
         contentFrameLayout.addView(binding!!.root)
-        title="Create Task"
+        title = "Create Task"
         // binding = DataBindingUtil.setContentView(this, R.layout.activity_add_organization)
         //  viewModel = ViewModelProvider(this, factory).get(TaskViewModel::class.java)
         viewModel = ViewModelProviders.of(
@@ -52,15 +42,14 @@ class AddTaskActivity() : BaseActivity(), KodeinAware {
             TaskViewModel
             ::class.java
         )        //ENSURE - the following are passed by previous screen.
-        val username = intent.getStringExtra("username")
-        val organization_name = intent.getStringExtra("organization_name")
-        val project_name = intent.getStringExtra("project_name")
-        val plan_name = intent.getStringExtra("plan_name")
+
         binding.buttonAddTask.setOnClickListener {
             val addTask = AddTask(
                 GlobalData.getInstance.userEmail!!,
                 GlobalData.getInstance.token!!,
-                organization_name, project_name, plan_name,
+                GlobalData.getInstance.orgName.toString(),
+                GlobalData.getInstance.projectName.toString(),
+                GlobalData.getInstance.planName.toString(),
                 binding.editTextTaskName.text.toString(),
                 binding.editTextFromNode.text.toString(),
                 binding.editTextToNode.text.toString(),
@@ -112,22 +101,40 @@ class AddTaskActivity() : BaseActivity(), KodeinAware {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        progress_bar.visibility = View.GONE
+                        binding.progressBar.hide()
                         resource.data?.let { users ->
                             users.body()
                             if (users.body() != null) {
-                                if (users.body() != null) {
+                                if (users.body()?.status_code.toString().equals("200") != null) {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Created Successfully",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                    finish()
                                 } else {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        it.message,
+                                        Toast.LENGTH_LONG
+                                    ).show()
                                 }
                             } else {
+                                Toast.makeText(
+                                    applicationContext,
+                                    it.message,
+                                    Toast.LENGTH_LONG
+                                ).show()
                             }
 
                         }
                     }
                     Status.ERROR -> {
+                        binding.progressBar.hide()
                         Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                     }
                     Status.LOADING -> {
+                        binding.progressBar.show()
                     }
                 }
 

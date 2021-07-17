@@ -45,12 +45,14 @@ class AddPlenActivity() : AppCompatActivity(), KodeinAware {
             ::class.java
         )
         //val username = intent.getStringExtra("username")
-        val organization_name = intent.getStringExtra("organization_name")
-        val project_name = intent.getStringExtra("project_name")
+
         binding.buttonAddPlan.setOnClickListener {
             val addPlan = AddPlan(
-                GlobalData.getInstance.userEmail!!, GlobalData.getInstance.token!!
-                , organization_name, project_name, binding.editTextPlanName.text.toString(),
+                GlobalData.getInstance.userEmail!!,
+                GlobalData.getInstance.token!!,
+                GlobalData.getInstance.orgName.toString(),
+                GlobalData.getInstance.projectName.toString(),
+                binding.editTextPlanName.text.toString(),
                 binding.editTextPlanDescription.text.toString()
             )
             setUpObserver(addPlan)
@@ -111,9 +113,6 @@ class AddPlenActivity() : AppCompatActivity(), KodeinAware {
                                             "Successfully Created",
                                             Toast.LENGTH_LONG
                                         ).show()
-                                        val intent = Intent(this, PlenActivity::class.java)
-                                        //intent.putExtra("username", username)
-                                        startActivity(intent)
                                         finish()
                                     } else {
                                         binding.root.snackbar("Error")

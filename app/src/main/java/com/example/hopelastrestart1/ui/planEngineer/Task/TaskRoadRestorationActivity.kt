@@ -12,6 +12,7 @@ import com.example.hopelastrestart1.R
 import com.example.hopelastrestart1.api.ApiService
 import com.example.hopelastrestart1.base.ViewModelFactory
 import com.example.hopelastrestart1.data.db.entities.Activit
+import com.example.hopelastrestart1.data.db.entities.Task
 import com.example.hopelastrestart1.databinding.ActivityTaskRoadRestorationBinding
 import com.example.hopelastrestart1.databinding.ActivityTaskpipeBinding
 import com.example.hopelastrestart1.model.UpdateRoadRestorationActivity
@@ -29,28 +30,21 @@ class TaskRoadRestorationActivity : BaseActivity(), KodeinAware {
     private val factory: TaskViewModelFactory by instance()
     private lateinit var binding: ActivityTaskRoadRestorationBinding
     private lateinit var viewModel: TaskViewModel
-    lateinit var activity: Activit
+    lateinit var task: Task
+    lateinit var activit: Activit
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var contentFrameLayout = findViewById(R.id.container) as FrameLayout
         binding = ActivityTaskRoadRestorationBinding.inflate(layoutInflater)
         contentFrameLayout.addView(binding!!.root)
-
+        title = "Activities"
         viewModel = ViewModelProviders.of(
             this,
             ViewModelFactory(RetrofitBuilder.apiClient().create(ApiService::class.java))
         )
             .get(TaskViewModel::class.java)
-
-
-        val username = intent.getStringExtra("username")
-        val organization_name = intent.getStringExtra("organization_name")
-        val project_name = intent.getStringExtra("project_name")
-        val plan_name = intent.getStringExtra("plan_name")
-        val task_id = intent.getStringExtra("task_id")
-        val task_name = intent.getStringExtra("task_name")
-        val activity_id = intent.getStringExtra("activity_id")
-        val activity_name = intent.getStringExtra("activity_name")
+        task = GlobalData.getInstance.task!!
+        activit = GlobalData.getInstance.activity!!
 
         binding.buttonUpdateRrActivity.setOnClickListener {
 
@@ -76,13 +70,13 @@ class TaskRoadRestorationActivity : BaseActivity(), KodeinAware {
 
                 GlobalData.getInstance.userEmail!!,
                 GlobalData.getInstance.token!!,
-                organization_name,
-                project_name,
-                plan_name,
-                task_name,
-                activity_name,
-                task_id,
-                activity_name,
+                GlobalData.getInstance.orgName.toString(),
+                GlobalData.getInstance.projectName.toString(),
+                GlobalData.getInstance.planName.toString(),
+                task.task_name.toString(),
+                activit.activity_name.toString(),
+                task.task_id.toString(),
+                activit.activity_name.toString(),
                 pipeTLength,
                 pipeTWidth,
                 pipeFillWithDust,
@@ -127,13 +121,13 @@ class TaskRoadRestorationActivity : BaseActivity(), KodeinAware {
 
                 GlobalData.getInstance.userEmail!!,
                 GlobalData.getInstance.token!!,
-                organization_name,
-                project_name,
-                plan_name,
-                task_name,
-                activity_name,
-                task_id,
-                activity_name,
+                GlobalData.getInstance.orgName.toString(),
+                GlobalData.getInstance.projectName.toString(),
+                GlobalData.getInstance.planName.toString(),
+                task.task_name.toString(),
+                activit.activity_name.toString(),
+                task.task_id.toString(),
+                activit.activity_name.toString(),
                 pipeTLength,
                 pipeTWidth,
                 pipeFillWithDust,
@@ -152,14 +146,8 @@ class TaskRoadRestorationActivity : BaseActivity(), KodeinAware {
 
             )
             GlobalData.getInstance.updateRoadRestorationActivity = updateRRActivity
-
             val intent = Intent(this, AssignTaskActivity::class.java)
-            intent.putExtra("username", username)
-            intent.putExtra("organization_name", organization_name)
-            intent.putExtra("project_name", project_name)
-            intent.putExtra("plan_name", plan_name)
-            intent.putExtra("task_id", task_id)
-            intent.putExtra("activity_name", activity_name)
+            GlobalData.getInstance.assignTaskWorkType="rr"
             startActivity(intent)
         }
 

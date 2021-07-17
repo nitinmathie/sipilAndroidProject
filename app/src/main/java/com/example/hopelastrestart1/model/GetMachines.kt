@@ -26,9 +26,25 @@ data class MachinesQuantity(
     val machineName: String?,
     val quantity: String?
 )
+
 data class MachinesStartAndEndTime(
     val machineName: String?,
     val startTime: String?,
-    val endTime:String?
+    val endTime: String?
+)
+
+data class InvoiceMachines(
+    val machine_name: String?,
+    val machine_quantity: String?,
+    val machine_price: String?,
+    val machine_ownership: String?
+
+)
+
+data class InvoiceMaterial(
+    val material_name: String?,
+    val material_price: String?,
+    val material_unit: String?,
+    val material_quantity: String?
 )
 

@@ -28,16 +28,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
+                android:text="Organization Name :"
                 android:textColor="@color/clrBlack"
-                android:textSize="20sp"
-                android:textStyle="italic" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/task_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="@{org.activity_name}"
+                android:text="Activity Name  :"
                 android:textColor="@color/clrBlack"
                 android:textSize="15sp"
                 android:textStyle="normal" />
@@ -47,6 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
+                android:text="SubActivity Name  :"
                 android:textColor="@color/clrBlack"
                 android:textSize="15sp"
                 android:textStyle="normal" />
@@ -57,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
 
-                android:text="@{org.assigned_to}"
+                android:text="Assigned By  :"
                 android:textColor="@color/clrBlack"
                 android:textSize="15sp"
                 android:textStyle="normal" />
@@ -67,7 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="@{org.assigned_by}"
+                android:text="Assigned To  :"
                 android:textColor="@color/clrBlack"
                 android:textSize="15sp"
                 android:textStyle="normal" />

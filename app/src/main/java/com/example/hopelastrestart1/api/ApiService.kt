@@ -2,6 +2,7 @@ package com.example.hopelastrestart1.api
 
 import com.example.hopelastrestart1.data.network.responses.*
 import com.example.hopelastrestart1.model.*
+import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Headers
@@ -14,6 +15,9 @@ interface ApiService {
 
     @POST("getorganizations")
     suspend fun getOrgs(@Body getOrgModel: GetOrgModel): Response<OrganizationResponse>
+
+    @POST("addorganization")
+    suspend fun addOrganization(@Body addOrgModel: AddOrgModel): Response<OrganizationResponse>
 
     @POST("getprojects")
     suspend fun getProjects(@Body getPrjctModel: GetPrjctModel): Response<ProjectResponse>
@@ -32,7 +36,6 @@ interface ApiService {
 
     @POST("getcurrentuserprofile")
     suspend fun getCurrentUserProfile(@Body getUserProfile: GetUserProfile): Response<UserResponse>
-
 
     @POST("updateuserprojectrole")
     suspend fun updateUserRoles(@Body updateRoles: UpdateUserRoles): Response<UserResponse>
@@ -95,6 +98,9 @@ interface ApiService {
     @POST("updatetaskactivity")
     suspend fun updateTaskActivity(@Body updateTaskActivity: UpdateTaskActivity): Response<GetTaskActivityResponse>*/
 
+    @POST("getactivity")
+    suspend fun getActivity(@Body getActivity: GetActivity): Response<GetTaskActivityResponse>
+
     @POST("assignactivity")
     suspend fun assginTaskActivity(@Body assignTaskActivityModel: AssignTaskActivityModel): Response<GetTaskActivityResponse>
 
@@ -117,6 +123,9 @@ interface ApiService {
     @POST("reportworkdpr")
     suspend fun submitWorkReport(@Body submitCCwork: SubmitTaskReport): Response<GetAssignedTasksResposne>
 
+    @POST("reportworkdpr")
+    suspend fun submitPWorkReport(@Body submitCCwork: SubmitPTaskReport): Response<GetAssignedTasksResposne>
+
     @POST("reportmachinerydpr")
     suspend fun submitMachinereport(@Body submitMachineReport: SubmitMachineryReport): Response<GetAssignedTasksResposne>
 
@@ -126,12 +135,91 @@ interface ApiService {
     @POST("reportmanpowerdpr")
     suspend fun submitManpowerReport(@Body submitManPowerReport: SubmitManPowerReport): Response<GetAssignedTasksResposne>
 
-
     @POST("fetchuserreports")
     suspend fun getUserReports(@Body getReports: GetReports): Response<ReportsResponse>
 
     @POST("fetchallreports")
     suspend fun getReceivedReports(@Body getReports: GetReports): Response<ReportsResponse>
+
+    @POST("approvereport")
+    suspend fun approveReport(@Body approvereport: ApproveReport): Response<ReportsResponse>
+
+    @POST("fetchreport")
+    suspend fun fetchReport(@Body fetchreport: FetchReport): Response<FetchReportResponse>
+
+    @POST("fetchdpr")
+    suspend fun getDprs(@Body getReports: GetReports): Response<DPRs>
+
+    @POST("fetchdfr")
+    suspend fun getDfrs(@Body getReports: GetReports): Response<Dfrs>
+
+    @POST("addinvoice")
+    suspend fun addMaterialInvoice(@Body addMaterialInvoice: AddMaterialInvoice): Response<InvoiceResponse>
+
+    @POST("getallinvoices")
+    suspend fun getMaterialInvoices(@Body getAllMachineInvoices: GetAllMachineInvoices): Response<GetAllInvoices>
+
+    @POST("getinvoice")
+    suspend fun getMaterialInvocie(@Body getSingleInvoice: GetSingleInvoice): Response<GetSingleInvoiceResponse>
+
+    @POST("addmachineinvoice")
+    suspend fun addMachineInvoice(@Body addMachineInvoice: AddMachineInvoice): Response<GetSingleInvoiceResponse>
+
+    @POST("getallmachineinvoices")
+    suspend fun getMachineInvoices(@Body getAllMachineInvoices: GetAllMachineInvoices): Response<GetAllInvoices>
+
+    @POST("getmachineinvoice")
+    suspend fun getMachineInvoice(@Body getSingleInvoice: GetSingleInvoice): Response<GetMachineInvoiceResp>
+
+    @POST("dispatchmaterial")
+    suspend fun dispatchMaterial(@Body dispatchMaterial: DispatchMaterial): Response<StoreResponse>
+
+    @POST("fetchmaterialdispatchedbyme")
+    suspend fun fetchMaterialsDispatchedByMe(@Body fmatdispatchedByMe: GetMacAndMatDispbyMe): Response<MaterialDispatches>
+
+    @POST("fetchmaterialdispatchedtome")
+    suspend fun fetchMaterialsDispatchedToMe(@Body fmdispatchedToMe: GetMacAndMatDispbyMe): Response<MaterialDispatches>
+
+    @POST("fetchmaterialdispatched")
+    suspend fun fetchMaterialDispatched(@Body fetchMaterialDispatched: FetchMaterialDispatched): Response<FetchMaterialDispatchedResp>
+
+    @POST("approvemachinerydispatch")
+    suspend fun approveMachineryDispatch(@Body fetchMachineryDispatched: FetchMachineryDispatched): Response<StoreResponse>
+
+    @POST("dispatchmachinery")
+    suspend fun dispatchMachinery(@Body dispatchMachinery: DispatchMachinery): Response<StoreResponse>
+
+
+    @POST("fetchmachinerysassigned")
+    suspend fun getAssignedMachinery(@Body fetchAssignedMachAndMates: FetchAssignedMachAndMates): Response<GetListOfAssignedMachandMates>
+
+    @POST("fetchmaterialsassigned")
+    suspend fun getAssignedMaterials(@Body fetchAssignedMachAndMates: FetchAssignedMachAndMates): Response<GetListOfAssignedMachandMates>
+
+    @POST("fetchstoremachinerydispatches")
+    suspend fun fetchStoreMachineryDispatches(@Body fetchStoreMaterialDispatches: FetchStoreMaterialDispatches): Response<GetListOfStoreMachineryDispatches>
+
+    @POST("fetchstorematerialdispatches")
+    suspend fun fetchStoreMaterialDispatches(@Body fetchStoreMaterialDispatches: FetchStoreMaterialDispatches): Response<GetListOfStoreMachineryDispatches>
+
+
+    @POST("fetchmachinerydispatchedbyme")
+    suspend fun fetchMachineryDispatchedByMe(@Body fmdispatchedByMe: GetMacAndMatDispbyMe): Response<MachineryDispatches>
+
+    @POST("fetchmachinerydispatchedtome")
+    suspend fun fetchMachineryDispatchedToMe(@Body fmdispatchedByMe: GetMacAndMatDispbyMe): Response<MachineryDispatches>
+
+    @POST("fetchmachinerydispatched")
+    suspend fun fetchMachineryDispatched(@Body fetchMachineryDispatched: FetchMachineryDispatched): Response<FetchMachineryDispatchedResp>
+
+    @POST("approvematerialdispatch")
+    suspend fun approveMaterialDispatch(@Body fetchMaterialDispatched: FetchMaterialDispatched): Response<StoreResponse>
+
+    @POST("forgotpassword")
+    suspend fun forgotPassword(@Body forgotPassword: ForgotPassword): Response<StoreResponse>
+
+    @POST("resetpassword")
+    suspend fun resetPassword(@Body forgotPassword: ForgotPassword): Response<StoreResponse>
 
     /* @POST("reportworkdpr")
      suspend fun submitHscWorkreport(@Body submitCCwork: SubmitTaskReport): Response<GetAssignedTasksResposne>

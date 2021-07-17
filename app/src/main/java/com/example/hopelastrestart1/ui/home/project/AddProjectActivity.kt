@@ -36,7 +36,6 @@ class AddProjectActivity() : BaseActivity(), KodeinAware {
     private val factory: ProjectViewModelFactory by instance()
     private lateinit var binding: ActivityAddProjectBinding
     private lateinit var viewModel: ProjectViewModel
-    lateinit var organization_name: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var contentFrameLayout = findViewById(R.id.container) as FrameLayout
@@ -49,7 +48,6 @@ class AddProjectActivity() : BaseActivity(), KodeinAware {
             ViewModelFactory(RetrofitBuilder.apiClient().create(ApiService::class.java))
         ).get(ProjectViewModel::class.java)
         // val username = intent.getStringExtra("username")
-        organization_name = intent.getStringExtra("organization_name")
         binding.buttonAddProject.setOnClickListener {
 
             if (binding.editTextProjectName.text.toString().isEmpty()) {
@@ -68,10 +66,14 @@ class AddProjectActivity() : BaseActivity(), KodeinAware {
                 val addPrjctModel = AddProjectModel(
                     GlobalData.getInstance.userEmail!!,
                     GlobalData.getInstance.token!!,
-                    organization_name, projName, projType, projLocation, projDescription
+                    GlobalData.getInstance.orgName.toString(),
+                    projName,
+                    projType,
+                    projLocation,
+                    projDescription
                 )
 
-                setUpObserver(addPrjctModel)
+                addProjectObserver(addPrjctModel)
             }
 
 
@@ -102,18 +104,24 @@ class AddProjectActivity() : BaseActivity(), KodeinAware {
          }*/
     }
 
-    private fun setUpObserver(addProjectModel: AddProjectModel) {
+    private fun addProjectObserver(addProjectModel: AddProjectModel) {
         viewModel.addProject(addProjectModel).observe(this, Observer {
             it.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
                         binding.progressBar.hide()
-                        resource.data?.let { projects -> projects.body() }
-                        val intent = Intent(applicationContext, ProjectActivity::class.java)
+                        resource.data?.let { }
+                        if (it.data?.body()?.status_code.toString().equals("200")) {
+                            Toast.makeText(
+                                applicationContext,
+                                "Added Successfully",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            finish()
+                        } else {
+                            Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                        }
                         // intent.putExtra("username", username)
-                        intent.putExtra("organization_name", organization_name)
-                        startActivity(intent)
-                        finish()
                     }
                     Status.ERROR -> {
                         binding.progressBar.hide()

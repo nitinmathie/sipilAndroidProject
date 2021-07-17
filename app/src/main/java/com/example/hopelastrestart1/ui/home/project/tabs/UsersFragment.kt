@@ -51,15 +51,9 @@ class UsersFragment : Fragment(), KodeinAware, CellClickListener3 {
         recycleview.layoutManager = linearLayoutManager
         var mMediaUri = getActivity()?.intent?.data
         val username = requireActivity().intent.getStringExtra("username")
-        orgName = requireActivity().intent.getStringExtra("organization_name")
+//        orgName = requireActivity().intent.getStringExtra("organization_name")
 
-        val getUsers = GetUsers(
-            GlobalData.getInstance.userEmail!!,
-            GlobalData.getInstance.token!!,
-            orgName,
-            ""
-        )
-        setUpObserver(getUsers)
+
         //val username=intent.getStringExtra("username")
 
         /* val users by lazyDeferred {
@@ -78,8 +72,6 @@ class UsersFragment : Fragment(), KodeinAware, CellClickListener3 {
         val add = rootView.findViewById<FloatingActionButton>(R.id.fab_add_user)
         add.setOnClickListener {
             val intent = Intent(activity, AddUserActivity::class.java)
-            intent.putExtra("username", username)
-            intent.putExtra("organization_name", orgName)
             startActivity(intent)
         }
         return rootView
@@ -87,12 +79,7 @@ class UsersFragment : Fragment(), KodeinAware, CellClickListener3 {
 
     override fun onCellClickListener(user: UserAdded, username: String) {
         val intent = Intent(activity, UpdateUserRoleActivity::class.java)
-        intent.putExtra("user_name", user.username)
-        intent.putExtra("organization_name", orgName)
         GlobalData.getInstance.user = user
-        intent.putExtra("user_id", user.user_id)
-        val username = intent.getStringExtra("username")
-        intent.putExtra("username", username)
         startActivity(intent)
     }
 
@@ -105,6 +92,7 @@ class UsersFragment : Fragment(), KodeinAware, CellClickListener3 {
                         resource.data?.let { resp -> retrieveList(resp.body()?.users!!) }
                     }
                     Status.ERROR -> {
+                        // resource.data?.let { resp -> retrieveList(resp.body()?.users!!) }
                         Toast.makeText(context, "error", Toast.LENGTH_LONG).show()
                     }
                     Status.LOADING -> {
@@ -132,4 +120,14 @@ class UsersFragment : Fragment(), KodeinAware, CellClickListener3 {
         }
     }
 
+
+    override fun onResume() {
+        super.onResume()
+        val getUsers = GetUsers(
+            GlobalData.getInstance.userEmail!!,
+            GlobalData.getInstance.token!!,
+            GlobalData.getInstance.orgName.toString(),
+        )
+        setUpObserver(getUsers)
+    }
 }

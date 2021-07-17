@@ -84,7 +84,7 @@
                     android:drawableLeft="@drawable/ic_outline_location_on_24"
                     android:drawablePadding="16dp"
                     android:hint="From Node"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:padding="12dp" />
 
                 <EditText
@@ -96,7 +96,7 @@
                     android:drawableLeft="@drawable/ic_outline_location_on_24"
                     android:drawablePadding="16dp"
                     android:hint="To Node"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:padding="12dp" />
 
                 <EditText

@@ -11,9 +11,11 @@ import kotlinx.android.synthetic.main.fragment_planner_dashboard.view.*
 import kotlinx.android.synthetic.main.item_organization.view.*
 import kotlinx.android.synthetic.main.item_reports.view.*
 
-class ReportsAdapter( val reports: List<Report>,
-                           private val cellClickListener: CellClickListenerReports,
-val username:String):RecyclerView.Adapter<ReportsAdapter.ViewHolder>(){
+class ReportsAdapter(
+    val reports: List<Report>,
+    private val cellClickListener: CellClickListenerReports,
+    val loginType: String,
+) : RecyclerView.Adapter<ReportsAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
             : ReportsAdapter.ViewHolder {
         val v: View = LayoutInflater.from(parent.context)
@@ -24,6 +26,7 @@ val username:String):RecyclerView.Adapter<ReportsAdapter.ViewHolder>(){
     override fun getItemCount(): Int {
         return reports.size
     }
+
     override fun getItemId(position: Int): Long {
         return super.getItemId(position)
     }
@@ -31,9 +34,13 @@ val username:String):RecyclerView.Adapter<ReportsAdapter.ViewHolder>(){
     override fun getItemViewType(position: Int): Int {
         return super.getItemViewType(position)
     }
-    class ViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name = itemView.report_name
         val type = itemView.report_type
+        val approve_report = itemView.approve_report
+        val reject_report = itemView.reject_report
+        val ll_apporve_report = itemView.ll_apporve_report
 
     }
 
@@ -42,12 +49,20 @@ val username:String):RecyclerView.Adapter<ReportsAdapter.ViewHolder>(){
         holder?.name.text = item.activity_name.toString()
         holder?.type.text = item.report_type.toString()
 
+        holder.approve_report.setOnClickListener {
+            cellClickListener.onCellClickListener(item, loginType, "approve")
+        }
+        holder.reject_report.setOnClickListener {
+            cellClickListener.onCellClickListener(item, loginType, "reject")
+        }
         holder.itemView.setOnClickListener {
-            cellClickListener.onCellClickListener(item, username)
+            cellClickListener.onCellClickListener(item, loginType, "onclick")
         }
     }
 }
 
-interface  CellClickListenerReports {
-    fun onCellClickListener(reports: Report, username: String)
+interface CellClickListenerReports {
+    fun onCellClickListener(reports: Report, loginType: String, approveType: String)
 }
+
+

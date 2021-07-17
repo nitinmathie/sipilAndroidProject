@@ -19,6 +19,7 @@
                 android:layout_height="wrap_content"
                 android:src="@android:drawable/ic_input_add"
                 android:layout_alignParentEnd="true"
+                android:visibility="gone"
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="end|bottom"
                 android:layout_margin="16dp"

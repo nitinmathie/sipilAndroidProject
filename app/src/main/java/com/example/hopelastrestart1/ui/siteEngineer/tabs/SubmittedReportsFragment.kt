@@ -1,6 +1,7 @@
 package com.example.hopelastrestart1.ui.siteEngineer.tabs
 
 import android.os.Bundle
+import android.telephony.gsm.GsmCellLocation
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,12 +52,20 @@ class SubmittedReportsFragment : Fragment(), KodeinAware, CellClickListenerRepor
         ).get(TaskViewModel::class.java)
         val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recycleview.layoutManager = linearLayoutManager
-        val getReports = GetReports(
-            GlobalData.getInstance.userEmail!!,
-            GlobalData.getInstance.token!!,
-            "sipil", "sipil", "planone"
-        )
-        getUserReports(getReports)
+        //96a284fd7683b492527933b732323b2b5fd70538
+        //    how@gmail.com
+        //334f0549149a45363df743fb4743a476dbb0568a
+        /*   val getReports = GetReports(
+               "how@gmail.com",
+               "96a284fd7683b492527933b732323b2b5fd70538",
+               "sipil", "sipil", "planone"
+           )*/
+        /*  val getReports = GetReports(
+              GlobalData.getInstance.userEmail!!,
+              GlobalData.getInstance.token!!, GlobalData.getInstance.orgName.toString()
+              , GlobalData.getInstance.projectName.toString(), ""
+          )
+        getUserReports(getReports)*/
         return rootView
     }
 
@@ -87,13 +96,13 @@ class SubmittedReportsFragment : Fragment(), KodeinAware, CellClickListenerRepor
                                 recycleview.adapter = ReportsAdapter(
                                     reports,
                                     this,
-                                    GlobalData.getInstance.userEmail!!
+                                    "site"
                                 )
                                 Toast.makeText(activity, "success", Toast.LENGTH_LONG)
                                     .show()
 
                             } else {
-                            //    tvCreate.visibility = View.VISIBLE
+                                //    tvCreate.visibility = View.VISIBLE
 
                             }
 
@@ -110,9 +119,18 @@ class SubmittedReportsFragment : Fragment(), KodeinAware, CellClickListenerRepor
         })
     }
 
-    override fun onCellClickListener(reports: Report, username: String) {
-        TODO("Not yet implemented")
+    override fun onCellClickListener(reports: Report, username: String, apporveType: String) {
+
     }
 
+    override fun onResume() {
+        super.onResume()
+        val getReports = GetReports(
+            GlobalData.getInstance.userEmail!!,
+            GlobalData.getInstance.token!!, GlobalData.getInstance.orgName.toString()
+            , GlobalData.getInstance.projectName.toString(), ""
+        )
+        getUserReports(getReports)
+    }
 
 }

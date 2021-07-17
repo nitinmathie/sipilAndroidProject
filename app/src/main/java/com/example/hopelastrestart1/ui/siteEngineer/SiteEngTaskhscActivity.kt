@@ -23,6 +23,7 @@ import com.example.hopelastrestart1.ui.planEngineer.Task.tabs.TaskViewModelFacto
 import com.example.hopelastrestart1.util.*
 import com.example.hopelastrestart1.view.BaseActivity
 import com.example.hopelastrestart1.viewmodel.TaskViewModel
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_organization.*
 import kotlinx.coroutines.launch
@@ -42,6 +43,7 @@ class SiteEngTaskhscActivity() : BaseActivity(), KodeinAware {
         var contentFrameLayout = findViewById(R.id.container) as FrameLayout
         binding = ActivitySiteEngTaskHscBinding.inflate(layoutInflater)
         contentFrameLayout.addView(binding!!.root)
+        title="Reports"
         //binding = DataBindingUtil.setContentView(this, R.layout.activity_taskhsc)
         // binding = DataBindingUtil.setContentView(this, R.layout.activity_add_organization)
         viewModel = ViewModelProviders.of(
@@ -81,22 +83,23 @@ class SiteEngTaskhscActivity() : BaseActivity(), KodeinAware {
                 binding.checkboxRemovalOfExcessSoil.isChecked,
                 dust_filling
             )
-            val Gson = Gson()
-            val json = Gson.toJson(hscWork)
-            val obj = JSONObject(json)
-            val skill = Skill(obj)
+            val oMapper = ObjectMapper()
+            val ccc: MutableMap<*, *>? = oMapper.convertValue(hscWork, MutableMap::class.java)
+            val skill = TaskWork(ccc as HashMap<String, String>)
 
             val submitWorkReportModel = SubmitTaskReport(
                 GlobalData.getInstance.userEmail!!,
                 GlobalData.getInstance.token!!,
-                "", "", "", "",
+                assignedTask.work?.skilled!!.organization_name,
+                assignedTask.work?.skilled!!.project_name,
+                assignedTask.work?.skilled!!.plan_name,
+                assignedTask.work?.skilled!!.task_name,
                 assignedTask.assigned_activity_id.toString(),
                 assignedTask.sub_activity_name.toString(),
                 assignedTask.activity_type.toString(),
                 skill   , assignedTask.activity_name.toString()
             )
             submitHscReport(submitWorkReportModel)
-
 //ENSURE the navigation stays on the same screen- Need some UX knowledge here to maka decision whether to navigate to Activities tab after update or stay with a success message in the same screen.
             /*val intent = Intent(this, ActivitiesActivity::class.java)
             intent.putExtra("username", username)
@@ -114,6 +117,7 @@ class SiteEngTaskhscActivity() : BaseActivity(), KodeinAware {
                         resource.data?.let { activities ->
                             activities.body()
                             Toast.makeText(this, "Updated Successfully", Toast.LENGTH_LONG).show()
+                            finish()
                         }
                     }
                     Status.ERROR -> {

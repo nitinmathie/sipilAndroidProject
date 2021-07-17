@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.FrameLayout
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.hopelastrestart1.GlobalData
@@ -14,7 +13,6 @@ import com.example.hopelastrestart1.api.ApiService
 import com.example.hopelastrestart1.base.ViewModelFactory
 import com.example.hopelastrestart1.databinding.ActivityAssignTaskManpowerBinding
 import com.example.hopelastrestart1.model.*
-import com.example.hopelastrestart1.ui.planEngineer.Task.AddTaskActivity
 import com.example.hopelastrestart1.ui.planEngineer.Task.TaskActivity
 import com.example.hopelastrestart1.ui.planEngineer.Task.tabs.TaskViewModelFactory
 import com.example.hopelastrestart1.util.Status
@@ -22,8 +20,8 @@ import com.example.hopelastrestart1.util.hide
 import com.example.hopelastrestart1.util.show
 import com.example.hopelastrestart1.view.BaseActivity
 import com.example.hopelastrestart1.viewmodel.TaskViewModel
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
-import com.google.gson.JsonObject
 import org.json.JSONObject
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
@@ -35,6 +33,8 @@ class AssignTaskManpower : BaseActivity(), KodeinAware {
     private lateinit var viewModel: TaskViewModel
     private val factory: TaskViewModelFactory by instance()
     private lateinit var binding: ActivityAssignTaskManpowerBinding
+    lateinit var workJ: String
+    lateinit var ccwork: AssignWork
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,79 +48,66 @@ class AssignTaskManpower : BaseActivity(), KodeinAware {
         )
             .get(TaskViewModel::class.java)
 
-        val material_1_quantity = intent.getStringExtra("material_1_quantity")
-        val material_2_quantity = intent.getStringExtra("material_2_quantity")
-        val material_3_quantity = intent.getStringExtra("material_3_quantity")
-        val material_1 = intent.getStringExtra("material_1")
-        val material_2 = intent.getStringExtra("material_2")
-        val material_3 = intent.getStringExtra("material_3")
-        val username = intent.getStringExtra("username")
-        val plan_name = intent.getStringExtra("plan_name")
-        val organization_name = intent.getStringExtra("organization_name")
-        val activity_id = intent.getStringExtra("activity_id")
-        val activity_name = intent.getStringExtra("activity_name")
-        val activity_type = intent.getStringExtra("activity_type")
-        val from_node = intent.getStringExtra("from_node")
-        val to_node = intent.getStringExtra("to_node")
-        val task_id = intent.getStringExtra("task_id")
-        val project_name = intent.getStringExtra("project_name")
-        val assigned_to = GlobalData.getInstance.assignedTo
-        val jcb_quantity = intent.getStringExtra("jcb_quantity")
-        val hydra_quantity = intent.getStringExtra("hydra_quantity")
-        val tractor_quantity = intent.getStringExtra("tractor_quantity")
-        val watertanker_quantity = intent.getStringExtra("watertanker_quantity")
-        val tractorcompressor_quantity = intent.getStringExtra("tractorcompressor_quantity")
-        val jcb_runtime = intent.getStringExtra("jcb_runtime")
-        val hydra_runtime = intent.getStringExtra("hydra_runtime")
-        val tractor_runtime = intent.getStringExtra("tractor_runtime")
-        val watertanker_runtime = intent.getStringExtra("watertanker_runtime")
-        val tractorcompressor_runtime = intent.getStringExtra("tractorcompressor_runtime")
-
         //
 
         val getMachines: List<Machine>? = null
-
-        getMachines?.forEach { item ->
-
-        }
 
 
         //
         // var btn_to_material = findViewById<Button>(R.id.btn_submit_activity_)
         binding.btnSubmitActivity.setOnClickListener {
 
-            val work = SkilledWork(GlobalData.getInstance.updateTaskActivity!!)
-            val hasmap = HashMap<String, String>()
-            val hasmapmaterial = HashMap<String, String>()
+            val hasmapmachine = LinkedHashMap<String, String>()
+            val hasmapmaterial = LinkedHashMap<String, String>()
             val machines = GlobalData.getInstance.machineryList
             val materials = GlobalData.getInstance.materialList
             for (item in machines!!) {
-                hasmap.put(item.machineName.toString(), item.quantity.toString())
+                hasmapmachine.put(item.machineName.toString(), item.quantity.toString())
             }
             for (item in materials!!) {
                 hasmapmaterial.put(item.machineName.toString(), item.quantity.toString())
             }
-            val jsonMachine = JSONObject(hasmap as Map<*, *>)
-            val jsonMaterial = JSONObject(hasmapmaterial as Map<*, *>)
 
             val manpower = ManPower(
                 binding.etSkilledCount.text.toString()
                 , binding.etUnskilledCount.text.toString()
             )
+            val oMapper = ObjectMapper()
+            val workHashMap: MutableMap<*, *>
+            if (GlobalData.getInstance.assignTaskWorkType.equals("cc")) {
+                val work = GlobalData.getInstance.updateTaskActivity!!
+                workHashMap = oMapper.convertValue(work, MutableMap::class.java)
+                ccwork = AssignWork(workHashMap as LinkedHashMap<String, String>)
+            } else if (GlobalData.getInstance.assignTaskWorkType.equals("hk")) {
+                val work = GlobalData.getInstance.updateHouseKeepingActivity!!
+                workHashMap = oMapper.convertValue(work, MutableMap::class.java)
+                ccwork = AssignWork(workHashMap as LinkedHashMap<String, String>)
+            } else if (GlobalData.getInstance.assignTaskWorkType.equals("hsc")) {
+                val work = GlobalData.getInstance.updateHscActivity!!
+                workHashMap = oMapper.convertValue(work, MutableMap::class.java)
+                ccwork = AssignWork(workHashMap as LinkedHashMap<String, String>)
+            } else if (GlobalData.getInstance.assignTaskWorkType.equals("mh")) {
+                val work = GlobalData.getInstance.updateMHActivity!!
+                workHashMap = oMapper.convertValue(work, MutableMap::class.java)
+                ccwork = AssignWork(workHashMap as LinkedHashMap<String, String>)
 
-            /* val gson = Gson()
-             val jsonMachine = gson.toJson(hasmap)
-             val jsonMaterial = gson.toJson(hasmapmaterial)
-             val jsonObject=JsonObject(jsonMachine)*/
-
+            } else if (GlobalData.getInstance.assignTaskWorkType.equals("pipe")) {
+                val work = GlobalData.getInstance.updatePipelineActivity!!
+                workHashMap = oMapper.convertValue(work, MutableMap::class.java)
+                ccwork = AssignWork(workHashMap as LinkedHashMap<String, String>)
+            } else if (GlobalData.getInstance.assignTaskWorkType.equals("rr")) {
+                val work = GlobalData.getInstance.updateRoadRestorationActivity!!
+                workHashMap = oMapper.convertValue(work, MutableMap::class.java)
+                ccwork = AssignWork(workHashMap as LinkedHashMap<String, String>)
+            }
 
             val assignActivity = AssignTaskActivityModel(
                 GlobalData.getInstance.userEmail!!,
                 GlobalData.getInstance.token!!,
-                assigned_to!!,
-                organization_name,
-                project_name,
-                plan_name,
+                GlobalData.getInstance.assignedTo!!,
+                GlobalData.getInstance.orgName.toString(),
+                GlobalData.getInstance.projectName.toString(),
+                GlobalData.getInstance.planName.toString(),
                 GlobalData.getInstance.task?.task_name!!,
                 GlobalData.getInstance.task?.task_id.toString(),
                 GlobalData.getInstance.activity?.activity_id.toString(),
@@ -128,7 +115,7 @@ class AssignTaskManpower : BaseActivity(), KodeinAware {
                 GlobalData.getInstance.estimatedTimeLine.toString(),
                 GlobalData.getInstance.activity?.activity_type.toString(),
                 GlobalData.getInstance.activity?.activity_name.toString(),
-                work, jsonMachine, jsonMaterial, manpower
+                ccwork, hasmapmachine, hasmapmaterial, manpower
             )
             assignTask(assignActivity)
 
@@ -156,22 +143,6 @@ class AssignTaskManpower : BaseActivity(), KodeinAware {
                                     Toast.makeText(this, "Assigned Sucessfully", Toast.LENGTH_LONG)
                                         .show()
                                     val intenttask = Intent(this, TaskActivity::class.java)
-                                    intenttask.putExtra(
-                                        "username",
-                                        intent.getStringExtra("username")
-                                    )
-                                    intenttask.putExtra(
-                                        "organization_name",
-                                        intent.getStringExtra("organization_name")
-                                    )
-                                    intenttask.putExtra(
-                                        "project_name",
-                                        intent.getStringExtra("project_name")
-                                    )
-                                    intenttask.putExtra(
-                                        "plan_name",
-                                        intent.getStringExtra("plan_name")
-                                    )
                                     startActivity(intenttask)
                                     finish()
                                 }

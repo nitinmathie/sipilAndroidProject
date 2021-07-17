@@ -1,17 +1,12 @@
 package com.example.hopelastrestart1.ui.home.organization
 
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
-import android.view.Menu
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hopelastrestart1.GlobalData
@@ -21,7 +16,6 @@ import com.example.hopelastrestart1.adapter.OrganizationAdapter
 import com.example.hopelastrestart1.api.ApiService
 import com.example.hopelastrestart1.base.ViewModelFactory
 import com.example.hopelastrestart1.data.db.entities.Organization
-import com.example.hopelastrestart1.data.network.responses.OrganizationResponse
 import com.example.hopelastrestart1.databinding.ActivityOrganizationBinding
 import com.example.hopelastrestart1.model.GetOrgModel
 import com.example.hopelastrestart1.model.GetOrgProjectRoles
@@ -30,16 +24,13 @@ import com.example.hopelastrestart1.util.*
 import com.example.hopelastrestart1.view.BaseActivity
 import com.example.hopelastrestart1.viewmodel.MainViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.navigation.NavigationView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_organization.*
-import kotlinx.android.synthetic.main.nav_header_main.view.*
-import kotlinx.coroutines.launch
+import kotlinx.android.synthetic.main.activity_organization.progress_bar
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
-import java.lang.Exception
 
 class OrganizationActivity : BaseActivity(), KodeinAware, CellClickListener {
     override val kodein by kodein()
@@ -59,8 +50,7 @@ class OrganizationActivity : BaseActivity(), KodeinAware, CellClickListener {
         )
         binding.recyclerview.layoutManager = linearLayoutManager
         setupViewModel()
-        val getOrgModel = GetOrgModel(GlobalData.getInstance.userEmail!!, token!!)
-        setUpObserver(getOrgModel)
+
 
         val getOrgProjectRoles = GetOrgProjectRoles(
             GlobalData.getInstance.userEmail!!,
@@ -99,9 +89,14 @@ class OrganizationActivity : BaseActivity(), KodeinAware, CellClickListener {
 
     override fun onCellClickListener(organization: Organization, username: String) {
         val intent = Intent(this, ProjectActivity::class.java)
-        intent.putExtra("organization_name", organization.organization_name)
-        intent.putExtra("organization_id", organization.organization_id)
+        GlobalData.getInstance.orgName = organization.organization_name
         startActivity(intent)
+      /*  getRoles(
+            GetOrgProjectRoles(
+                GlobalData.getInstance.userEmail!!,
+                GlobalData.getInstance.token!!
+            ), organization.organization_name.toString()
+        )*/
     }
 
 
@@ -127,7 +122,7 @@ class OrganizationActivity : BaseActivity(), KodeinAware, CellClickListener {
                                         GlobalData.getInstance.userEmail!!,
                                         GlobalData.getInstance.token!!
                                     )
-                                    getRoles(getOrgProjectRoles)
+                                    //   getRoles(getOrgProjectRoles)
 
                                 } else {
                                     binding.tvCreateOrg.visibility = View.VISIBLE
@@ -139,38 +134,7 @@ class OrganizationActivity : BaseActivity(), KodeinAware, CellClickListener {
                         }
                     }
                     Status.ERROR -> {
-                        Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
-                    }
-                    Status.LOADING -> {
-                    }
-                }
-
-            }
-        })
-    }
-
-
-    private fun getRoles(getOrgProjectRoles: GetOrgProjectRoles) {
-        viewModel.getRoles(getOrgProjectRoles).observe(this, Observer {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        progress_bar.visibility = View.GONE
-                        resource.data?.let { users ->
-                            if (users.body() != null) {
-                                if (users.body()?.organizations_projects_roles != null) {
-                                    val roles = users.body()?.organizations_projects_roles
-                                    // retrieveList(users.body()?.organizations_projects_roles!!)
-                                } else {
-                                    binding.tvCreateOrg.visibility = View.VISIBLE
-                                }
-                            } else {
-                                binding.tvCreateOrg.visibility = View.VISIBLE
-                            }
-
-                        }
-                    }
-                    Status.ERROR -> {
+                        /*D/OkHttp: {"error":"organization doesnot exist","status_code":204}*/
                         Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                     }
                     Status.LOADING -> {
@@ -189,6 +153,17 @@ class OrganizationActivity : BaseActivity(), KodeinAware, CellClickListener {
 //adapter.notifyDataSetChanged()
         }
     }
+
+
+    override fun onResume() {
+        super.onResume()
+        val getOrgModel =
+            GetOrgModel(GlobalData.getInstance.userEmail!!, GlobalData.getInstance.token!!)
+        setUpObserver(getOrgModel)
+    }
+
+
+
 
 
 }

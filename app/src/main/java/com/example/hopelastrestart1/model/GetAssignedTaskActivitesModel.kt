@@ -17,12 +17,11 @@ class GetAssignedTaskActivitesModel
     val approved_on: String?,
     val activity_status: String?,
     val work: Skilled?,
-    val material: nameValuePairs?,
-    val machinery: nameValuePairs?,
+    val material: LinkedHashMap<String,String>?,
+    val machinery: LinkedHashMap<String,String>?,
     //   val material: nameValuePairs?,
     // val machinery: nameValuePairs?,
     val manpower: ManPower?
-
 
 )
 
@@ -30,6 +29,20 @@ data class Skilled(
     val skilled: UpdateTaskActivity?
 )
 
-data class nameValuePairs(
+data class namevpar(
     val nameValuePairs: LinkedHashMap<String, String>?
 )
+
+
+data class WorkTask(
+    val nameValuePairs: WorkNameValuePairs
+)
+
+data class WorkNameValuePairs(
+    val skilled: SkilledTask
+)
+
+data class SkilledTask(
+    val nameValuePairs: UpdateTaskActivity
+)
+

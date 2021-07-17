@@ -19,7 +19,23 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".ui.store.StoreManagerViewRequestActivity"></activity>
+        <activity android:name=".ui.store.ViewStoreMangerPendingRequestActivity" />
+        <activity android:name=".ui.store.DispatchMaterialActivity" />
+        <activity android:name=".ui.store.DispatchMachineryActivity" />
+        <activity android:name=".ui.store.StoreMachinesActivity" />
+        <activity android:name=".ui.store.StoreManagerActivity" />
+        <activity android:name=".ui.store.StoreManagerMaterialsActivity" />
+        <activity android:name=".ui.store.ViewMaterialInvoiceActivity" />
+        <activity android:name=".ui.store.ViewMachineInvoiceActivity" />
+        <activity android:name=".ui.store.MaterialListInvoicesActivity" />
+        <activity android:name=".ui.store.AddMachineInvoiceActivity" />
+        <activity android:name=".ui.store.AddMaterialInvoiceActivity" />
+        <activity android:name=".ui.store.StoreHomeActivity" />
+        <activity android:name=".ui.store.MachineInvoicesListActivity" />
+        <activity android:name=".ui.home.project.StoreActivity" />
+        <activity android:name=".ui.admin.AdminDashBoardActivity" />
+        <activity android:name=".ui.siteEngineer.ViewReportActivity" />
         <activity
             android:name=".ui.home.profile.UpdateProfileActivity"
             android:label="@string/toolbar_title_update_profile" />
@@ -76,9 +92,8 @@
         <activity
             android:name=".ui.home.plen.AddPlenActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.home.plen.PlenActivity" />
+        <activity android:name=".ui.home.plen.PlanActivity" />
         <activity android:name=".ui.planEngineer.Task.TaskActivity" />
-
         <activity
             android:name=".ui.siteEngineer.SiteEngActivity"
             android:windowSoftInputMode="adjustResize" />
@@ -100,8 +115,6 @@
         <activity
             android:name=".ui.siteEngineer.SiteEngTaskRoadRestorationActivity"
             android:windowSoftInputMode="adjustResize" />
-
-
         <activity
             android:name=".ui.planEngineer.Task.TaskRoadRestorationActivity"
             android:windowSoftInputMode="adjustResize" />

@@ -3,6 +3,7 @@ package com.example.hopelastrestart1.ui.home.project
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.widget.FrameLayout
 import androidx.viewpager.widget.ViewPager
@@ -25,15 +26,15 @@ class ProjectActivity : BaseActivity() {
         contentFrameLayout.addView(activityProjectBinding!!.root)
         //drawerLayout.addView(contentView, 0)
         title = "Projects"
-        activityProjectBinding.tabLayout.addTab(
+       /* activityProjectBinding.tabLayout.addTab(
             activityProjectBinding.tabLayout.newTab().setText("Projects")
-        )
+        )*/
         activityProjectBinding.tabLayout.addTab(
             activityProjectBinding.tabLayout.newTab().setText("Users")
         )
-        activityProjectBinding.tabLayout.addTab(
+       /* activityProjectBinding.tabLayout.addTab(
             activityProjectBinding.tabLayout.newTab().setText("Stores")
-        )
+        )*/
         activityProjectBinding.tabLayout.tabGravity = TabLayout.GRAVITY_FILL
         activityProjectBinding.tabLayout.setTabTextColors(
             getResources().getColor(R.color.clrLightBlue),
@@ -58,5 +59,13 @@ class ProjectActivity : BaseActivity() {
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
+        showItem()
     }
+
+    private fun showItem() {
+        val nav_Menu: Menu = navigationView.menu
+        nav_Menu.findItem(R.id.nav_adduser).setVisible(true)
+    }
+
+
 }

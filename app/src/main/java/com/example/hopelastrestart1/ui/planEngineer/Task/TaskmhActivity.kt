@@ -14,6 +14,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.hopelastrestart1.GlobalData
 import com.example.hopelastrestart1.api.ApiService
 import com.example.hopelastrestart1.base.ViewModelFactory
+import com.example.hopelastrestart1.data.db.entities.Activit
+import com.example.hopelastrestart1.data.db.entities.Task
 import com.example.hopelastrestart1.databinding.ActivityTaskmhBinding
 import com.example.hopelastrestart1.databinding.ActivityTaskpipeBinding
 import com.example.hopelastrestart1.model.UpdateHscActivity
@@ -35,24 +37,23 @@ class TaskmhActivity() : BaseActivity(), KodeinAware {
     private val factory: TaskViewModelFactory by instance()
     private lateinit var binding: ActivityTaskmhBinding
     private lateinit var viewModel: TaskViewModel
+    lateinit var task: Task
+    lateinit var activit: Activit
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var contentFrameLayout = findViewById(R.id.container) as FrameLayout
         binding = ActivityTaskmhBinding.inflate(layoutInflater)
         contentFrameLayout.addView(binding!!.root)
+        title = "Activities"
         viewModel = ViewModelProviders.of(
             this,
             ViewModelFactory(RetrofitBuilder.apiClient().create(ApiService::class.java))
         )
-            .get(TaskViewModel::class.java)         //ENSURE - the following are passed by previous screen.
-        val username = intent.getStringExtra("username")
-        val organization_name = intent.getStringExtra("organization_name")
-        val project_name = intent.getStringExtra("project_name")
-        val plan_name = intent.getStringExtra("plan_name")
-        val task_id = intent.getStringExtra("task_id")
-        val task_name = intent.getStringExtra("task_name")
-        val activity_id = intent.getStringExtra("activity_id")
-        val activity_name = intent.getStringExtra("activity_name")
+            .get(TaskViewModel::class.java)
+
+        //ENSURE - the following are passed by previous screen.
+        task = GlobalData.getInstance.task!!
+        activit = GlobalData.getInstance.activity!!
         binding.buttonUpdateMhActivity.setOnClickListener {
 
             val activity_name = binding.editTextActivityName.text.toString().trim()
@@ -78,14 +79,28 @@ class TaskmhActivity() : BaseActivity(), KodeinAware {
             val updatemhActivity = UpdateMHActivity(
                 GlobalData.getInstance.userEmail!!,
                 GlobalData.getInstance.token!!,
-                organization_name,
-                project_name,
-                plan_name,
-                task_name,
-                activity_name,
-                task_id, activity_name, excavation, bedding, sandBedding, dust_fill_PCC_below,
-                baseErection, pipeJointing, haunching, raiserErection, cone_erection, fix_UPVC,
-                joint_holes, open_holes, back_filling, consolidation, removal_excess_soil
+                GlobalData.getInstance.orgName.toString(),
+                GlobalData.getInstance.projectName.toString(),
+                GlobalData.getInstance.planName.toString(),
+                task.task_name.toString(),
+                activit.activity_name.toString(),
+                task.task_id.toString(),
+                activit.activity_name.toString(),
+                excavation,
+                bedding,
+                sandBedding,
+                dust_fill_PCC_below,
+                baseErection,
+                pipeJointing,
+                haunching,
+                raiserErection,
+                cone_erection,
+                fix_UPVC,
+                joint_holes,
+                open_holes,
+                back_filling,
+                consolidation,
+                removal_excess_soil
             )
             updateMHActivity(updatemhActivity)
 
@@ -120,25 +135,33 @@ class TaskmhActivity() : BaseActivity(), KodeinAware {
             val updatemhActivity = UpdateMHActivity(
                 GlobalData.getInstance.userEmail!!,
                 GlobalData.getInstance.token!!,
-                organization_name,
-                project_name,
-                plan_name,
-                task_name,
+                GlobalData.getInstance.orgName.toString(),
+                GlobalData.getInstance.projectName.toString(),
+                GlobalData.getInstance.planName.toString(),
+                task.task_name.toString(),
                 activity_name,
-                task_id, activity_name, excavation, bedding, sandBedding, dust_fill_PCC_below,
-                baseErection, pipeJointing, haunching, raiserErection, cone_erection, fix_UPVC,
-                joint_holes, open_holes, back_filling, consolidation, removal_excess_soil
+                task.task_id.toString(),
+                activity_name,
+                excavation,
+                bedding,
+                sandBedding,
+                dust_fill_PCC_below,
+                baseErection,
+                pipeJointing,
+                haunching,
+                raiserErection,
+                cone_erection,
+                fix_UPVC,
+                joint_holes,
+                open_holes,
+                back_filling,
+                consolidation,
+                removal_excess_soil
             )
             GlobalData.getInstance.updateMHActivity = updatemhActivity
 
-
             val intent = Intent(this, AssignTaskActivity::class.java)
-            intent.putExtra("username", username)
-            intent.putExtra("organization_name", organization_name)
-            intent.putExtra("project_name", project_name)
-            intent.putExtra("plan_name", plan_name)
-            intent.putExtra("task_id", task_id)
-            intent.putExtra("activity_name", activity_name)
+            GlobalData.getInstance.assignTaskWorkType="mh"
             startActivity(intent)
         }
     }

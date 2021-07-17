@@ -18,14 +18,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.6"
+            android:layout_marginTop="5dp"
             android:orientation="vertical"
             android:stateListAnimator="@null">
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_site"
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#1db995"></com.google.android.material.tabs.TabLayout>
+                android:background="@color/clrWhite"></com.google.android.material.tabs.TabLayout>
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewPager_site"

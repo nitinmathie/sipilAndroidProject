@@ -31,6 +31,10 @@ class TaskActivity : BaseActivity() {
 
         //tabLayout.addTab(tabLayout.newTab().setText("Stores"))
         tabLayout_task.tabGravity = TabLayout.GRAVITY_FILL
+        tabLayout_task.setTabTextColors(
+            getResources().getColor(R.color.clrLightBlue),
+            getResources().getColor(R.color.clrMaroon)
+        );
         val madapter = TaskFragmentAdapter.MyAdapter(
             this, supportFragmentManager,
             tabLayout_task.tabCount

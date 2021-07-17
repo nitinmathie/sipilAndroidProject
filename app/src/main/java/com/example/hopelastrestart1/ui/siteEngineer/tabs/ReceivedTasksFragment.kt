@@ -26,10 +26,10 @@ import com.example.hopelastrestart1.data.network.responses.GetTaskResponse
 import com.example.hopelastrestart1.model.GetAssignedTaskActivitesModel
 import com.example.hopelastrestart1.model.GetTasksAssignedToMe
 import com.example.hopelastrestart1.ui.planEngineer.Task.tabs.TaskViewModelFactory
+import com.example.hopelastrestart1.ui.siteEngineer.*
 import com.example.hopelastrestart1.ui.siteEngineer.SeReportForms.ReportMachineryActivity
 import com.example.hopelastrestart1.ui.siteEngineer.SeReportForms.ReportManpowerActivity
 import com.example.hopelastrestart1.ui.siteEngineer.SeReportForms.ReportMaterialActivity
-import com.example.hopelastrestart1.ui.siteEngineer.SiteEngTaskccActivity
 import com.example.hopelastrestart1.util.Status
 import com.example.hopelastrestart1.viewmodel.TaskViewModel
 import kotlinx.android.synthetic.main.activity_organization.*
@@ -60,17 +60,6 @@ class ReceivedTasksFragment : Fragment(), KodeinAware, CellClickListener_RT {
         ).get(TaskViewModel::class.java)
         val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recycleview.layoutManager = linearLayoutManager
-
-
-        assignedTasks(
-            GetTasksAssignedToMe(
-                GlobalData.getInstance.userEmail!!,
-                GlobalData.getInstance.token!!
-            )
-        )
-
-
-
         return rootView
     }
 
@@ -125,8 +114,8 @@ class ReceivedTasksFragment : Fragment(), KodeinAware, CellClickListener_RT {
         activityType: String,
         clickType: String
     ) {
+        GlobalData.getInstance.getAssignedTaskActivitesModel = task
         if (activityType.equals("CC Breaking")) {
-            GlobalData.getInstance.getAssignedTaskActivitesModel = task
             if (clickType.equals("work")) {
                 val intent = Intent(activity, SiteEngTaskccActivity::class.java)
                 startActivity(intent)
@@ -142,79 +131,89 @@ class ReceivedTasksFragment : Fragment(), KodeinAware, CellClickListener_RT {
             }
         } else if (activityType.equals("Pipeline")) {
             if (clickType.equals("work")) {
-                val intent = Intent(activity, SiteEngTaskccActivity::class.java)
+                val intent = Intent(activity, SiteEngTaskpipeActivity::class.java)
                 startActivity(intent)
             } else if (clickType.equals("machine")) {
-                val intent = Intent(activity, SiteEngTaskccActivity::class.java)
+                val intent = Intent(activity, ReportMachineryActivity::class.java)
                 startActivity(intent)
             } else if (clickType.equals("material")) {
-                val intent = Intent(activity, SiteEngTaskccActivity::class.java)
+                val intent = Intent(activity, ReportMaterialActivity::class.java)
                 startActivity(intent)
-            } else if (clickType.equals("material")) {
-                val intent = Intent(activity, SiteEngTaskccActivity::class.java)
+            } else if (clickType.equals("manpower")) {
+                val intent = Intent(activity, ReportManpowerActivity::class.java)
                 startActivity(intent)
             }
         } else if (activityType.equals("Manhole Erection")) {
             if (clickType.equals("work")) {
-                val intent = Intent(activity, SiteEngTaskccActivity::class.java)
+                val intent = Intent(activity, SiteEngTaskmhActivity::class.java)
                 startActivity(intent)
             } else if (clickType.equals("machine")) {
-                val intent = Intent(activity, SiteEngTaskccActivity::class.java)
+                val intent = Intent(activity, ReportMachineryActivity::class.java)
                 startActivity(intent)
             } else if (clickType.equals("material")) {
-                val intent = Intent(activity, SiteEngTaskccActivity::class.java)
+                val intent = Intent(activity, ReportMaterialActivity::class.java)
                 startActivity(intent)
-            } else if (clickType.equals("material")) {
-                val intent = Intent(activity, SiteEngTaskccActivity::class.java)
+            } else if (clickType.equals("manpower")) {
+                val intent = Intent(activity, ReportManpowerActivity::class.java)
                 startActivity(intent)
             }
 
         } else if (activityType.equals("Road Restoration")) {
             if (clickType.equals("work")) {
-                val intent = Intent(activity, SiteEngTaskccActivity::class.java)
+                val intent = Intent(activity, SiteEngTaskRoadRestorationActivity::class.java)
                 startActivity(intent)
             } else if (clickType.equals("machine")) {
-                val intent = Intent(activity, SiteEngTaskccActivity::class.java)
+                val intent = Intent(activity, ReportMachineryActivity::class.java)
                 startActivity(intent)
             } else if (clickType.equals("material")) {
-                val intent = Intent(activity, SiteEngTaskccActivity::class.java)
+                val intent = Intent(activity, ReportMaterialActivity::class.java)
                 startActivity(intent)
-            } else if (clickType.equals("material")) {
-                val intent = Intent(activity, SiteEngTaskccActivity::class.java)
+            } else if (clickType.equals("manpower")) {
+                val intent = Intent(activity, ReportManpowerActivity::class.java)
                 startActivity(intent)
             }
 
         } else if (activityType.equals("House Service Connection")) {
             if (clickType.equals("work")) {
-                val intent = Intent(activity, SiteEngTaskccActivity::class.java)
+                val intent = Intent(activity, SiteEngTaskhscActivity::class.java)
                 startActivity(intent)
             } else if (clickType.equals("machine")) {
-                val intent = Intent(activity, SiteEngTaskccActivity::class.java)
+                val intent = Intent(activity, ReportMachineryActivity::class.java)
                 startActivity(intent)
             } else if (clickType.equals("material")) {
-                val intent = Intent(activity, SiteEngTaskccActivity::class.java)
+                val intent = Intent(activity, ReportMaterialActivity::class.java)
                 startActivity(intent)
-            } else if (clickType.equals("material")) {
-                val intent = Intent(activity, SiteEngTaskccActivity::class.java)
+            } else if (clickType.equals("manpower")) {
+                val intent = Intent(activity, ReportManpowerActivity::class.java)
                 startActivity(intent)
             }
         } else if (activityType.equals("House Keeping")) {
             if (clickType.equals("work")) {
-                val intent = Intent(activity, SiteEngTaskccActivity::class.java)
+                val intent = Intent(activity, SiteEngTaskhkActivity::class.java)
                 startActivity(intent)
             } else if (clickType.equals("machine")) {
-                val intent = Intent(activity, SiteEngTaskccActivity::class.java)
+                val intent = Intent(activity, ReportMachineryActivity::class.java)
                 startActivity(intent)
             } else if (clickType.equals("material")) {
-                val intent = Intent(activity, SiteEngTaskccActivity::class.java)
+                val intent = Intent(activity, ReportMaterialActivity::class.java)
                 startActivity(intent)
-            } else if (clickType.equals("material")) {
-                val intent = Intent(activity, SiteEngTaskccActivity::class.java)
+            } else if (clickType.equals("manpower")) {
+                val intent = Intent(activity, ReportManpowerActivity::class.java)
                 startActivity(intent)
             }
 
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        assignedTasks(
+            GetTasksAssignedToMe(
+                GlobalData.getInstance.userEmail!!,
+                GlobalData.getInstance.token!!
+            )
+        )
     }
 
 }

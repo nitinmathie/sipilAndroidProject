@@ -26,6 +26,7 @@
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
+                android:layout_marginTop="55dp"
                 android:layout_height="wrap_content"
                 android:background="@color/clrWhite"
                 android:orientation="vertical"
@@ -45,6 +46,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
+                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView

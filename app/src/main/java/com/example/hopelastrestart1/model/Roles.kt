@@ -5,7 +5,8 @@ import com.google.gson.annotations.SerializedName
 data class Roles(
     val organization_name: String?,
     val project_name: String?,
-    val role: String?
+    val role: String?,
+    val store_name: String?
 )
 
 data class UpdateUserRoles(
@@ -14,7 +15,8 @@ data class UpdateUserRoles(
     @SerializedName("organization_name") var organization_name: String,
     @SerializedName("update_user_email") var update_user_email: String,
     @SerializedName("project_name") var project_name: String,
-    @SerializedName("user_role") var user_role: String
+    @SerializedName("user_role") var user_role: String,
+    @SerializedName("store_id") var store_id: String
 )
 
 data class GetRoledBasedUsers(

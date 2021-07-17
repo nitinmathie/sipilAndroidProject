@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.hopelastrestart1.api.ApiService
+import com.example.hopelastrestart1.model.AddOrgModel
 import com.example.hopelastrestart1.model.GetOrgModel
 import com.example.hopelastrestart1.model.GetOrgProjectRoles
 import com.example.hopelastrestart1.util.Resource
@@ -27,6 +28,16 @@ class MainViewModel(private val apiService: ApiService) : ViewModel() {
         emit(Resource.loading(data = null))
         try {
             emit(Resource.success(data = apiService.getRoles(getOrgProjectRoles)))
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error occured"))
+        }
+
+    }
+
+    fun addOrg(addOrgModel: AddOrgModel) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            emit(Resource.success(data = apiService.addOrganization(addOrgModel)))
         } catch (exception: Exception) {
             emit(Resource.error(data = null, message = exception.message ?: "Error occured"))
         }

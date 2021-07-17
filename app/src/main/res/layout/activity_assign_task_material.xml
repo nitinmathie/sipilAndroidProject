@@ -126,6 +126,7 @@
                     <EditText
                         android:id="@+id/et_material_quantity"
                         android:layout_width="match_parent"
+                        android:inputType="number"
                         android:layout_height="match_parent"
                         android:background="@drawable/edit_text_round_gray_background"
                         android:hint=" Enter Quantity"

@@ -25,14 +25,14 @@ class ProjectFragmentAdapter(
 
             return when (position) {
                 0 -> {
-                    ProjectsFragment()
+                    UsersFragment()
                 }
-                1 -> {
+                /*1 -> {
                     UsersFragment()
                 }
                 2 -> {
                     StoresFragment()
-                }
+                }*/
                 else ->{
                     UsersFragment()
 

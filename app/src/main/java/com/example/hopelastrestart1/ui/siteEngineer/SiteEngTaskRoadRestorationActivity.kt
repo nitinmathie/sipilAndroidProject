@@ -21,6 +21,7 @@ import com.example.hopelastrestart1.ui.planEngineer.Task.tabs.TaskViewModelFacto
 import com.example.hopelastrestart1.util.Status
 import com.example.hopelastrestart1.view.BaseActivity
 import com.example.hopelastrestart1.viewmodel.TaskViewModel
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import org.json.JSONObject
 import org.kodein.di.KodeinAware
@@ -33,12 +34,14 @@ class SiteEngTaskRoadRestorationActivity : BaseActivity(), KodeinAware {
     private lateinit var binding: ActivitySiteEngTaskRoadReBinding
     private lateinit var viewModel: TaskViewModel
     lateinit var activity: Activit
+    lateinit var ccWork: CCWork
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var contentFrameLayout = findViewById(R.id.container) as FrameLayout
         binding = ActivitySiteEngTaskRoadReBinding.inflate(layoutInflater)
         contentFrameLayout.addView(binding!!.root)
-
+        title = "Reports"
         viewModel = ViewModelProviders.of(
             this,
             ViewModelFactory(RetrofitBuilder.apiClient().create(ApiService::class.java))
@@ -94,15 +97,16 @@ class SiteEngTaskRoadRestorationActivity : BaseActivity(), KodeinAware {
                 upvcVccPipeTw,
                 upvcVccPipeTd
             )
-            val Gson = Gson()
-            val json = Gson.toJson(rrWork)
-            val obj = JSONObject(json)
-            val skill = Skill(obj)
-
+            val oMapper = ObjectMapper()
+            val ccc: MutableMap<*, *>? = oMapper.convertValue(rrWork, MutableMap::class.java)
+            val skill = TaskWork(ccc as HashMap<String, String>)
             val submitWorkReportModel = SubmitTaskReport(
                 GlobalData.getInstance.userEmail!!,
                 GlobalData.getInstance.token!!,
-                "", "", "", "",
+                assignedTask.work?.skilled!!.organization_name,
+                assignedTask.work?.skilled!!.project_name,
+                assignedTask.work?.skilled!!.plan_name,
+                assignedTask.work?.skilled!!.task_name,
                 assignedTask.assigned_activity_id.toString(),
                 assignedTask.sub_activity_name.toString(),
                 assignedTask.activity_type.toString(),
@@ -124,6 +128,7 @@ class SiteEngTaskRoadRestorationActivity : BaseActivity(), KodeinAware {
                         resource.data?.let { activities ->
                             activities.body()
                             Toast.makeText(this, "Updated Successfully", Toast.LENGTH_LONG).show()
+                            finish()
                         }
                     }
                     Status.ERROR -> {
@@ -135,5 +140,10 @@ class SiteEngTaskRoadRestorationActivity : BaseActivity(), KodeinAware {
             }
         })
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 }

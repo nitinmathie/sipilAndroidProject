@@ -14,6 +14,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.hopelastrestart1.GlobalData
 import com.example.hopelastrestart1.api.ApiService
 import com.example.hopelastrestart1.base.ViewModelFactory
+import com.example.hopelastrestart1.data.db.entities.Activit
+import com.example.hopelastrestart1.data.db.entities.Task
 import com.example.hopelastrestart1.databinding.ActivityTaskhkBinding
 import com.example.hopelastrestart1.databinding.ActivityTaskhscBinding
 import com.example.hopelastrestart1.model.UpdateHouseKeepingActivity
@@ -32,33 +34,27 @@ import org.kodein.di.generic.instance
 import java.lang.Exception
 
 //ENSURE all the parameters required are passed by previous activity and fetched by current activity.
-class TaskhkActivity() : BaseActivity(), KodeinAware {
+class TaskhkActivity : BaseActivity(), KodeinAware {
     override val kodein by kodein()
     private val factory: TaskViewModelFactory by instance()
     private lateinit var binding: ActivityTaskhkBinding
     private lateinit var viewModel: TaskViewModel
+    lateinit var task: Task
+    lateinit var activit: Activit
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var contentFrameLayout = findViewById(R.id.container) as FrameLayout
+        var contentFrameLayout = findViewById<FrameLayout>(R.id.container)
         binding = ActivityTaskhkBinding.inflate(layoutInflater)
-        contentFrameLayout.addView(binding!!.root)
-
+        contentFrameLayout.addView(binding.root)
+        title = "Activities"
         viewModel = ViewModelProviders.of(
             this,
             ViewModelFactory(RetrofitBuilder.apiClient().create(ApiService::class.java))
         )
             .get(com.example.hopelastrestart1.viewmodel.TaskViewModel::class.java)
 
-
-        //ENSURE - the following are passed by previous screen.
-        val username = intent.getStringExtra("username")
-        val organization_name = intent.getStringExtra("organization_name")
-        val project_name = intent.getStringExtra("project_name")
-        val plan_name = intent.getStringExtra("plan_name")
-        val task_name = intent.getStringExtra("task_name")
-        val task_id = intent.getStringExtra("task_id")
-        val activity_id = intent.getStringExtra("activity_id")
-        val activity_name = intent.getStringExtra("activity_name")
+        task = GlobalData.getInstance.task!!
+        activit = GlobalData.getInstance.activity!!
 
         binding.buttonUpdateHkActivity.setOnClickListener {
             val hk_activity_name = binding.editTextActivityName.text.toString().trim()
@@ -67,21 +63,15 @@ class TaskhkActivity() : BaseActivity(), KodeinAware {
             val updateHkActivity = UpdateHouseKeepingActivity(
                 GlobalData.getInstance.userEmail!!,
                 GlobalData.getInstance.token!!,
-                organization_name,
-                project_name,
-                plan_name,
-                task_name,
-                activity_name,
-                task_id, activity_name, "True"
+                GlobalData.getInstance.orgName.toString(),
+                GlobalData.getInstance.projectName.toString(),
+                GlobalData.getInstance.planName.toString(),
+                task.task_name.toString(),
+                activit.activity_name.toString(),
+                task.task_id.toString(), activit.activity_name.toString(), "True"
             )
-
             updateHKActivity(updateHkActivity)
 
-//ENSURE the navigation stays on the same screen- Need some UX knowledge here to maka decision whether to navigate to Activities tab after update or stay with a success message in the same screen.
-            /* val intent = Intent(this, ActivitiesActivity::class.java)
-             intent.putExtra("username", username)
-
-             startActivity(intent)*/
         }
         binding.buttonAssignHkActivity.setOnClickListener {
             val hk_activity_name = binding.editTextActivityName.text.toString().trim()
@@ -90,22 +80,22 @@ class TaskhkActivity() : BaseActivity(), KodeinAware {
             val updateHkActivity = UpdateHouseKeepingActivity(
                 GlobalData.getInstance.userEmail!!,
                 GlobalData.getInstance.token!!,
-                organization_name,
-                project_name,
-                plan_name,
-                task_name,
-                activity_name,
-                task_id, activity_name, "True"
+                GlobalData.getInstance.orgName.toString(),
+                GlobalData.getInstance.projectName.toString(),
+                GlobalData.getInstance.planName.toString(),
+                task.task_name.toString(),
+                activit.activity_name.toString(),
+                task.task_id.toString(), activit.activity_name.toString(), "True"
             )
             GlobalData.getInstance.updateHouseKeepingActivity = updateHkActivity
-
             val intent = Intent(this, AssignTaskActivity::class.java)
-            intent.putExtra("username", username)
-            intent.putExtra("organization_name", organization_name)
-            intent.putExtra("project_name", project_name)
-            intent.putExtra("plan_name", plan_name)
-            intent.putExtra("task_id", task_id)
-            intent.putExtra("activity_name", activity_name)
+            GlobalData.getInstance.assignTaskWorkType="hk"
+            /*  intent.putExtra("username", username)
+              intent.putExtra("organization_name", organization_name)
+              intent.putExtra("project_name", project_name)
+              intent.putExtra("plan_name", plan_name)
+              intent.putExtra("task_id", task_id)
+              intent.putExtra("activity_name", activity_name)*/
             startActivity(intent)
         }
     }

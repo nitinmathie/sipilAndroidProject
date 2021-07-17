@@ -5,7 +5,9 @@ data class OrganizationResponse(
     val isSuccessful : Boolean?,
     //val message: String?,
     val user: String?,
+    val error: String?,
     val userRole: String?,
+    val status_code: String?,
     val message: String?,
-    val organizations: List<Organization>?
+     val organizations: List<Organization>?
 )

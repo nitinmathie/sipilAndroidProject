@@ -18,7 +18,7 @@ data class CCWork(
     @SerializedName("ccbreaking_activity_name") var ccbreaking_activity_name: String,
     @SerializedName("ccb_pipeline_trench_500_status") var ccb_pipeline_trench_500_status: String,
     @SerializedName("ccb_upvc_350") var ccb_upvc_350: String,
-    @SerializedName("ccb_IC_500") var ccb_IC_500: String,
+    @SerializedName("ccb_IC_500") var ccb_IC_500: Boolean,
     @SerializedName("ccb_mharea_status") var ccb_mharea_status: Boolean,
 )
 

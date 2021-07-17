@@ -49,8 +49,8 @@ class AddStoreActivity() : BaseActivity(), KodeinAware {
             this,
             ViewModelFactory(RetrofitBuilder.apiClient().create(ApiService::class.java))
         ).get(StoreViewModel::class.java)
-        val username = intent.getStringExtra("username")
-        val organization_name = intent.getStringExtra("organization_name")
+        //    val username = intent.getStringExtra("username")
+        //    val organization_name = intent.getStringExtra("organization_name")
         val projectSpinner = findViewById<Spinner>(R.id.spinner_project)
 
         var nums = arrayOf<String>()
@@ -89,7 +89,7 @@ class AddStoreActivity() : BaseActivity(), KodeinAware {
             val addStoreData = AddStore(
                 GlobalData.getInstance.userEmail!!,
                 GlobalData.getInstance.token!!,
-                organization_name, project, storeName, storeLocation
+                GlobalData.getInstance.orgName.toString(), project, storeName, storeLocation
             )
             addStore(addStoreData)
             /*   val intent = Intent(this, ProjectActivity::class.java)
@@ -152,7 +152,31 @@ class AddStoreActivity() : BaseActivity(), KodeinAware {
                 when (resource.status) {
                     Status.SUCCESS -> {
                         binding.progressBar.hide()
-                        resource.data?.let { projects -> projects.body() }
+                        resource.data?.let { store ->
+                            store.body()
+                            if (store.body()?.status_code.equals("200")) {
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Added Successfully",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                finish()
+                            } else if (store.body()?.status_code.equals("409")) {
+                                Toast.makeText(
+                                    applicationContext,
+                                    store.body()?.Error,
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            } else {
+                                Toast.makeText(
+                                    applicationContext,
+                                    store.body()?.Error,
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+
+
+                        }
 
 
                     }

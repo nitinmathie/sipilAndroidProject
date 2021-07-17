@@ -1,6 +1,7 @@
 package com.example.hopelastrestart1.ui.planEngineer.Task
 
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
@@ -16,8 +17,11 @@ import com.example.hopelastrestart1.R
 import com.example.hopelastrestart1.adapter.ccActivityAdapter
 import com.example.hopelastrestart1.api.ApiService
 import com.example.hopelastrestart1.base.ViewModelFactory
+import com.example.hopelastrestart1.data.db.entities.Activit
+import com.example.hopelastrestart1.data.db.entities.Task
 import com.example.hopelastrestart1.databinding.ActivityTaskBinding
 import com.example.hopelastrestart1.databinding.ActivityTaskccBinding
+import com.example.hopelastrestart1.model.GetActivity
 import com.example.hopelastrestart1.model.UpdateTaskActivity
 import com.example.hopelastrestart1.ui.planEngineer.Task.AssignDailyTask.AssignTaskActivity
 import com.example.hopelastrestart1.ui.planEngineer.Task.tabs.TaskViewModelFactory
@@ -38,11 +42,8 @@ import java.lang.Exception
 //ENSURE all the parameters required are passed by previous activity and fetched by current activity.
 class TaskccActivity() : BaseActivity(), KodeinAware {
     override val kodein by kodein()
-    lateinit var username: String
-    lateinit var organization_name: String
-    lateinit var project_name: String
-    lateinit var plan_name: String
-    lateinit var task_name: String
+    lateinit var task: Task
+    lateinit var activit: Activit
     private val factory: TaskViewModelFactory by instance()
     private lateinit var binding: ActivityTaskccBinding
     private lateinit var viewModel: TaskViewModel
@@ -52,97 +53,63 @@ class TaskccActivity() : BaseActivity(), KodeinAware {
         var contentFrameLayout = findViewById(R.id.container) as FrameLayout
         binding = ActivityTaskccBinding.inflate(layoutInflater)
         contentFrameLayout.addView(binding!!.root)
+        title = "Activities"
         //  binding = DataBindingUtil.setContentView(this, R.layout.activity_taskcc)
         // binding = DataBindingUtil.setContentView(this, R.layout.activity_add_organization)
         viewModel = ViewModelProviders.of(
-            this,
-            ViewModelFactory(RetrofitBuilder.apiClient().create(ApiService::class.java))
-        )
-            .get(TaskViewModel::class.java)
-
-        //ENSURE - the following are passed by previous screen.
-        val username = intent.getStringExtra("username")
-        val organization_name = intent.getStringExtra("organization_name")
-        val project_name = intent.getStringExtra("project_name")
-        val task_id = intent.getStringExtra("task_id")
-        val activity_id = intent.getStringExtra("activity_id")
-        val plan_name = intent.getStringExtra("plan_name")
-        val task_name = intent.getStringExtra("task_name")
-        val activity_name = intent.getStringExtra("activity_name")
+            this, ViewModelFactory(RetrofitBuilder.apiClient().create(ApiService::class.java))
+        ).get(TaskViewModel::class.java)
         val x = 0
+        task = GlobalData.getInstance.task!!
+        activit = GlobalData.getInstance.activity!!
+        getActivity(
+            GetActivity(
+                GlobalData.getInstance.userEmail!!,
+                GlobalData.getInstance.token!!,
+                GlobalData.getInstance.orgName.toString(),
+                GlobalData.getInstance.projectName.toString(),
+                GlobalData.getInstance.planName.toString(),
+                task.task_name.toString(),
+                activit.activity_name.toString()
+            )
+        )
+        binding.editTextActivityName.setText(activit.activity_name)
 
-        binding.editTextActivityName.setText(activity_name)
-        //
-        /*  val ccAct by lazyDeferred {
-              viewModel.activitiescc(
-                  username,
-                  organization_name,
-                  project_name,
-                  plan_id,
-                  task_id,
-                  activity_name
-              )
-          }
-          Coroutines.main {
-              progress_bar.show()
-              val orgs = ccAct.await()
-              orgs.observe(this, Observer {
-                  progress_bar.hide()
-                  val x = it
-                  binding.editTextActivityName.setText(it.ccbreaking_activity_name)
-                  binding.editTextStartedOn.setText(it.started_on)
-                  binding.editText500PipelineTrench.setText(it.ccb_pipeline_trench_500_status)
-                  binding.editTextCcStatus.setText(it.status)
-                  binding.editTextIc150.setText(it.ccb_IC_500)
-                  binding.editTextMharea.setText(it.ccb_mharea_status)
-                  binding.editTextUpvc300.setText(it.ccb_upvc_350)
-              })
-          }*/
-        //
+        binding.viewActivity.setOnClickListener {
+            binding.llViewActiivty.visibility = View.VISIBLE
+            binding.llUpdateActivity.visibility = View.GONE
+        }
+        binding.updateActivity.setOnClickListener {
+            binding.llViewActiivty.visibility = View.GONE
+            binding.llUpdateActivity.visibility = View.VISIBLE
+        }
         binding.buttonUpdateCcActivity.setOnClickListener {
 
             val activity_name = binding.editTextActivityName.text.toString().trim()
             val StartedOn = binding.editTextStartedOn.text.toString().trim()
             val pipeTrench = binding.editText500PipelineTrench.text.toString().trim()
             val cc_status = binding.editTextCcStatus.text.toString().trim()
-            val Ic_150 = binding.editTextIc150.text.toString().trim()
+            //   val Ic_150 = binding.editTextIc150.text.toString().trim()
             val mh_area = binding.editTextMharea.text.toString().trim()
             val upvc_300 = binding.editTextUpvc300.text.toString().trim()
 
             val updateTask = UpdateTaskActivity(
                 GlobalData.getInstance.userEmail!!,
                 GlobalData.getInstance.token!!,
-                organization_name,
-                project_name,
-                plan_name,
-                task_name,
+                GlobalData.getInstance.orgName.toString(),
+                GlobalData.getInstance.projectName.toString(),
+                GlobalData.getInstance.planName.toString(),
+                task.task_name.toString(),
                 activity_name,
                 StartedOn,
-                task_id,
+                task.task_id.toString(),
                 activity_name,
                 pipeTrench,
                 upvc_300,
-                Ic_150,
+                binding.checkboxIc500.isChecked,
                 binding.checkboxManholeArea.isChecked
             )
             updateTaskCCActivity(updateTask)
-            /*  updateActivity(
-                  username,
-                  organization_name,
-                  project_name,
-                  plan_id,
-                  task_id,
-                  activity_name
-              )*/
-//ENSURE the navigation stays on the same screen- Need some UX knowledge here to maka decision whether to navigate to Activities tab after update or stay with a success message in the same screen.
-            /*     val intent = Intent(this, TaskActivity::class.java)
-                 intent.putExtra("username", username)
-                 intent.putExtra("organization_name", organization_name)
-                 intent.putExtra("project_name", project_name)
-                 intent.putExtra("plan_name", plan_name)
-                 intent.putExtra("task_id", task_id)
-                 intent.putExtra("activity_name", activity_name)
-                 startActivity(intent)*/
         }
         binding.buttonAssignCcActivity.setOnClickListener {
             val activity_name = binding.editTextActivityName.text.toString().trim()
@@ -156,17 +123,17 @@ class TaskccActivity() : BaseActivity(), KodeinAware {
             val updateTask = UpdateTaskActivity(
                 GlobalData.getInstance.userEmail!!,
                 GlobalData.getInstance.token!!,
-                organization_name,
-                project_name,
-                plan_name,
-                task_name,
+                GlobalData.getInstance.orgName.toString(),
+                GlobalData.getInstance.projectName.toString(),
+                GlobalData.getInstance.planName.toString(),
+                task.task_name.toString(),
                 activity_name,
                 StartedOn,
-                task_id,
+                task.task_id.toString(),
                 activity_name,
                 pipeTrench,
                 upvc_300,
-                Ic_150,
+                binding.checkboxIc500.isChecked,
                 binding.checkboxManholeArea.isChecked
             )
             GlobalData.getInstance.updateTaskActivity = updateTask
@@ -183,59 +150,12 @@ class TaskccActivity() : BaseActivity(), KodeinAware {
               }
               GlobalData.getInstance.jsonObject = jsonObject*/
             val intent = Intent(this, AssignTaskActivity::class.java)
-            intent.putExtra("username", username)
-            intent.putExtra("organization_name", organization_name)
-            intent.putExtra("project_name", project_name)
-            intent.putExtra("plan_name", plan_name)
-            intent.putExtra("task_id", task_id)
-            intent.putExtra("activity_name", activity_name)
+            GlobalData.getInstance.assignTaskWorkType = "cc"
             startActivity(intent)
 
         }
 
     }
-
-    /*   private fun updateActivity(
-           username: String,
-           organization_name: String,
-           project_name: String,
-           plan_id: String,
-           task_id: String,
-           activity_name: String
-       ) {
-           // val activity_name = binding.editTextActivityName.text.toString().trim()
-           val pipeline_status = binding.editText500PipelineTrench.text.toString().trim()
-           val ic_status = binding.editTextIc150.text.toString().trim()
-           val upvc_status = binding.editTextUpvc300.text.toString().trim()
-           val mh_area = binding.editTextMharea.text.toString().trim()
-           val start_on = binding.editTextStartedOn.text.toString().trim()
-           val cc_status = binding.editTextCcStatus.text.toString().trim()
-           //val plan_location = binding.editTextOrganizationEmail.text.toString().trim()
-           //val plan_temp = binding.editTextOrganizationLocation.text.toString().trim()
-           lifecycleScope.launch {
-               try {
-                   val taskResponse = viewModel.updateCCActivity(
-                       pipeline_status,
-                       ic_status,
-                       upvc_status,
-                       mh_area,
-                       cc_status,
-                       activity_name,
-                       task_id,
-                       plan_id,
-                       project_name,
-                       organization_name,
-                       username
-                   )
-
-
-               } catch (e: ApiException) {
-                   e.printStackTrace()
-               } catch (e: NoInternetException) {
-                   e.printStackTrace()
-               }
-           }
-       }*/
 
     override fun onBackPressed() {
         super.onBackPressed()
@@ -252,13 +172,8 @@ class TaskccActivity() : BaseActivity(), KodeinAware {
                         resource.data?.let { activities ->
                             activities.body()
                             Toast.makeText(this, "Updated Successfully", Toast.LENGTH_LONG).show()
-                            val intent = Intent(this, ActivitiesActivity::class.java)
-                            intent.putExtra("username", username)
-                            intent.putExtra("organization_name", organization_name)
-                            intent.putExtra("project_name", project_name)
-                            intent.putExtra("plan_name", plan_name)
-                            intent.putExtra("task_name", task_name)
-                            startActivity(intent)
+                            /*  val intent = Intent(this, ActivitiesActivity::class.java)
+                              startActivity(intent)*/
                             finish()
                         }
                     }
@@ -272,5 +187,42 @@ class TaskccActivity() : BaseActivity(), KodeinAware {
         })
 
     }
+
+    private fun getActivity(getActivity: GetActivity) {
+
+        viewModel.getTaskActivity(getActivity).observe(this, Observer {
+            it.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        resource.data?.let { activities ->
+                            activities.body()
+                            val hashmap = activities.body()?.activity
+                            binding.etViewPipeTrench.setText(hashmap?.get("ccb_pipeline_trench_500_status"))
+                            val cbtrue = hashmap?.get("ccb_mharea_status")
+                            if (cbtrue.equals("true")) {
+                                binding.cbViewManholeArea.isChecked = true
+                            } else {
+                                binding.cbViewManholeArea.isChecked = true
+                            }
+                            // if(hashmap?.getValue("ccb_mharea_status").e)
+                            binding.editTextViewUpvc300.setText(hashmap?.get("ccb_upvc_350"))
+                            binding.editTextViewIc150.setText(hashmap?.get("ccb_IC_500"))
+                            //   Toast.makeText(this, "Updated Successfully", Toast.LENGTH_LONG).show()
+                            /*  val intent = Intent(this, ActivitiesActivity::class.java)
+                              startActivity(intent)*/
+                            //   finish()
+                        }
+                    }
+                    Status.ERROR -> {
+                        Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                    }
+                    Status.LOADING -> {
+                    }
+                }
+            }
+        })
+
+    }
+
 
 }

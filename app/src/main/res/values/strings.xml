@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">hopelastrestart</string>
+    <string name="app_name">SIPIL</string>
     <string name="title_activity_project">ProjectActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
@@ -11,7 +11,7 @@
     values-round/strings.xml for round devices.
     -->
     <string name="forgot_pwd">
-        <u>Forgotten Password?</u>
+        <u>Forgot Password?</u>
     </string>
 
     <string name="hello_world">Hello Square World!</string>
@@ -32,6 +32,7 @@
     <string name="menu_update_profile">Update Profile</string>
     <string name="menu_myorg">My Organizations</string>
     <string name="menu_projects">My Projects</string>
+    <string name="menu_adduser">Add User</string>
     <string name="menu_change_password">Change Password</string>
     <string name="menu_logout">Logout</string>
     <string name="create_organization">Create</string>
@@ -46,6 +47,10 @@
     <string name="last_name">Last Name</string>
     <string name="create_your_project">Create your Project</string>
     <string name="add_user">Add user</string>
+    <string name="add_store">Add Store</string>
+    <string name="add_machine_invoice">Add Machine Invoice</string>
+    <string name="add_material_invoice">Add Material Invoice</string>
+    <string name="machines_store">Machines Store</string>
 
     <string-array name="roles">
         <item>S.E</item>
@@ -58,7 +63,7 @@
         <item>Admin</item>
         <item>Planning Engineer</item>
         <item>Site Engineer</item>
+        <item>Store Keeper</item>
         <item>Store Manager</item>
-        <item>Machinery Manager</item>
     </string-array>
 </resources>

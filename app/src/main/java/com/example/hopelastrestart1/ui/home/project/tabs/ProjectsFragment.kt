@@ -14,22 +14,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hopelastrestart1.GlobalData
 import com.example.hopelastrestart1.R
 import com.example.hopelastrestart1.adapter.CellClickListener1
-import com.example.hopelastrestart1.adapter.OrganizationAdapter
 import com.example.hopelastrestart1.adapter.ProjectRVAdapter
 import com.example.hopelastrestart1.api.ApiService
 import com.example.hopelastrestart1.base.ViewModelFactory
 import com.example.hopelastrestart1.data.db.entities.Organization
-import com.example.hopelastrestart1.data.db.entities.Project
 import com.example.hopelastrestart1.model.GetPrjctModel
-import com.example.hopelastrestart1.ui.home.plen.PlenActivity
+import com.example.hopelastrestart1.ui.home.plen.PlanActivity
 import com.example.hopelastrestart1.ui.home.organization.OrganizationItem
 import com.example.hopelastrestart1.ui.home.project.AddProjectActivity
 import com.example.hopelastrestart1.util.*
-import com.example.hopelastrestart1.viewmodel.MainViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_organization.*
+import kotlinx.android.synthetic.main.fragment_projects.view.*
 import org.kodein.di.android.x.kodein
 
 import org.kodein.di.KodeinAware
@@ -39,13 +37,13 @@ class ProjectsFragment : Fragment(), KodeinAware, CellClickListener1 {
     override val kodein by kodein()
     private val factory: ProjectViewModelFactory by instance()
     private lateinit var viewModel: ProjectViewModel
+    private lateinit var rootView: View
     private lateinit var recycleview: RecyclerView
-    private lateinit var orgName: String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_projects, container, false)
+        rootView = inflater.inflate(R.layout.fragment_projects, container, false)
         recycleview = rootView.findViewById<RecyclerView>(R.id.recyclerview)
         // viewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
         viewModel = ViewModelProviders.of(
@@ -54,17 +52,9 @@ class ProjectsFragment : Fragment(), KodeinAware, CellClickListener1 {
         val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recycleview.layoutManager = linearLayoutManager
         //val username = requireActivity().intent.getStringExtra("username")
-       // val orgId = requireActivity().intent.getIntExtra("organization_id", 0)
-        orgName = requireActivity().intent.getStringExtra("organization_name")
+        // val orgId = requireActivity().intent.getIntExtra("organization_id", 0)
 
-        val getprjctModel =
-            GetPrjctModel(
-                GlobalData.getInstance.userEmail!!,
-                GlobalData.getInstance.token!!,
-                orgName
-            )
 
-        setUpObserver(getprjctModel)
         /* val projects by lazyDeferred {
              viewModel.projects1(username, organization_name)
          }
@@ -81,8 +71,7 @@ class ProjectsFragment : Fragment(), KodeinAware, CellClickListener1 {
         add.setOnClickListener {
             val intent = Intent(activity, AddProjectActivity::class.java)
             // intent.putExtra("username", username)
-            intent.putExtra("organization_name", orgName)
-             startActivity(intent)
+            startActivity(intent)
         }
 
         return rootView
@@ -99,7 +88,7 @@ class ProjectsFragment : Fragment(), KodeinAware, CellClickListener1 {
         }
         mAdapter.setOnItemClickListener { item, view, ->
             //item.getItem(se)
-            val intent = Intent(activity, PlenActivity::class.java)
+            val intent = Intent(activity, PlanActivity::class.java)
         }
     }
 
@@ -114,26 +103,33 @@ class ProjectsFragment : Fragment(), KodeinAware, CellClickListener1 {
         username: String,
         organization_name: String
     ) {
-        val intent = Intent(activity, PlenActivity::class.java)
-        intent.putExtra("project_name", project.project_name)
-        intent.putExtra("project_id", project.project_id)
-        intent.putExtra("username", username)
-        intent.putExtra("organization_name", organization_name)
+        val intent = Intent(activity, PlanActivity::class.java)
+        GlobalData.getInstance.navgationType = "projects"
+        GlobalData.getInstance.projectName = project.project_name
         startActivity(intent)
     }
 
-    private fun setUpObserver(getPrjctModel: GetPrjctModel) {
+    private fun getProjects(getPrjctModel: GetPrjctModel) {
         viewModel.getProjects(getPrjctModel).observe(viewLifecycleOwner, Observer {
             it.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        progress_bar.visibility = View.GONE
-                        resource.data?.let { projects -> retrieveList(projects.body()?.projects!!) }
+                        rootView.progress_bar.hide()
+                        resource.data?.let {
+                            if (it.body()?.status_code.toString().equals("200")) {
+                                rootView.tv_create_org.visibility = View.GONE
+                                retrieveList(it.body()?.projects!!)
+                            } else {
+                                rootView.tv_create_org.visibility = View.VISIBLE
+                            }
+                        }
                     }
                     Status.ERROR -> {
+                        rootView.progress_bar.hide()
                         Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                     }
                     Status.LOADING -> {
+                        rootView.progress_bar.show()
                     }
                 }
             }
@@ -152,12 +148,28 @@ class ProjectsFragment : Fragment(), KodeinAware, CellClickListener1 {
         if (projects.size > 0) {
             GlobalData.getInstance.projects = projects
             recycleview.adapter =
-                ProjectRVAdapter(projects, this, GlobalData.getInstance.userEmail!!, orgName)
+                ProjectRVAdapter(
+                    projects,
+                    this,
+                    GlobalData.getInstance.userEmail!!,
+                    GlobalData.getInstance.orgName.toString()
+                )
 
             // recycleview.adapter = OrganizationAdapter(users, this, "her")
 //  userList.addAll(users)
 //adapter.notifyDataSetChanged()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val getprjctModel =
+            GetPrjctModel(
+                GlobalData.getInstance.userEmail!!,
+                GlobalData.getInstance.token!!,
+                GlobalData.getInstance.orgName.toString()
+            )
+        getProjects(getprjctModel)
     }
 }
 

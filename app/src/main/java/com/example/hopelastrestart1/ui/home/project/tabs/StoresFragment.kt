@@ -47,19 +47,17 @@ class StoresFragment : Fragment(), KodeinAware, CellClickListener2 {
         ).get(StoreViewModel::class.java)
         val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recycleview.layoutManager = linearLayoutManager
-        val username = requireActivity().intent.getStringExtra("username")
-        val organization_name = requireActivity().intent.getStringExtra("organization_name")
+        //  val username = requireActivity().intent.getStringExtra("username")
+        //   val organization_name = requireActivity().intent.getStringExtra("organization_name")
 
 
         val getStoreData = GetStores(
             GlobalData.getInstance.userEmail!!,
-            GlobalData.getInstance.token!!, organization_name, ""
+            GlobalData.getInstance.token!!, GlobalData.getInstance.orgName.toString(), ""
         )
         getStores(getStoreData)
         rootView.fab_add_store.setOnClickListener {
             val intent = Intent(activity, AddStoreActivity::class.java)
-            intent.putExtra("username", username)
-            intent.putExtra("organization_name", organization_name)
             startActivity(intent)
         }
         /*   val stores by lazyDeferred {

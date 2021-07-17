@@ -31,7 +31,8 @@ import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
 
 class ReportMachineryActivity() : BaseActivity(), KodeinAware,
-    MachinesSTandETAdapter.CellClickListenerSTandET {
+    MachinesSTandETAdapter.CellClickListenerSTandET,
+    MachinesAndMaterilasAdapter.CellClickListenerMachines {
     override val kodein by kodein()
     private val factory: TaskViewModelFactory by instance()
     private lateinit var binding: ActivityReportMachineryBinding
@@ -60,11 +61,12 @@ class ReportMachineryActivity() : BaseActivity(), KodeinAware,
         )
         binding.recyclerviewUpdatedMachines.layoutManager = linearLayoutManagerUpdated
 
-        val work = GlobalData.getInstance.getAssignedTaskActivitesModel?.work?.skilled!!
+        val work =
+            GlobalData.getInstance.getAssignedTaskActivitesModel!!.work!!.skilled!!
         val machinery = GetMachinesAndMaterialModel(
             GlobalData.getInstance.userEmail!!,
             GlobalData.getInstance.token!!,
-            work.org_name, work.project_name, work.plan_name
+            work.organization_name, work.project_name, work.plan_name
         )
         getMachinesAndMaterial(machinery)
         val username = intent.getStringExtra("username")
@@ -77,19 +79,20 @@ class ReportMachineryActivity() : BaseActivity(), KodeinAware,
 
         var machinesListUpdated: MutableList<MachinesQuantity> = ArrayList()
         var machinesListupa = GlobalData.getInstance.getAssignedTaskActivitesModel?.machinery
-        var hashMap = machinesListupa?.nameValuePairs!!
+        var hashMap = machinesListupa!!
+
 
         val keyList: List<String> = ArrayList<String>(hashMap.keys)
-        val valueList: List<String> =
-            ArrayList<String>(hashMap.values)
+        val valueList: List<String> = ArrayList<String>(hashMap.values)
         for (i in keyList.indices) {
             val machineQuantity = MachinesQuantity(
                 keyList[i].toString(), valueList[i].toString()
             )
             machinesListUpdated.add(machineQuantity)
         }
-
-
+        binding.recyclerviewUpdatedMachines.adapter =
+            MachinesAndMaterilasAdapter(machinesListUpdated!!, this, "updated")
+        (binding.recyclerviewUpdatedMachines.adapter as MachinesAndMaterilasAdapter).notifyDataSetChanged()
 
         binding.btnSubmitActivityMaterial.setOnClickListener {
             val machineQuantity = MachinesStartAndEndTime(
@@ -119,10 +122,10 @@ class ReportMachineryActivity() : BaseActivity(), KodeinAware,
             val submitMachine = SubmitMachineryReport(
                 GlobalData.getInstance.userEmail!!,
                 GlobalData.getInstance.token!!,
-                assignedTask.work?.skilled?.org_name.toString(),
-                assignedTask.work?.skilled?.project_name.toString(),
-                assignedTask.work?.skilled?.plan_name.toString(),
-                assignedTask.work?.skilled?.task_name.toString(),
+                assignedTask.work?.skilled!!.organization_name,
+                assignedTask.work?.skilled!!.project_name,
+                assignedTask.work?.skilled!!.plan_name,
+                assignedTask.work?.skilled!!.task_name,
                 assignedTask.assigned_activity_id.toString(),
                 assignedTask.sub_activity_name.toString(),
                 jsonObject, assignedTask.activity_name.toString()
@@ -216,6 +219,10 @@ class ReportMachineryActivity() : BaseActivity(), KodeinAware,
             }
         })
 
+    }
+
+    override fun onCellClickListener(machines: MachinesQuantity, username: String) {
+        TODO("Not yet implemented")
     }
 }
 

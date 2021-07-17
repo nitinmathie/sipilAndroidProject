@@ -3,6 +3,7 @@ package com.example.hopelastrestart1.ui.siteEngineer.SeReportForms
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -62,16 +63,39 @@ class ReportMaterialActivity() : BaseActivity(), KodeinAware,
             this, RecyclerView.VERTICAL, false
         )
         binding.recyclerviewMaterial.layoutManager = linearLayoutManager
+        val linearLayoutManagerUpdated = LinearLayoutManager(
+            this, RecyclerView.VERTICAL, false
+        )
+        binding.recyclerviewUpdatedMachines.layoutManager = linearLayoutManagerUpdated
 
-        val material = MachinesQuantity("material1", "10")
-        materialList.add(material)
-        val username = intent.getStringExtra("username")
+        var machinesListUpdated: MutableList<MachinesQuantity> = ArrayList()
+        var machinesListupa = GlobalData.getInstance.getAssignedTaskActivitesModel?.material
+        var hashMap = machinesListupa!!
+
+
+        val keyList: List<String> = ArrayList<String>(hashMap.keys)
+        val valueList: List<String> =
+            ArrayList<String>(hashMap.values)
+        for (i in keyList.indices) {
+            val machineQuantity = MachinesQuantity(
+                keyList[i].toString(), valueList[i].toString()
+            )
+            machinesListUpdated.add(machineQuantity)
+        }
+
+        binding.recyclerviewUpdatedMachines.adapter =
+            MachinesAndMaterilasAdapter(machinesListUpdated!!, this, "updated")
+        (binding.recyclerviewUpdatedMachines.adapter as MachinesAndMaterilasAdapter).notifyDataSetChanged()
+
+      /*  val username = intent.getStringExtra("username")
         val organization_name = intent.getStringExtra("organization_name")
         val project_name = intent.getStringExtra("project_name")
         val plan_id = intent.getStringExtra("plan_name")
         val task_id = intent.getStringExtra("task_id")
         val activity_id = intent.getStringExtra("activity_id")
-        val activity_name = intent.getStringExtra("activity_name")
+        val activity_name = intent.getStringExtra("activity_name")*/
+
+
         binding.btnAddMaterial.setOnClickListener {
             val machineQuantity = MachinesQuantity(
                 binding.spinnerMaterial.selectedItem.toString(),
@@ -79,15 +103,16 @@ class ReportMaterialActivity() : BaseActivity(), KodeinAware,
             )
             materialList.add(machineQuantity)
             binding.recyclerviewMaterial.adapter =
-                MachinesAndMaterilasAdapter(materialList!!, this, username)
+                MachinesAndMaterilasAdapter(materialList!!, this, "updated")
             (binding.recyclerviewMaterial.adapter as MachinesAndMaterilasAdapter).notifyDataSetChanged()
 
         }
-        val work = GlobalData.getInstance.getAssignedTaskActivitesModel?.work?.skilled!!
+        val work =
+            GlobalData.getInstance.getAssignedTaskActivitesModel!!.work!!.skilled!!
         val machinery = GetMachinesAndMaterialModel(
             GlobalData.getInstance.userEmail!!,
             GlobalData.getInstance.token!!,
-            work.org_name, work.project_name, work.plan_name
+            work.organization_name, work.project_name, work.plan_name
         )
         getMachinesAndMaterial(machinery)
 
@@ -97,18 +122,18 @@ class ReportMaterialActivity() : BaseActivity(), KodeinAware,
             for (item in materialList) {
                 hasmapmaterial.put(item.machineName.toString(), item.quantity.toString())
             }
-            val jsonMaterial = JSONObject(hasmapmaterial as Map<*, *>)
+            //  val jsonMaterial = JSONObject(hasmapmaterial as Map<*, *>)
 
             val submitMachine = SubmitMaterialReport(
                 GlobalData.getInstance.userEmail!!,
                 GlobalData.getInstance.token!!,
-                assignedTask.work?.skilled?.org_name.toString(),
-                assignedTask.work?.skilled?.project_name.toString(),
-                assignedTask.work?.skilled?.plan_name.toString(),
-                assignedTask.work?.skilled?.task_name.toString(),
+                assignedTask.work?.skilled!!.organization_name,
+                assignedTask.work?.skilled!!.project_name,
+                assignedTask.work?.skilled!!.plan_name,
+                assignedTask.work?.skilled!!.task_name,
                 assignedTask.assigned_activity_id.toString(),
                 assignedTask.sub_activity_name.toString(),
-                jsonMaterial, assignedTask.activity_type.toString()
+                hasmapmaterial, assignedTask.activity_name.toString()
             )
             submitMaterialReport(submitMachine)
 
@@ -124,18 +149,19 @@ class ReportMaterialActivity() : BaseActivity(), KodeinAware,
                         binding.progressBar.hide()
                         resource.data?.let { machines ->
                             machines.body()
-                            /*  var machinesArray = arrayOf<String>()
-                              val machines = machines.body()?.materials
-                              for (element in machines!!) {
-                                  machinesArray = append(machinesArray, element.name)
-                              }
-                              val projects_adapter =
-                                  ArrayAdapter(
-                                      this,
-                                      android.R.layout.simple_expandable_list_item_1,
-                                      machinesArray
-                                  )
-                              binding.spinnerMaterial.adapter = projects_adapter*/
+
+                            var machinesArray = arrayOf<String>()
+                            val machines = machines.body()?.materials
+                            for (element in machines!!) {
+                                machinesArray = append(machinesArray, element.name)
+                            }
+                            val projects_adapter =
+                                ArrayAdapter(
+                                    this,
+                                    android.R.layout.simple_expandable_list_item_1,
+                                    machinesArray
+                                )
+                            binding.spinnerMaterial.adapter = projects_adapter
 
                         }
                     }

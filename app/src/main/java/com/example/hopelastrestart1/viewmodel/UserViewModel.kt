@@ -39,7 +39,7 @@ class UserViewModel(private val apiService: ApiService) : ViewModel() {
         try {
             emit(Resource.success(data = apiService.getUsers(getUsers)))
         } catch (exception: Exception) {
-            emit(Resource.error(data = null, message = exception.message ?: "Error occured"))
+            emit(Resource.error(data = apiService.getUsers(getUsers), message = exception.message ?: "Error occured"))
         }
 
 
@@ -87,7 +87,15 @@ class UserViewModel(private val apiService: ApiService) : ViewModel() {
     }
 
 
+    fun getRoles(getOrgProjectRoles: GetOrgProjectRoles) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            emit(Resource.success(data = apiService.getRoles(getOrgProjectRoles)))
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error occured"))
+        }
 
+    }
 
 
 }

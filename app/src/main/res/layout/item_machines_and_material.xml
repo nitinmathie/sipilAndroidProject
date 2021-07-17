@@ -10,11 +10,9 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="3dp"
         android:theme="@style/Theme.MaterialComponents.Light"
         app:cardElevation="2dp"
-        app:cardMaxElevation="3dp"
-        app:contentPadding="10dp">
+        app:cardMaxElevation="3dp">
 
 
         <LinearLayout
@@ -26,8 +24,8 @@
                 android:id="@+id/tv_machineName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_weight="4"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/clrBlack"
                 android:textSize="15sp"

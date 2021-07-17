@@ -20,7 +20,24 @@
             android:id="@+id/nav_adduser"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/add_user"
+            android:visible="true" />
+       <!-- <item
+            android:id="@+id/nav_machies_store"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/machines_store"
+            android:visible="false" />-->
+        <item
+            android:id="@+id/nav_add_machine_invoice"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/add_machine_invoice"
             android:visible="false" />
+        <item
+            android:id="@+id/nav_add_material_invoice"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/add_material_invoice"
+            android:visible="false" />
+
+
         <item
             android:id="@+id/nav_addstore"
             android:icon="@drawable/ic_menu_slideshow"

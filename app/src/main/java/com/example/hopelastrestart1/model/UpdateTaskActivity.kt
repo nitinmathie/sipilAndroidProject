@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class UpdateTaskActivity(
     @SerializedName("user_email") var user_email: String,
     @SerializedName("user_token") var user_token: String,
-    @SerializedName("organization_name") var org_name: String,
+    @SerializedName("organization_name") var organization_name: String,
     @SerializedName("project_name") var project_name: String,
     @SerializedName("plan_name") var plan_name: String,
     @SerializedName("task_name") var task_name: String,
@@ -16,14 +16,14 @@ data class UpdateTaskActivity(
     @SerializedName("ccbreaking_activity_name") var ccbreaking_activity_name: String,
     @SerializedName("ccb_pipeline_trench_500_status") var ccb_pipeline_trench_500_status: String,
     @SerializedName("ccb_upvc_350") var ccb_upvc_350: String,
-    @SerializedName("ccb_IC_500") var ccb_IC_500: String,
+    @SerializedName("ccb_IC_500") var ccb_IC_500: Boolean,
     @SerializedName("ccb_mharea_status") var ccb_mharea_status: Boolean,
 )
 
 data class UpdatePipelineActivity(
     @SerializedName("user_email") var user_email: String,
     @SerializedName("user_token") var user_token: String,
-    @SerializedName("organization_name") var org_name: String,
+    @SerializedName("organization_name") var organization_name: String,
     @SerializedName("project_name") var project_name: String,
     @SerializedName("plan_name") var plan_name: String,
     @SerializedName("task_name") var task_name: String,
@@ -46,7 +46,7 @@ data class UpdatePipelineActivity(
 data class UpdateMHActivity(
     @SerializedName("user_email") var user_email: String,
     @SerializedName("user_token") var user_token: String,
-    @SerializedName("organization_name") var org_name: String,
+    @SerializedName("organization_name") var organization_name: String,
     @SerializedName("project_name") var project_name: String,
     @SerializedName("plan_name") var plan_name: String,
     @SerializedName("task_name") var task_name: String,
@@ -72,10 +72,9 @@ data class UpdateMHActivity(
     )
 
 data class UpdateHscActivity(
-
     @SerializedName("user_email") var user_email: String,
     @SerializedName("user_token") var user_token: String,
-    @SerializedName("organization_name") var org_name: String,
+    @SerializedName("organization_name") var organization_name: String,
     @SerializedName("project_name") var project_name: String,
     @SerializedName("plan_name") var plan_name: String,
     @SerializedName("task_name") var task_name: String,
@@ -95,7 +94,7 @@ data class UpdateHscActivity(
 data class UpdateHouseKeepingActivity(
     @SerializedName("user_email") var user_email: String,
     @SerializedName("user_token") var user_token: String,
-    @SerializedName("organization_name") var org_name: String,
+    @SerializedName("organization_name") var organization_name: String,
     @SerializedName("project_name") var project_name: String,
     @SerializedName("plan_name") var plan_name: String,
     @SerializedName("task_name") var task_name: String,
@@ -109,7 +108,7 @@ data class UpdateHouseKeepingActivity(
 data class UpdateRoadRestorationActivity(
     @SerializedName("user_email") var user_email: String,
     @SerializedName("user_token") var user_token: String,
-    @SerializedName("organization_name") var org_name: String,
+    @SerializedName("organization_name") var organization_name: String,
     @SerializedName("project_name") var project_name: String,
     @SerializedName("plan_name") var plan_name: String,
     @SerializedName("task_name") var task_name: String,
@@ -133,5 +132,18 @@ data class UpdateRoadRestorationActivity(
     @SerializedName("trenching_depth_UPVC_vcc") var trenching_depth_UPVC_vcc: String,
 
     )
+
+data class GetActivity(
+
+    @SerializedName("user_email") var user_email: String,
+    @SerializedName("user_token") var user_token: String,
+    @SerializedName("organization_name") var organization_name: String,
+    @SerializedName("project_name") var project_name: String,
+    @SerializedName("plan_name") var plan_name: String,
+    @SerializedName("task_name") var task_name: String,
+    @SerializedName("activity_name") var activity_name: String,
+)
+
+
 
 

@@ -4,12 +4,11 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.hopelastrestart1.ui.home.plen.PlenActivity
+import com.example.hopelastrestart1.ui.home.plen.PlanActivity
 import com.example.hopelastrestart1.ui.home.plen.tabs.PlanFragment
-import com.example.hopelastrestart1.ui.home.plen.tabs.TestFragment
 
 class PlanFragmentAdapter(
-    plenActivity: PlenActivity,
+    planActivity: PlanActivity,
     supportFragmentManager: FragmentManager,
     val tabCount: Int
 ) {

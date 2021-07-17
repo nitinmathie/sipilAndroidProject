@@ -7,21 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hopelastrestart1.R
 import com.example.hopelastrestart1.adapter.CellClickListenerPlan
-import com.example.hopelastrestart1.adapter.PlanAdapter
 import com.example.hopelastrestart1.data.db.entities.Plan
 
-import com.example.hopelastrestart1.ui.home.plen.PlenActivity
-import com.example.hopelastrestart1.ui.planEngineer.Task.TaskActivity
+import com.example.hopelastrestart1.ui.home.plen.PlanActivity
 import com.example.hopelastrestart1.ui.home.plen.AddPlenActivity
-import com.example.hopelastrestart1.util.Coroutines
-import com.example.hopelastrestart1.util.hide
-import com.example.hopelastrestart1.util.lazyDeferred
-import com.example.hopelastrestart1.util.show
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
@@ -85,7 +78,7 @@ class PlanFragment : Fragment(), KodeinAware, CellClickListenerPlan {
             //item.getItem(se)
 
 
-            val intent = Intent(activity, PlenActivity::class.java)
+            val intent = Intent(activity, PlanActivity::class.java)
         }
     }
 

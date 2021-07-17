@@ -13,9 +13,7 @@ import com.example.hopelastrestart1.api.ApiService
 import com.example.hopelastrestart1.base.ViewModelFactory
 import com.example.hopelastrestart1.databinding.ActivityAssignTaskManpowerBinding
 import com.example.hopelastrestart1.databinding.ActivityReportManpowerBinding
-import com.example.hopelastrestart1.model.SubmitMachineryReport
-import com.example.hopelastrestart1.model.SubmitManPowerReport
-import com.example.hopelastrestart1.model.SubmitMaterialReport
+import com.example.hopelastrestart1.model.*
 import com.example.hopelastrestart1.ui.planEngineer.Task.tabs.TaskViewModel
 import com.example.hopelastrestart1.ui.planEngineer.Task.tabs.TaskViewModelFactory
 import com.example.hopelastrestart1.ui.siteEngineer.SiteHomeActivity
@@ -52,30 +50,33 @@ class ReportManpowerActivity() : BaseActivity(), KodeinAware {
         val activity_id = intent.getStringExtra("activity_id")
         val activity_name = intent.getStringExtra("activity_name")
         val skilled_labour = binding.editTextSkilledLabour.text.toString().trim()
+        val assignedTask = GlobalData.getInstance.getAssignedTaskActivitesModel!!
+        binding.tvSkilledCount.text = assignedTask.manpower!!.skilled
+        binding.tvUnskilledCount.text = assignedTask.manpower!!.unskilled
 
         binding.btnSubmitReport.setOnClickListener {
             val assignedTask = GlobalData.getInstance.getAssignedTaskActivitesModel!!
             val jsonObject = JSONObject()
             val manpower = JSONObject()
-            manpower.put("count", binding.etSkilledCount.text.toString())
-            manpower.put("hours", binding.etHours.text.toString())
-            jsonObject.put("skilled", manpower)
-            val mapowerUnskilled = JSONObject()
-            mapowerUnskilled.put("count", binding.etUnskilledCount.text.toString())
-            mapowerUnskilled.put("hours", binding.etUnskilledHours.text.toString())
-            jsonObject.put("unskilled", mapowerUnskilled)
+
+            val sk = Sk(binding.etSkilledCount.text.toString(), binding.etHours.text.toString())
+            val usk = USk(
+                binding.etUnskilledCount.text.toString(),
+                binding.etUnskilledHours.text.toString()
+            )
+            val mp = MP(sk, usk)
 
 
             val submitMachine = SubmitManPowerReport(
                 GlobalData.getInstance.userEmail!!,
                 GlobalData.getInstance.token!!,
-                assignedTask.work?.skilled?.org_name.toString(),
-                assignedTask.work?.skilled?.project_name.toString(),
-                assignedTask.work?.skilled?.plan_name.toString(),
-                assignedTask.work?.skilled?.task_name.toString(),
+                assignedTask.work?.skilled!!.organization_name,
+                assignedTask.work?.skilled!!.project_name,
+                assignedTask.work?.skilled!!.plan_name,
+                assignedTask.work?.skilled!!.task_name,
                 assignedTask.assigned_activity_id.toString(),
                 assignedTask.sub_activity_name.toString(),
-                jsonObject, assignedTask.activity_type.toString()
+                mp, assignedTask.activity_name.toString()
             )
             submitManPowerReport(submitMachine)
 

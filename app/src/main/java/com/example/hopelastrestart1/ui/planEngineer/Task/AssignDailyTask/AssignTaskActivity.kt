@@ -12,6 +12,8 @@ import com.example.hopelastrestart1.GlobalData
 import com.example.hopelastrestart1.R
 import com.example.hopelastrestart1.api.ApiService
 import com.example.hopelastrestart1.base.ViewModelFactory
+import com.example.hopelastrestart1.data.db.entities.Activit
+import com.example.hopelastrestart1.data.db.entities.Task
 import com.example.hopelastrestart1.databinding.ActivityAssignTaskBinding
 import com.example.hopelastrestart1.databinding.ActivityAssignTaskMachineryBinding
 import com.example.hopelastrestart1.model.GetMachinesAndMaterialModel
@@ -34,6 +36,9 @@ class AssignTaskActivity : BaseActivity(), KodeinAware {
     private lateinit var userSpinner: Spinner
     private lateinit var binding: ActivityAssignTaskBinding
     public lateinit var t: String
+    lateinit var task: Task
+    lateinit var activit: Activit
+    var usersArray = arrayOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,25 +52,23 @@ class AssignTaskActivity : BaseActivity(), KodeinAware {
             ViewModelFactory(RetrofitBuilder.apiClient().create(ApiService::class.java))
         )
             .get(TaskViewModel::class.java)
-        val username = intent.getStringExtra("username")
-        val organization_name = intent.getStringExtra("organization_name")
-        val activity_name = intent.getStringExtra("activity_name")
-        val project_name = intent.getStringExtra("project_name")
-        val plan_name = intent.getStringExtra("plan_name")
         var letters: MutableList<Char> = mutableListOf<Char>()
         val myAdapter = ArrayAdapter<List<String>>(this, android.R.layout.simple_spinner_item)
 
         // make an array of users with role type = Site Engineer
-
-        binding.activityType.setText(activity_name.toString())
-        binding.editTextFromNode.setText(GlobalData.getInstance.task?.task_startnode.toString())
-        binding.editTextToNode.setText(GlobalData.getInstance.task?.task_endnode.toString())
+        task = GlobalData.getInstance.task!!
+        activit = GlobalData.getInstance.activity!!
+        binding.activityType.setText(activit.activity_name.toString())
+        binding.editTextFromNode.setText(task.task_startnode.toString())
+        binding.editTextToNode.setText(task.task_endnode.toString())
         spinner_user.adapter = myAdapter
 
         val getRoledBasedUsers = GetRoledBasedUsers(
             GlobalData.getInstance.userEmail!!,
             GlobalData.getInstance.token!!,
-            organization_name, project_name, plan_name, "2"
+            GlobalData.getInstance.orgName.toString(),
+            GlobalData.getInstance.projectName.toString(),
+            GlobalData.getInstance.planName.toString(), "2"
         )
         getRoleBasedUsers(getRoledBasedUsers)
         /* spinner_user?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -86,16 +89,18 @@ class AssignTaskActivity : BaseActivity(), KodeinAware {
         val add = findViewById<Button>(R.id.btn_submit_activity_machinery)
         add.setOnClickListener {
 
-            GlobalData.getInstance.estimatedTimeLine = binding.etEstimatedTimeline.text.toString()
-            GlobalData.getInstance.assignedTo = binding.spinnerUser.selectedItem.toString()
+            if (usersArray.size != 0) {
+                GlobalData.getInstance.estimatedTimeLine =
+                    binding.etEstimatedTimeline.text.toString()
+                GlobalData.getInstance.assignedTo = binding.spinnerUser.selectedItem.toString()
 //            val str: String = spinner_user.getSelectedItem().toString()
-            val intent = Intent(this, AssignTaskMachinery::class.java)
-            intent.putExtra("activity_name", activity_name)
-            intent.putExtra("username", username)
-            intent.putExtra("organization_name", organization_name)
-            intent.putExtra("plan_name", plan_name)
-            intent.putExtra("project_name", project_name)
-            startActivity(intent)
+                val intent = Intent(this, AssignTaskMachinery::class.java)
+                startActivity(intent)
+            } else {
+                binding.rootLayout.snackbar("No Users To Assign The Task")
+                Toast.makeText(applicationContext, "No Users To Assign The Task", Toast.LENGTH_LONG)
+                    .show()
+            }
         }
 
 
@@ -118,7 +123,6 @@ class AssignTaskActivity : BaseActivity(), KodeinAware {
                         binding.progressBar.hide()
                         resource.data?.let { usersResponse ->
                             usersResponse.body()
-                            var usersArray = arrayOf<String>()
                             val users = usersResponse.body()?.users
                             for (element in users!!) {
                                 usersArray = append(

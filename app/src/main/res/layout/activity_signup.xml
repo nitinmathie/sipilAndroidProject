@@ -73,7 +73,7 @@
                 android:background="@drawable/edit_text_round_gray_background"
                 android:drawableLeft="@drawable/ic_email"
                 android:drawablePadding="16dp"
-                android:hint="belal@gmail.com"
+                android:hint="sipil@gmail.com"
                 android:inputType="textEmailAddress"
                 android:padding="12dp" />
 
@@ -118,6 +118,8 @@
                 android:layout_gravity="center_horizontal"
                 android:text="Sign Up"
                 android:textColor="@color/clrWhite"
+                android:textStyle="bold"
+                android:textSize="20sp"
                 android:background="@drawable/btn_rounded_corners"
                 android:textAllCaps="false" />
 
@@ -131,6 +133,7 @@
                 android:text="@string/already_have_a_account"
                 android:textAlignment="center"
                 android:textColor="@color/clrWhite"
+                android:textStyle="bold"
                 android:textSize="15sp" />
 
         </LinearLayout>

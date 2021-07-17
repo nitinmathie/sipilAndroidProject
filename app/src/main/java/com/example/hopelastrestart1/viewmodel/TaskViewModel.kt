@@ -171,6 +171,17 @@ class TaskViewModel(private val apiService: ApiService) : ViewModel() {
 
         }
 
+    fun submitPWorkReport(submitCCwork: SubmitPTaskReport) =
+        liveData(Dispatchers.IO) {
+            emit(Resource.loading(data = null))
+            try {
+                emit(Resource.success(data = apiService.submitPWorkReport(submitCCwork)))
+            } catch (exception: Exception) {
+                emit(Resource.error(data = null, message = exception.message ?: "Error occured"))
+            }
+
+        }
+
     fun submitMachineReport(submitMachineReport: SubmitMachineryReport) =
         liveData(Dispatchers.IO) {
             emit(Resource.loading(data = null))
@@ -227,6 +238,61 @@ class TaskViewModel(private val apiService: ApiService) : ViewModel() {
 
         }
 
+    fun getDprs(getReports: GetReports) =
+        liveData(Dispatchers.IO) {
+            emit(Resource.loading(data = null))
+            try {
+                emit(Resource.success(data = apiService.getDprs(getReports)))
+            } catch (exception: Exception) {
+                emit(Resource.error(data = null, message = exception.message ?: "Error occured"))
+            }
+
+        }
+
+    fun getDfrs(getReports: GetReports) =
+        liveData(Dispatchers.IO) {
+            emit(Resource.loading(data = null))
+            try {
+                emit(Resource.success(data = apiService.getDfrs(getReports)))
+            } catch (exception: Exception) {
+                emit(Resource.error(data = null, message = exception.message ?: "Error occured"))
+            }
+
+        }
+
+
+    fun approveReport(approveReport: ApproveReport) =
+        liveData(Dispatchers.IO) {
+            emit(Resource.loading(data = null))
+            try {
+                emit(Resource.success(data = apiService.approveReport(approveReport)))
+            } catch (exception: Exception) {
+                emit(Resource.error(data = null, message = exception.message ?: "Error occured"))
+            }
+
+        }
+
+    fun fetchReport(fetchReport: FetchReport) =
+        liveData(Dispatchers.IO) {
+            emit(Resource.loading(data = null))
+            try {
+                emit(Resource.success(data = apiService.fetchReport(fetchReport)))
+            } catch (exception: Exception) {
+                emit(Resource.error(data = null, message = exception.message ?: "Error occured"))
+            }
+
+        }
+
+    fun getTaskActivity(gettActivity: GetActivity) =
+        liveData(Dispatchers.IO) {
+            emit(Resource.loading(data = null))
+            try {
+                emit(Resource.success(data = apiService.getActivity(gettActivity)))
+            } catch (exception: Exception) {
+                emit(Resource.error(data = null, message = exception.message ?: "Error occured"))
+            }
+
+        }
 
 }
 

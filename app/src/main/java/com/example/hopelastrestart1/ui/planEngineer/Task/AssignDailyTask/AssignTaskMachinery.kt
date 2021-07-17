@@ -57,27 +57,6 @@ class AssignTaskMachinery : BaseActivity(), KodeinAware,
             this, RecyclerView.VERTICAL, false
         )
         binding.recyclerviewMachies.layoutManager = linearLayoutManager
-        val username = intent.getStringExtra("username")
-        val organization_name = intent.getStringExtra("organization_name")
-        val activity_id = intent.getStringExtra("activity_id")
-        val activity_name = intent.getStringExtra("activity_name")
-        val activity_type = intent.getStringExtra("activity_type")
-        val from_node = intent.getStringExtra("from_node")
-        val to_node = intent.getStringExtra("to_node")
-        val task_id = intent.getStringExtra("task_id")
-        val project_name = intent.getStringExtra("project_name")
-        val plan_name = intent.getStringExtra("plan_name")
-        val assigned_to = intent.getStringExtra("assigned_to")
-        val material_1_quantity = intent.getStringExtra("material_1_quantity")
-        val material_2_quantity = intent.getStringExtra("material_2_quantity")
-        val material_3_quantity = intent.getStringExtra("material_3_quantity")
-        val material_1 = intent.getStringExtra("material_1")
-        val material_2 = intent.getStringExtra("material_2")
-        val material_3 = intent.getStringExtra("material_3")
-        //val assigned_to=intent.getStringExtra("assigned_to")
-        val task = intent.getStringExtra("task")
-        val activity = intent.getStringExtra("activity")
-
         binding.btnSubmitMachine.setOnClickListener {
             val machineQuantity = MachinesQuantity(
                 binding.spinnerMachinery.selectedItem.toString(),
@@ -85,26 +64,21 @@ class AssignTaskMachinery : BaseActivity(), KodeinAware,
             )
             machinesList.add(machineQuantity)
             binding.recyclerviewMachies.adapter =
-                MachinesAndMaterilasAdapter(machinesList!!, this, username)
+                MachinesAndMaterilasAdapter(machinesList!!, this, "username")
             (binding.recyclerviewMachies.adapter as MachinesAndMaterilasAdapter).notifyDataSetChanged()
 
         }
         val machinery = GetMachinesAndMaterialModel(
             GlobalData.getInstance.userEmail!!,
             GlobalData.getInstance.token!!,
-            organization_name, project_name, plan_name
+            GlobalData.getInstance.orgName.toString(),
+            GlobalData.getInstance.projectName.toString(),
+            GlobalData.getInstance.planName.toString(),
         )
         getMachinesAndMaterial(machinery)
         binding.btnNextToMaterial.setOnClickListener {
-
             GlobalData.getInstance.machineryList = machinesList
             val intent = Intent(this, AssignTaskMaterial::class.java)
-            intent.putExtra("username", username)
-            intent.putExtra("organization_name", organization_name)
-            intent.putExtra("project_name", project_name)
-            intent.putExtra("plan_name", plan_name)
-            intent.putExtra("task_id", task_id)
-            intent.putExtra("activity_name", activity_name)
             startActivity(intent)
 
         }
@@ -156,7 +130,7 @@ class AssignTaskMachinery : BaseActivity(), KodeinAware,
                         resource.data?.let { machines ->
                             machines.body()
                             var machinesArray = arrayOf<String>()
-                            val machines = machines.body()?.machines
+                                val machines = machines.body()?.machines
                             for (element in machines!!) {
                                 machinesArray = append(machinesArray, element.name)
                             }

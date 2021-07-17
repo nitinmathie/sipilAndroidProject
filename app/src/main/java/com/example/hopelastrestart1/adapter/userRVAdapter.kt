@@ -1,4 +1,5 @@
 package com.example.hopelastrestart1.adapter
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,9 +9,11 @@ import com.example.hopelastrestart1.data.db.entities.UserAdded
 import kotlinx.android.synthetic.main.item_organization.view.createdby
 import kotlinx.android.synthetic.main.item_organization.view.name
 
-class UserRVAdapter(val users: List<UserAdded>,
-                     private val cellClickListener: CellClickListener3,
-                     val username:String):RecyclerView.Adapter<UserRVAdapter.ViewHolder>(){
+class UserRVAdapter(
+    val users: List<UserAdded>,
+    private val cellClickListener: CellClickListener3,
+    val username: String
+) : RecyclerView.Adapter<UserRVAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
             : UserRVAdapter.ViewHolder {
         val v: View = LayoutInflater.from(parent.context)
@@ -21,6 +24,7 @@ class UserRVAdapter(val users: List<UserAdded>,
     override fun getItemCount(): Int {
         return users.size
     }
+
     override fun getItemId(position: Int): Long {
         return super.getItemId(position)
     }
@@ -28,7 +32,8 @@ class UserRVAdapter(val users: List<UserAdded>,
     override fun getItemViewType(position: Int): Int {
         return super.getItemViewType(position)
     }
-    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val id = itemView.name
         val name = itemView.createdby
 
@@ -37,14 +42,24 @@ class UserRVAdapter(val users: List<UserAdded>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = users[position]
         holder?.name.text = item.user_email.toString()
-        holder?.id.text = item.user_role.toString()
-
+        if (item.user_role.equals("0")) {
+            holder?.id.text = "Admin"
+        } else if (item.user_role.equals("1")) {
+            holder?.id.text = "Planning Engineer"
+        } else if (item.user_role.equals("2")) {
+            holder?.id.text = "Site Engineer"
+        } else if (item.user_role.equals("3")) {
+            holder?.id.text = "Store Keeper"
+        } else if (item.user_role.equals("4")) {
+            holder?.id.text = "Store Manager"
+        }
         holder.itemView.setOnClickListener {
             cellClickListener.onCellClickListener(item, username)
         }
     }
 
 }
-interface  CellClickListener3 {
+
+interface CellClickListener3 {
     fun onCellClickListener(user: UserAdded, username: String)
 }
